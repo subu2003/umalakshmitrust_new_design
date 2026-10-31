@@ -1,0 +1,20 @@
+# Secrets / local config — never commit
+.env
+.env.*
+!.env.example
+database.inc.php
+inc/config.local.php
+
+# Uploaded applicant documents (live outside web root anyway)
+uploads/
+storage/
+
+# PHP dependencies
+vendor/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.log
+.idea/
+.vscode/

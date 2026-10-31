@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Umalakshmi Educational Trust — Donate</title>
+<link rel="icon" href="assets/uet-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&amp;display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFFFFF; --ink:#141633; --muted:#5B5E7A; --line:#E6E7F2;
+  --indigo:#1E2A78; --indigo-deep:#121A52; --lilac:#EEF0FF; --lilac2:#DCDFFF;
+  --marigold:#FFB300; --marigold-ink:#3D2B00; --cream:#FFF6DC;
+  --coral:#FF5A5F; --coral-tint:#FFE9EA; --green:#1B8A5A; --green-tint:#E3F5EC;
+  --on-dark:#FFFFFF; --on-dark-muted:#C9CDF0;
+  --display:'Bricolage Grotesque', system-ui, sans-serif; --body:'DM Sans', system-ui, sans-serif;
+}
+body{margin:0;background:var(--bg)}
+a{color:var(--indigo);text-decoration:none}a:hover{color:var(--indigo-deep)}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-0.03em;margin:0;color:var(--ink);line-height:1.05}
+.nav a{color:var(--ink);font-weight:600;font-size:15px;padding:10px 14px;border-radius:999px}
+.nav a:hover{background:var(--lilac)}
+.nav a.active{background:var(--ink);color:#fff}
+.tag{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;font-size:13px;font-weight:700;letter-spacing:.02em}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--indigo)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:15px 28px;border-radius:999px;font-family:var(--body);font-weight:700;font-size:16px;cursor:pointer;border:2px solid transparent}
+.btn-marigold{background:var(--marigold);color:var(--marigold-ink);border-color:var(--marigold)}
+.btn-marigold:hover{background:#F0A500;border-color:#F0A500;color:var(--marigold-ink)}
+.btn-indigo{background:var(--indigo);color:#fff;border-color:var(--indigo)}
+.btn-indigo:hover{background:var(--indigo-deep);border-color:var(--indigo-deep);color:#fff}
+.btn-ghost{background:#fff;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--ink)}
+.card{background:#fff;border:1px solid var(--line);border-radius:28px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 32px;box-sizing:border-box}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.row .k{font-size:13px;color:var(--muted)}
+.row .v{font-weight:700;font-size:16px;color:var(--ink)}
+.copy{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:6px 12px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font-family:var(--body);font-size:12px;font-weight:700;color:var(--indigo);cursor:pointer;white-space:nowrap}
+.copy:hover{border-color:var(--indigo)}
+.in{width:100%;box-sizing:border-box;min-height:64px;padding:12px 18px 12px 48px;border:2px solid var(--line);border-radius:18px;font-family:var(--display);font-weight:800;font-size:30px;letter-spacing:-0.02em;color:var(--ink);background:#fff}
+.in:focus{outline:3px solid var(--lilac2);border-color:var(--indigo)}
+.preset{min-height:44px;padding:8px 16px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font-family:var(--body);font-weight:700;font-size:14px;color:var(--ink);cursor:pointer}
+.preset:hover{border-color:var(--indigo);color:var(--indigo)}
+.preset.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.app{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 8px;border-radius:16px;border:1.5px solid var(--line);background:#fff;font-size:12px;font-weight:700;color:var(--ink);min-height:44px}
+.app:hover{border-color:var(--indigo);color:var(--indigo)}
+.app .dot{width:36px;height:36px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:15px}
+.ftr a{color:#C9CDF0}.ftr a:hover{color:#fff}
+@media (max-width:980px){.g3{grid-template-columns:repeat(1,minmax(0,1fr))}.nav{display:none}}
+@media (max-width:600px){.wrap{padding:0 16px}h1{font-size:44px !important}}
+
+.burger{display:none;align-items:center;justify-content:center;width:48px;height:48px;border-radius:14px;background:#fff;color:var(--ink);border:0;cursor:pointer;flex:0 0 48px}
+.mmenu{position:fixed;inset:0;z-index:100;background:var(--indigo);color:#fff;font-family:var(--body);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .28s ease;overflow:auto}
+.mmenu.open{transform:none}
+.mm-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;min-height:84px;box-sizing:border-box}
+.mm-brand{display:inline-flex;align-items:center;gap:10px;color:#fff}.mm-brand img{width:50px;height:52px;object-fit:contain;background:#fff;border-radius:12px;padding:4px;box-sizing:border-box}
+.mm-brand span{display:flex;flex-direction:column;line-height:1.02}.mm-brand b{font-family:var(--display);font-size:24px;font-weight:800;letter-spacing:-0.02em}.mm-brand small{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--marigold)}
+.mm-nav{display:flex;flex-direction:column;gap:4px;padding:12px 16px 0;flex-grow:1}
+.mm-nav a{display:flex;align-items:center;justify-content:space-between;min-height:60px;padding:0 18px;border-radius:18px;font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-0.02em;color:#fff}
+.mm-nav a.on{background:#fff;color:var(--indigo)}
+.mm-nav a i{width:20px;height:20px;opacity:.55;background:currentColor;-webkit-mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12h14M13 6l6 6-6 6'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><path d='M5 12h14M13 6l6 6-6 6'/></svg>") center/contain no-repeat}
+.mm-bottom{padding:16px 20px 28px;display:flex;flex-direction:column;gap:18px}
+.mm-donate{display:flex;align-items:center;justify-content:center;min-height:56px;border-radius:999px;background:var(--marigold);color:var(--marigold-ink);font-weight:800;font-size:17px}
+.mm-ci{display:flex;flex-direction:column;gap:6px;border-top:1px solid rgba(255,255,255,.14);padding-top:14px}.mm-ci a{color:#C9CDF0;font-size:14px;font-weight:600;word-break:break-all}
+@media (max-width:860px){ .burger{display:inline-flex} .hdr-row{min-height:84px !important;flex-wrap:nowrap !important;padding-top:12px !important;padding-bottom:12px !important} .hero-over{margin-top:-84px !important;padding-top:84px !important} .hdr-donate{min-height:44px !important;padding:10px 16px !important;font-size:14px !important;white-space:nowrap} .hdr-row>a:first-child{flex:1 1 auto;min-width:0} .hdr-row>a:first-child>span{min-width:0} .brand-name,.brand-sub{white-space:nowrap} .hdr-donate .lbl-full{display:none} }
+@media (max-width:860px){
+/* ---- Mobile overrides (390px artboard) ---- */
+.wrap{padding:0 20px}
+h1{font-size:40px !important;line-height:1.05 !important}
+h2{font-size:32px !important}
+h3{font-size:22px !important}
+.nav{display:none !important}
+.g2,.g3,.g4,.g5{grid-template-columns:repeat(1,minmax(0,1fr)) !important}
+.brand-name{font-size:24px !important}
+.brand-sub{font-size:11px !important;letter-spacing:.16em !important}
+.brand-logo{width:50px !important;height:52px !important;border-radius:12px !important;padding:4px !important}
+
+section{padding-top:64px !important;padding-bottom:64px !important}
+*{min-width:0}
+a,span,strong,p{overflow-wrap:anywhere}
+.ftr a,.ci a{word-break:break-all}
+.f{flex-direction:row !important;flex-wrap:wrap !important;align-items:center !important;gap:4px 6px !important}
+.f .in{flex:1 1 100% !important}
+.f .ta{flex-basis:100%}
+.mc1{grid-template-columns:1fr !important}
+.mc2{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+.mspan{grid-column:1 / -1 !important}
+form.mc1{padding:24px !important}.card.pad32{padding:24px !important}.in{font-size:26px}.row .v{font-size:15px}.copy{padding:6px 10px}}
+</style>
+<style>html{scroll-behavior:smooth} *,*:before,*:after{box-sizing:border-box} img{max-width:100%}</style>
+</head>
+<body>
+<div style="font-family: var(--body); color: var(--ink); background: var(--bg); width: 100%; box-sizing: border-box; line-height: 1.55;">
+
+  <!-- Header on indigo -->
+  <div style="background: var(--indigo); position: relative; overflow: hidden;">
+    <div style="position: absolute; right: -160px; top: -200px; width: 560px; height: 560px; border-radius: 999px; border: 56px solid rgba(255,255,255,0.05);"></div>
+    <header style="position: relative; z-index: 2;">
+      <div class="wrap hdr-row" style="display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 112px; flex-wrap: wrap; padding-top: 16px; padding-bottom: 16px;">
+        <a href="index.html" style="display: inline-flex; align-items: center; gap: 12px; color: #fff;">
+          <img class="brand-logo" src="assets/uet-logo.png" alt="Umalakshmi Educational Trust logo" style="width: 80px; height: 82px; object-fit: contain; background: #fff; border-radius: 18px; padding: 6px; box-sizing: border-box; box-shadow: 0 8px 24px rgba(0,0,0,0.25);">
+          <span style="display: flex; flex-direction: column; line-height: 1.02;">
+            <span class="brand-name" style="font-family: var(--display); font-size: 40px; font-weight: 800; letter-spacing: -0.02em;">Umalakshmi</span>
+            <span class="brand-sub" style="font-size: 17px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--marigold);">Educational Trust</span>
+          </span>
+        </a>
+        <nav class="nav" aria-label="Main" style="display: flex; align-items: center; gap: 2px; background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 6px;">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="journey.html">Our Journey</a>
+          <a href="donors.html">Donors</a>
+          <a href="apply.html">Apply</a>
+          <a href="financials.html">Financials</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <div style="display: flex; align-items: center; gap: 10px;"><a href="donate.html" class="btn btn-marigold hdr-donate" style="min-height: 50px; padding: 12px 24px; font-size: 15px;">Donate<span class="lbl-full">&nbsp;Now</span></a><button type="button" class="burger" aria-label="Open menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div>
+      </div>
+    </header>
+    <section id="top" style="position: relative; color: #fff; padding: 56px 0 160px;">
+      <div class="wrap" style="display: flex; flex-direction: column; gap: 18px; max-width: 980px;">
+        <span style="font-family: var(--display); font-size: 18px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: var(--marigold);">Donate Now</span>
+        <h1 style="font-size: 64px; color: #fff;">Sponsor a child's year in school.</h1>
+        <p style="margin: 0; font-size: 19px; line-height: 1.65; color: var(--on-dark-muted); max-width: 820px;">Give by UPI in seconds, or transfer to the trust's bank account. Every donation is eligible for deduction under Section 80G, and every rupee goes directly to a student's institution.</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- Three ways to give -->
+  <section style="position: relative; margin-top: -96px; padding-bottom: 96px;">
+    <div class="wrap">
+      <div class="mc1" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 1fr); gap: 24px; align-items: start;">
+
+        <!-- Bank details -->
+        <div class="card pad32" style="padding: 32px; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 24px 60px rgba(20,22,51,0.10);">
+          <span class="tag" style="background: var(--lilac); color: var(--indigo); align-self: flex-start;">Bank transfer · NEFT / IMPS</span>
+          <h2 style="font-size: 26px; margin-top: 6px;">Trust account details</h2>
+          <div class="row"><span><span class="k">Account name</span><br><span class="v">Umalakshmi Educational Trust</span></span><button type="button" class="copy" data-copy="Umalakshmi Educational Trust">Copy</button></div>
+          <div class="row"><span><span class="k">Account number</span><br><span class="v">50200070075707</span></span><button type="button" class="copy" data-copy="50200070075707">Copy</button></div>
+          <div class="row"><span><span class="k">IFSC code</span><br><span class="v">HDFC0001866</span></span><button type="button" class="copy" data-copy="HDFC0001866">Copy</button></div>
+          <div class="row" style="border-bottom: 0;"><span><span class="k">Bank &amp; branch</span><br><span class="v" style="font-size: 15px;">HDFC Bank, Kasturibai Nagar, Adyar, Chennai</span></span></div>
+          <p style="margin: 10px 0 0; font-size: 13px; line-height: 1.6; color: var(--muted);">Cheques may be drawn in favour of <strong>Umalakshmi Educational Trust</strong> and posted to the address in the footer.</p>
+        </div>
+
+        <!-- UPI with dynamic QR -->
+        <div class="card pad32" style="padding: 32px; display: flex; flex-direction: column; gap: 18px; border: 2px solid var(--marigold); box-shadow: 0 24px 60px rgba(61,43,0,0.12);">
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;"><span class="tag" style="background: var(--marigold); color: var(--marigold-ink);">UPI · Instant</span><span style="font-size: 13px; color: var(--muted);">UPI ID: <strong style="color: var(--ink);">umalakshmitrust@hdfcbank</strong></span></div>
+          <h2 style="font-size: 26px;">Enter an amount to generate your QR</h2>
+          <div style="position: relative;">
+            <span style="position: absolute; left: 18px; top: 50%; transform: translateY(-50%); font-family: var(--display); font-weight: 800; font-size: 28px; color: var(--muted);">₹</span>
+            <input class="in" type="number" min="1" step="1" inputmode="numeric" aria-label="Donation amount in rupees" placeholder="0" id="amt">
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button type="button" class="preset" data-amt="500">₹ 500</button><button type="button" class="preset" data-amt="1000">₹ 1,000</button><button type="button" class="preset" data-amt="5000">₹ 5,000</button><button type="button" class="preset" data-amt="10000">₹ 10,000</button>
+          </div>
+
+          <div id="idle">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 8px 0;">
+              <div style="width: 232px; height: 232px; border-radius: 20px; border: 2px dashed var(--lilac2); background: var(--lilac); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: var(--muted); font-size: 13px; text-align: center; padding: 16px; box-sizing: border-box;"><svg aria-hidden="true" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--indigo)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><path d="M14 14h3v3M21 14v3M14 21h3M21 21h-1"></path></svg>Your QR code will appear here</div>
+              <button type="button" class="btn btn-indigo" style="width: 100%;" data-act="generate">Generate QR code</button>
+            </div>
+          </div>
+
+          <div id="qrbox" hidden>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 8px 0;">
+              <div style="padding: 12px; background: #fff; border: 2px solid var(--line); border-radius: 20px;">
+                <svg role="img" id="qrsvg" aria-label="UPI QR code" width="208" height="208" viewBox="0 0 21 21" shape-rendering="crispEdges"><rect x="0" y="0" id="qrbg" width="21" height="21" fill="#ffffff"></rect><path id="qrpath" d="" fill="#141633"></path></svg>
+              </div>
+              <span style="font-family: var(--display); font-weight: 800; font-size: 24px; color: var(--ink);">Pay ₹<span id="amtPretty"></span></span>
+              <span style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--marigold-ink); background: var(--cream); padding: 6px 14px; border-radius: 999px;"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>QR valid for <span id="remain">10:00</span></span>
+              <span style="font-size: 13px; color: var(--muted); text-align: center;">Scan with any UPI app, or tap an app below on your phone</span>
+              <div class="mc2" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; width: 100%;">
+                <a href="#" id="lnk-gpay" class="app"><span class="dot" style="background: var(--lilac); color: var(--indigo);">G</span>Google Pay</a>
+                <a href="#" id="lnk-phonepe" class="app"><span class="dot" style="background: var(--lilac); color: var(--indigo);">Pe</span>PhonePe</a>
+                <a href="#" id="lnk-paytm" class="app"><span class="dot" style="background: var(--lilac); color: var(--indigo);">Pt</span>Paytm</a>
+                <a href="#" id="lnk-upi" class="app"><span class="dot" style="background: var(--lilac); color: var(--indigo);">B</span>BHIM / other</a>
+              </div>
+              <button type="button" class="copy" data-act="reset" style="margin-top: 4px;">Change amount</button>
+            </div>
+          </div>
+
+          <div id="expired" hidden>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 8px 0;">
+              <div style="width: 232px; height: 232px; border-radius: 20px; background: var(--coral-tint); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: var(--coral); font-size: 14px; font-weight: 700; text-align: center; padding: 16px; box-sizing: border-box;"><svg aria-hidden="true" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>This QR code has expired</div>
+              <button type="button" class="btn btn-indigo" style="width: 100%;" data-act="generate">Generate a new QR code</button>
+            </div>
+          </div>
+          <p style="margin: 0; font-size: 12px; line-height: 1.6; color: var(--muted); text-align: center;">Each QR code is valid for 10 minutes. Payments go straight to the trust's HDFC account.</p>
+        </div>
+
+        <!-- What your gift does -->
+        <div class="card pad32" style="padding: 32px; display: flex; flex-direction: column; gap: 14px; background: var(--cream); border: 0; box-shadow: 0 24px 60px rgba(61,43,0,0.08);">
+          <span class="tag" style="background: #fff; color: var(--marigold-ink); align-self: flex-start;">What your gift does</span>
+          <h2 style="font-size: 26px; margin-top: 6px;">Suggested sponsorships</h2>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div style="background: #fff; border-radius: 16px; padding: 16px 18px; display: flex; justify-content: space-between; align-items: center; gap: 12px;"><span><strong style="display: block; font-size: 15px;">Study materials for one child</strong><span style="font-size: 13px; color: var(--muted);">Notebooks and stationery for a year</span></span><span style="font-family: var(--display); font-weight: 800; font-size: 20px; color: var(--indigo); white-space: nowrap;">₹ 1,000</span></div>
+            <div style="background: #fff; border-radius: 16px; padding: 16px 18px; display: flex; justify-content: space-between; align-items: center; gap: 12px;"><span><strong style="display: block; font-size: 15px;">One year of school fees</strong><span style="font-size: 13px; color: var(--muted);">For a student in a government-aided school</span></span><span style="font-family: var(--display); font-weight: 800; font-size: 20px; color: var(--indigo); white-space: nowrap;">₹ 5,000</span></div>
+            <div style="background: #fff; border-radius: 16px; padding: 16px 18px; display: flex; justify-content: space-between; align-items: center; gap: 12px;"><span><strong style="display: block; font-size: 15px;">One year of college fees</strong><span style="font-size: 13px; color: var(--muted);">For a first-generation college student</span></span><span style="font-family: var(--display); font-weight: 800; font-size: 20px; color: var(--indigo); white-space: nowrap;">₹ 10,000</span></div>
+          </div>
+          <p style="margin: 6px 0 0; font-size: 13px; line-height: 1.6; color: var(--muted);">Amounts are indicative — any contribution helps. [Trustees to confirm figures.]</p>
+          <div style="border-top: 1px solid rgba(61,43,0,0.12); padding-top: 14px; display: flex; gap: 12px; align-items: flex-start;"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--marigold-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 24px;"><path d="M9 12l2 2 4-4"></path><path d="M12 2l7 4v6c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6z"></path></svg><span style="font-size: 13px; line-height: 1.6; color: var(--marigold-ink);"><strong>80G tax benefit.</strong> Permanently approved under Section 80G (AAATU1234KF20251). Cash donations above ₹2,000 are not eligible — please give by UPI, bank transfer or cheque.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- After you pay -->
+  <section style="background: var(--lilac); padding: 96px 0;">
+    <div class="wrap" style="display: flex; flex-wrap: wrap; gap: 56px; align-items: flex-start;">
+      <div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 14px;">
+        <span class="eyebrow">After you pay</span>
+        <h2 style="font-size: 44px;">Tell us who to thank.</h2>
+        <p style="margin: 0; font-size: 16px; line-height: 1.7; color: var(--muted);">Share your details so we can send your 80G receipt and, if you wish, list you among our donors. We never publish amounts.</p>
+        <div style="display: flex; gap: 12px; align-items: center; margin-top: 8px; font-size: 14px; color: var(--muted);"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>Receipts are issued within 7 working days.</div>
+      </div>
+      <form class="mc1" style="flex: 1 1 560px; min-width: 0; background: #fff; border-radius: 28px; padding: 36px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px;" onsubmit="alert('This is a static preview — form submission will be wired up on the live site.'); return false;">
+        <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700;">Full name<input type="text" name="name" style="min-height: 50px; padding: 12px 16px; border: 1.5px solid var(--line); border-radius: 14px; font-family: var(--body); font-size: 15px;"></label>
+        <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700;">Mobile / WhatsApp<input type="tel" name="phone" style="min-height: 50px; padding: 12px 16px; border: 1.5px solid var(--line); border-radius: 14px; font-family: var(--body); font-size: 15px;"></label>
+        <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700;">Email<input type="email" name="email" style="min-height: 50px; padding: 12px 16px; border: 1.5px solid var(--line); border-radius: 14px; font-family: var(--body); font-size: 15px;"></label>
+        <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700;">PAN (for 80G receipt)<input type="text" name="pan" placeholder="ABCDE1234F" style="min-height: 50px; padding: 12px 16px; border: 1.5px solid var(--line); border-radius: 14px; font-family: var(--body); font-size: 15px; text-transform: uppercase;"></label>
+        <label class="mspan mspan" style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700; grid-column: span 2;">Address<input type="text" name="address" style="min-height: 50px; padding: 12px 16px; border: 1.5px solid var(--line); border-radius: 14px; font-family: var(--body); font-size: 15px;"></label>
+        <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700;">Amount donated (₹)<input type="number" name="amount" style="min-height: 50px; padding: 12px 16px; border: 1.5px solid var(--line); border-radius: 14px; font-family: var(--body); font-size: 15px;"></label>
+        <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700;">UPI / transaction reference<input type="text" name="ref" style="min-height: 50px; padding: 12px 16px; border: 1.5px solid var(--line); border-radius: 14px; font-family: var(--body); font-size: 15px;"></label>
+        <label for="shot" style="grid-column: span 2; display: flex; align-items: center; gap: 14px; padding: 16px; border: 2px dashed var(--lilac2); border-radius: 16px; background: var(--lilac); font-size: 14px; color: var(--muted); cursor: pointer;"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--indigo)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"></rect><path d="M8 13l3 3 5-6"></path></svg><span><strong style="color: var(--ink); display: block;">Upload payment screenshot (optional)</strong>Helps us match your payment faster</span><input id="shot" name="screenshot" type="file" style="position: absolute; width: 1px; height: 1px; opacity: 0;"></label>
+        <label class="mspan mspan" style="grid-column: span 2; display: flex; align-items: center; gap: 10px; font-size: 14px; cursor: pointer;"><input type="checkbox" name="list" style="width: 18px; height: 18px; accent-color: var(--indigo);">List my name and city on the Donors page</label>
+        <button type="submit" class="btn btn-indigo" style="grid-column: span 2; justify-self: start;">Send details</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer (preserved) -->
+  <footer id="contact" class="ftr" style="background: var(--indigo-deep); color: var(--on-dark-muted); padding: 72px 0 28px;">
+    <div class="wrap" style="display: flex; flex-direction: column; gap: 44px;">
+      <div class="g3" style="gap: 40px;">
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <span style="display: inline-flex; align-items: center; gap: 12px;"><img src="assets/uet-logo.png" alt="" style="width: 40px; height: 42px; object-fit: contain; background: #fff; border-radius: 10px; padding: 3px; box-sizing: border-box;"><span style="display: flex; flex-direction: column; line-height: 1.05;"><span style="font-family: var(--display); font-size: 20px; font-weight: 800; color: #fff;">Umalakshmi</span><span style="font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--marigold);">Educational Trust</span></span></span>
+          <p style="margin: 0; font-size: 15px; line-height: 1.65;">Uma Lakshmi Educational Trust, founded on 11 June 2022. In the memory of my beloved wife Uma Lakshmi, to spread her compassion towards educating poor children and share her love with future generations.</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px;">
+          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #fff;">Contact</span>
+          <span style="line-height: 1.65;">3A, Palazzo Apartment, Ram Kamal Building, Shasthiri Nagar First Street, Adyar, Chennai 600020</span>
+          <a href="tel:+919176189469">+91 9176189469</a>
+          <a href="mailto:umalakshmieducationaltrust@gmail.com">umalakshmieducationaltrust@gmail.com</a>
+          <a href="https://www.umalakshmitrust.com">www.umalakshmitrust.com</a>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px;">
+          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #fff;">Bank account details</span>
+          <span>Name : Umalakshmi Educational Trust</span>
+          <span>AC : 50200070075707</span>
+          <span>IFSC Code : HDFC0001866</span>
+          <span>HDFC Bank, Kasturibhai Nagar branch, Adayar, Chennai</span>
+          <span style="margin-top: 6px; font-size: 13px;">UPI ID : umalakshmitrust@hdfcbank</span>
+        </div>
+      </div>
+      <div style="border-top: 1px solid rgba(255,255,255,0.14); padding-top: 22px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px;">
+        <span style="display: inline-flex; gap: 20px;"><a href="privacy.html">Privacy Policy</a><a href="contact.html">Contact Us</a><a href="terms.html">Terms of Use</a></span>
+        <span>Copyright © Umalakshmi Trust. All Rights Reserved. · Developed by Subramanian</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<div id="mmenu" class="mmenu" aria-hidden="true">
+  <div class="mm-top"><a href="index.html" class="mm-brand"><img src="assets/uet-logo.png" alt=""><span><b>Umalakshmi</b><small>Educational Trust</small></span></a><button type="button" class="burger mm-close" aria-label="Close menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <nav class="mm-nav" aria-label="Main">
+    <a href="index.html" data-page="index">Home<i></i></a><a href="about.html" data-page="about">About<i></i></a><a href="journey.html" data-page="journey">Our Journey<i></i></a><a href="donors.html" data-page="donors">Donors<i></i></a><a href="apply.html" data-page="apply">Apply<i></i></a><a href="financials.html" data-page="financials">Financials<i></i></a><a href="contact.html" data-page="contact">Contact<i></i></a>
+  </nav>
+  <div class="mm-bottom"><a href="donate.html" class="mm-donate">Donate Now</a><div class="mm-ci"><a href="tel:+919176189469">+91 9176189469</a><a href="mailto:umalakshmieducationaltrust@gmail.com">umalakshmieducationaltrust@gmail.com</a></div></div>
+</div>
+<script>
+(function(){var m=document.getElementById('mmenu');var here=location.pathname.split('/').pop().replace('.html','')||'index';var cur=m.querySelector('[data-page="'+here+'"]');if(cur)cur.classList.add('on');
+function open(){m.classList.add('open');m.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
+function close(){m.classList.remove('open');m.setAttribute('aria-hidden','true');document.body.style.overflow='';}
+document.querySelectorAll('.burger:not(.mm-close)').forEach(function(b){b.addEventListener('click',open);});
+m.querySelector('.mm-close').addEventListener('click',close);document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});})();
+</script>
+<script>
+// ---- Minimal QR encoder (byte mode, error-correction level L, versions 1-9, mask 0) ----
+var GF_EXP = [], GF_LOG = [];
+(function () {
+  for (var i = 0; i < 8; i++) GF_EXP[i] = 1 << i;
+  for (var j = 8; j < 256; j++) GF_EXP[j] = GF_EXP[j - 4] ^ GF_EXP[j - 5] ^ GF_EXP[j - 6] ^ GF_EXP[j - 8];
+  for (var k = 0; k < 255; k++) GF_LOG[GF_EXP[k]] = k;
+})();
+function gexp(n) { while (n < 0) n += 255; while (n >= 256) n -= 255; return GF_EXP[n]; }
+function glog(n) { return GF_LOG[n]; }
+function Poly(num, shift) {
+  var off = 0; while (off < num.length && num[off] === 0) off++;
+  this.num = new Array(num.length - off + shift);
+  for (var i = 0; i < num.length - off; i++) this.num[i] = num[i + off];
+  for (var j = num.length - off; j < this.num.length; j++) this.num[j] = 0;
+}
+Poly.prototype.get = function (i) { return this.num[i]; };
+Poly.prototype.len = function () { return this.num.length; };
+Poly.prototype.multiply = function (e) {
+  var num = new Array(this.len() + e.len() - 1); for (var z = 0; z < num.length; z++) num[z] = 0;
+  for (var i = 0; i < this.len(); i++) for (var j = 0; j < e.len(); j++) {
+    if (this.get(i) === 0 || e.get(j) === 0) continue;
+    num[i + j] ^= gexp(glog(this.get(i)) + glog(e.get(j)));
+  }
+  return new Poly(num, 0);
+};
+Poly.prototype.mod = function (e) {
+  if (this.len() - e.len() < 0) return this;
+  var ratio = glog(this.get(0)) - glog(e.get(0));
+  var num = this.num.slice();
+  for (var i = 0; i < e.len(); i++) num[i] ^= gexp(glog(e.get(i)) + ratio);
+  return new Poly(num, 0).mod(e);
+};
+// [blocks, totalCodewords, dataCodewords] for level L, versions 1..9
+var RS_L = [[1,26,19],[1,44,34],[1,70,55],[1,100,80],[1,134,108],[2,86,68],[2,98,78],[2,121,97],[2,146,116]];
+var ALIGN = [[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46]];
+function bch(data, g, shift) {
+  function digit(x) { var d = 0; while (x !== 0) { d++; x >>>= 1; } return d; }
+  var d = data << shift;
+  while (digit(d) - digit(g) >= 0) d ^= (g << (digit(d) - digit(g)));
+  return (data << shift) | d;
+}
+function utf8(str) { var out = [], s = unescape(encodeURIComponent(str)); for (var i = 0; i < s.length; i++) out.push(s.charCodeAt(i)); return out; }
+function makeQR(text) {
+  var bytes = utf8(text), version = -1;
+  for (var v = 0; v < RS_L.length; v++) { if (RS_L[v][0] * RS_L[v][2] >= bytes.length + 2) { version = v + 1; break; } }
+  if (version < 0) return null;
+  var rs = RS_L[version - 1], blocks = rs[0], dcLen = rs[2], ecLen = rs[1] - rs[2], totalData = blocks * dcLen;
+  // bit buffer
+  var bits = [];
+  function put(num, len) { for (var i = len - 1; i >= 0; i--) bits.push((num >>> i) & 1); }
+  put(4, 4); put(bytes.length, 8); for (var b = 0; b < bytes.length; b++) put(bytes[b], 8);
+  var cap = totalData * 8; if (bits.length + 4 <= cap) put(0, 4); while (bits.length % 8 !== 0) bits.push(0);
+  var padToggle = true; while (bits.length < cap) { put(padToggle ? 0xEC : 0x11, 8); padToggle = !padToggle; }
+  var data = []; for (var i = 0; i < bits.length; i += 8) { var val = 0; for (var j = 0; j < 8; j++) val = (val << 1) | bits[i + j]; data.push(val); }
+  // RS per block
+  var gen = new Poly([1], 0); for (var g = 0; g < ecLen; g++) gen = gen.multiply(new Poly([1, gexp(g)], 0));
+  var dcs = [], ecs = [], off = 0;
+  for (var bl = 0; bl < blocks; bl++) {
+    var dc = data.slice(off, off + dcLen); off += dcLen;
+    var mod = new Poly(dc, ecLen).mod(gen), ec = new Array(ecLen);
+    for (var e = 0; e < ecLen; e++) { var idx = e + mod.len() - ecLen; ec[e] = idx >= 0 ? mod.get(idx) : 0; }
+    dcs.push(dc); ecs.push(ec);
+  }
+  var all = [];
+  for (var di = 0; di < dcLen; di++) for (var bb = 0; bb < blocks; bb++) all.push(dcs[bb][di]);
+  for (var ei = 0; ei < ecLen; ei++) for (var bc = 0; bc < blocks; bc++) all.push(ecs[bc][ei]);
+  // matrix
+  var n = 17 + 4 * version, m = [];
+  for (var r = 0; r < n; r++) { m[r] = []; for (var c = 0; c < n; c++) m[r][c] = null; }
+  function probe(row, col) {
+    for (var r2 = -1; r2 <= 7; r2++) { if (row + r2 < 0 || row + r2 >= n) continue;
+      for (var c2 = -1; c2 <= 7; c2++) { if (col + c2 < 0 || col + c2 >= n) continue;
+        m[row + r2][col + c2] = (r2 >= 0 && r2 <= 6 && (c2 === 0 || c2 === 6)) || (c2 >= 0 && c2 <= 6 && (r2 === 0 || r2 === 6)) || (r2 >= 2 && r2 <= 4 && c2 >= 2 && c2 <= 4);
+      } }
+  }
+  probe(0, 0); probe(n - 7, 0); probe(0, n - 7);
+  var pos = ALIGN[version - 1];
+  for (var pi = 0; pi < pos.length; pi++) for (var pj = 0; pj < pos.length; pj++) {
+    var pr = pos[pi], pc = pos[pj]; if (m[pr][pc] !== null) continue;
+    for (var ar = -2; ar <= 2; ar++) for (var ac = -2; ac <= 2; ac++) m[pr + ar][pc + ac] = (ar === -2 || ar === 2 || ac === -2 || ac === 2 || (ar === 0 && ac === 0));
+  }
+  for (var t = 8; t < n - 8; t++) { if (m[t][6] === null) m[t][6] = (t % 2 === 0); if (m[6][t] === null) m[6][t] = (t % 2 === 0); }
+  // format info (level L = 1, mask 0)
+  var fmt = bch((1 << 3) | 0, 0x537, 10) ^ 0x5412;
+  for (var fi = 0; fi < 15; fi++) {
+    var fb = ((fmt >> fi) & 1) === 1;
+    if (fi < 6) m[fi][8] = fb; else if (fi < 8) m[fi + 1][8] = fb; else m[n - 15 + fi][8] = fb;
+    if (fi < 8) m[8][n - fi - 1] = fb; else if (fi < 9) m[8][15 - fi] = fb; else m[8][15 - fi - 1] = fb;
+  }
+  m[n - 8][8] = true;
+  if (version >= 7) {
+    var vb = bch(version, 0x1F25, 12);
+    for (var vi = 0; vi < 18; vi++) { var vm = ((vb >> vi) & 1) === 1; m[Math.floor(vi / 3)][vi % 3 + n - 11] = vm; m[vi % 3 + n - 11][Math.floor(vi / 3)] = vm; }
+  }
+  // data placement, mask 0
+  var inc = -1, row = n - 1, bitIndex = 7, byteIndex = 0;
+  for (var col = n - 1; col > 0; col -= 2) {
+    if (col === 6) col--;
+    while (true) {
+      for (var cc = 0; cc < 2; cc++) {
+        if (m[row][col - cc] === null) {
+          var dark = false;
+          if (byteIndex < all.length) dark = (((all[byteIndex] >>> bitIndex) & 1) === 1);
+          if ((row + (col - cc)) % 2 === 0) dark = !dark;
+          m[row][col - cc] = dark;
+          bitIndex--; if (bitIndex === -1) { byteIndex++; bitIndex = 7; }
+        }
+      }
+      row += inc;
+      if (row < 0 || row >= n) { row -= inc; inc = -inc; break; }
+    }
+  }
+  var path = '';
+  for (var y = 0; y < n; y++) for (var x = 0; x < n; x++) if (m[y][x]) path += 'M' + x + ' ' + y + 'h1v1h-1z';
+  return { size: n, path: path };
+}
+
+
+(function(){
+  var VPA='umalakshmitrust@hdfcbank', PAYEE='Umalakshmi Educational Trust', VALID=10*60;
+  var amt=document.getElementById('amt'), idle=document.getElementById('idle'), box=document.getElementById('qrbox'), exp=document.getElementById('expired');
+  var startedAt=0, timer=null;
+  function amount(){ return parseFloat(String(amt.value).replace(/[^0-9.]/g,''))||0; }
+  function link(scheme){ var path = scheme==='tez' ? 'upi/pay' : 'pay'; return scheme+'://'+path+'?pa='+VPA+'&pn='+encodeURIComponent(PAYEE)+'&am='+amount()+'&cu=INR&tn=Donation'; }
+  function show(which){ idle.hidden = which!=='idle'; box.hidden = which!=='qr'; exp.hidden = which!=='expired'; }
+  function tick(){ var left=Math.max(0, VALID-Math.floor((Date.now()-startedAt)/1000)); var m=Math.floor(left/60), s=left%60; document.getElementById('remain').textContent=(m<10?'0'+m:m)+':'+(s<10?'0'+s:s); if(left<=0){ clearInterval(timer); show('expired'); } }
+  function generate(){ var a=amount(); if(a<=0){ amt.focus(); return; } var q=makeQR(link('upi')); if(!q){ alert('Amount too large for a QR code.'); return; }
+    document.getElementById('qrpath').setAttribute('d',q.path); document.getElementById('qrsvg').setAttribute('viewBox','0 0 '+q.size+' '+q.size); var bg=document.getElementById('qrbg'); bg.setAttribute('width',q.size); bg.setAttribute('height',q.size);
+    document.getElementById('qrsvg').setAttribute('aria-label','UPI QR code to pay '+a.toLocaleString('en-IN')+' rupees to '+PAYEE);
+    document.getElementById('amtPretty').textContent=a.toLocaleString('en-IN');
+    document.getElementById('lnk-gpay').href=link('tez'); document.getElementById('lnk-phonepe').href=link('phonepe'); document.getElementById('lnk-paytm').href=link('paytmmp'); document.getElementById('lnk-upi').href=link('upi');
+    startedAt=Date.now(); clearInterval(timer); timer=setInterval(tick,1000); tick(); show('qr'); }
+  function presets(){ var a=amount(); document.querySelectorAll('.preset').forEach(function(b){ b.classList.toggle('on', parseFloat(b.dataset.amt)===a); }); }
+  document.querySelectorAll('.preset').forEach(function(b){ b.addEventListener('click',function(){ amt.value=b.dataset.amt; presets(); show('idle'); clearInterval(timer); }); });
+  amt.addEventListener('input',function(){ presets(); show('idle'); clearInterval(timer); });
+  document.querySelectorAll('[data-act="generate"]').forEach(function(b){ b.addEventListener('click',generate); });
+  document.querySelectorAll('[data-act="reset"]').forEach(function(b){ b.addEventListener('click',function(){ clearInterval(timer); show('idle'); }); });
+  document.querySelectorAll('[data-copy]').forEach(function(b){ b.addEventListener('click',function(){ try{ navigator.clipboard.writeText(b.dataset.copy); }catch(e){} var t=b.textContent; b.textContent='Copied'; setTimeout(function(){ b.textContent=t; },1600); }); });
+  var f=document.querySelector('form'); if(f) f.addEventListener('submit',function(e){ e.preventDefault(); alert('This is a static preview — form submission will be wired up on the live site.'); });
+})();
+</script>
+</body>
+</html>
