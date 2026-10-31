@@ -1,12 +1,12 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Umalakshmi Educational Trust — List of Donors</title>
-<link rel="icon" href="assets/uet-logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&amp;display=swap" rel="stylesheet">
+<?php
+// List of Donors page. Shared layout lives in inc/ (head → page CSS → header → content → footer).
+// The header sits in an indigo band together with the page intro; inc/header.php opens the band,
+// this page closes it with </div> after the intro section.
+$page        = 'donors';
+$page_title  = 'List of Donors';
+$header_band = true;
+require __DIR__ . '/inc/head.php';
+?>
 <style>
 :root{
   --bg:#FFFFFF; --ink:#141633; --muted:#5B5E7A; --line:#E6E7F2;
@@ -80,34 +80,7 @@ a,span,strong,p{overflow-wrap:anywhere}
 .grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:16px 12px !important}.donor strong{font-size:14px}.join{padding:28px 24px !important}}
 </style>
 <style>html{scroll-behavior:smooth} *,*:before,*:after{box-sizing:border-box} img{max-width:100%}</style>
-</head>
-<body>
-<div style="font-family: var(--body); color: var(--ink); background: var(--bg); width: 100%; box-sizing: border-box; line-height: 1.55;">
-
-  <!-- Header on indigo -->
-  <div style="background: var(--indigo); position: relative; overflow: hidden;">
-    <div style="position: absolute; right: -160px; top: -200px; width: 560px; height: 560px; border-radius: 999px; border: 56px solid rgba(255,255,255,0.05);"></div>
-    <header style="position: relative; z-index: 2;">
-      <div class="wrap hdr-row" style="display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 112px; flex-wrap: wrap; padding-top: 16px; padding-bottom: 16px;">
-        <a href="index.html" style="display: inline-flex; align-items: center; gap: 12px; color: #fff;">
-          <img class="brand-logo" src="assets/uet-logo.png" alt="Umalakshmi Educational Trust logo" style="width: 80px; height: 82px; object-fit: contain; background: #fff; border-radius: 18px; padding: 6px; box-sizing: border-box; box-shadow: 0 8px 24px rgba(0,0,0,0.25);">
-          <span style="display: flex; flex-direction: column; line-height: 1.02;">
-            <span class="brand-name" style="font-family: var(--display); font-size: 40px; font-weight: 800; letter-spacing: -0.02em;">Umalakshmi</span>
-            <span class="brand-sub" style="font-size: 17px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--marigold);">Educational Trust</span>
-          </span>
-        </a>
-        <nav class="nav" aria-label="Main" style="display: flex; align-items: center; gap: 2px; background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 6px;">
-          <a href="index.html">Home</a>
-          <a href="about.html">About</a>
-          <a href="journey.html">Our Journey</a>
-          <a href="donors.html" class="active">Donors</a>
-          <a href="apply.html">Apply</a>
-          <a href="financials.html">Financials</a>
-          <a href="contact.html">Contact</a>
-        </nav>
-        <div style="display: flex; align-items: center; gap: 10px;"><a href="donate.html" class="btn btn-marigold hdr-donate" style="min-height: 50px; padding: 12px 24px; font-size: 15px;">Donate<span class="lbl-full">&nbsp;Now</span></a><button type="button" class="burger" aria-label="Open menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div>
-      </div>
-    </header>
+<?php require __DIR__ . '/inc/header.php'; ?>
     <!-- Page intro -->
     <section id="top" style="position: relative; color: #fff; padding: 56px 0 88px;">
       <div class="wrap" style="display: flex; flex-direction: column; gap: 18px; max-width: 980px;">
@@ -162,60 +135,11 @@ a,span,strong,p{overflow-wrap:anywhere}
         <div style="display: flex; flex-direction: column; gap: 8px; max-width: 620px;">
           <span class="eyebrow" style="color: var(--marigold-ink);">Join them</span>
           <h2 style="font-size: 40px; color: var(--marigold-ink);">Your name could be here next year.</h2>
-          <p style="margin: 0; font-size: 16px; line-height: 1.6;">Sponsor one student's fees or give any amount. Every donation is eligible for deduction under Section 80G.</p>
+          <p style="margin: 0; font-size: 16px; line-height: 1.6;">Every donation is eligible for deduction under Section 80G.</p>
         </div>
-        <a href="donate.html" class="btn" style="background: var(--ink); color: #fff; border-color: var(--ink);">Donate Now</a>
+        <a href="<?= h(page_href('donate.php')) ?>" class="btn" style="background: var(--ink); color: #fff; border-color: var(--ink);"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" style="width: 18px; height: 18px; flex: 0 0 18px;"><path d="M12 21s-7-4.6-9.3-9.1C1 8.3 3.2 4.5 7 4.5c2 0 3.4 1.1 4.2 2.3l.8 1.2.8-1.2C13.6 5.6 15 4.5 17 4.5c3.8 0 6 3.8 4.3 7.4C19 16.4 12 21 12 21z"/></svg>Donate Now</a>
       </div>
     </div>
   </section>
 
-  <!-- Footer (preserved) -->
-  <footer id="contact" class="ftr" style="background: var(--indigo-deep); color: var(--on-dark-muted); padding: 72px 0 28px;">
-    <div class="wrap" style="display: flex; flex-direction: column; gap: 44px;">
-      <div class="g3" style="gap: 40px;">
-        <div style="display: flex; flex-direction: column; gap: 16px;">
-          <span style="display: inline-flex; align-items: center; gap: 12px;"><img src="assets/uet-logo.png" alt="" style="width: 40px; height: 42px; object-fit: contain; background: #fff; border-radius: 10px; padding: 3px; box-sizing: border-box;"><span style="display: flex; flex-direction: column; line-height: 1.05;"><span style="font-family: var(--display); font-size: 20px; font-weight: 800; color: #fff;">Umalakshmi</span><span style="font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--marigold);">Educational Trust</span></span></span>
-          <p style="margin: 0; font-size: 15px; line-height: 1.65;">Uma Lakshmi Educational Trust, founded on 11 June 2022. In the memory of my beloved wife Uma Lakshmi, to spread her compassion towards educating poor children and share her love with future generations.</p>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px;">
-          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #fff;">Contact</span>
-          <span style="line-height: 1.65;">3A, Palazzo Apartment, Ram Kamal Building, Shasthiri Nagar First Street, Adyar, Chennai 600020</span>
-          <a href="tel:+919176189469">+91 9176189469</a>
-          <a href="mailto:umalakshmieducationaltrust@gmail.com">umalakshmieducationaltrust@gmail.com</a>
-          <a href="https://www.umalakshmitrust.com">www.umalakshmitrust.com</a>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px;">
-          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #fff;">Bank account details</span>
-          <span>Name : Umalakshmi Educational Trust</span>
-          <span>AC : 50200070075707</span>
-          <span>IFSC Code : HDFC0001866</span>
-          <span>HDFC Bank, Kasturibhai Nagar branch, Adayar, Chennai</span>
-          <span style="margin-top: 6px; font-size: 13px;">UPI ID : umalakshmitrust@hdfcbank</span>
-        </div>
-      </div>
-      <div style="border-top: 1px solid rgba(255,255,255,0.14); padding-top: 22px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px;">
-        <span style="display: inline-flex; gap: 20px;"><a href="privacy.html">Privacy Policy</a><a href="contact.html">Contact Us</a><a href="terms.html">Terms of Use</a></span>
-        <span>Copyright © Umalakshmi Trust. All Rights Reserved. · Developed by Subramanian</span>
-      </div>
-    </div>
-  </footer>
-
-</div>
-
-<div id="mmenu" class="mmenu" aria-hidden="true">
-  <div class="mm-top"><a href="index.html" class="mm-brand"><img src="assets/uet-logo.png" alt=""><span><b>Umalakshmi</b><small>Educational Trust</small></span></a><button type="button" class="burger mm-close" aria-label="Close menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-  <nav class="mm-nav" aria-label="Main">
-    <a href="index.html" data-page="index">Home<i></i></a><a href="about.html" data-page="about">About<i></i></a><a href="journey.html" data-page="journey">Our Journey<i></i></a><a href="donors.html" data-page="donors">Donors<i></i></a><a href="apply.html" data-page="apply">Apply<i></i></a><a href="financials.html" data-page="financials">Financials<i></i></a><a href="contact.html" data-page="contact">Contact<i></i></a>
-  </nav>
-  <div class="mm-bottom"><a href="donate.html" class="mm-donate">Donate Now</a><div class="mm-ci"><a href="tel:+919176189469">+91 9176189469</a><a href="mailto:umalakshmieducationaltrust@gmail.com">umalakshmieducationaltrust@gmail.com</a></div></div>
-</div>
-<script>
-(function(){var m=document.getElementById('mmenu');var here=location.pathname.split('/').pop().replace('.html','')||'index';var cur=m.querySelector('[data-page="'+here+'"]');if(cur)cur.classList.add('on');
-function open(){m.classList.add('open');m.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
-function close(){m.classList.remove('open');m.setAttribute('aria-hidden','true');document.body.style.overflow='';}
-document.querySelectorAll('.burger:not(.mm-close)').forEach(function(b){b.addEventListener('click',open);});
-m.querySelector('.mm-close').addEventListener('click',close);document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});})();
-</script>
-
-</body>
-</html>
+<?php require __DIR__ . '/inc/footer.php'; ?>

@@ -1,12 +1,12 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Umalakshmi Educational Trust — Our Journey</title>
-<link rel="icon" href="assets/uet-logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&amp;display=swap" rel="stylesheet">
+<?php
+// Our Journey page. Shared layout lives in inc/ (head → page CSS → header → content → footer).
+// The photo gallery is read from assets/gallery/<year>/ (see inc/gallery.php and assets/gallery/README.txt).
+$page       = 'journey';
+$page_title = 'Our Journey';
+require __DIR__ . '/inc/head.php';
+require_once __DIR__ . '/inc/gallery.php';
+$gallery = gallery_build(__DIR__ . '/assets/gallery');
+?>
 <style>
 :root{
   --bg:#FFFFFF; --ink:#141633; --muted:#5B5E7A; --line:#E6E7F2;
@@ -83,32 +83,8 @@ a,span,strong,p{overflow-wrap:anywhere}
 .yr{grid-template-columns:1fr !important;gap:14px !important;padding:28px 0 !important}.yr>div{text-align:left !important;align-items:flex-start !important}.yr .dot{order:0;width:auto !important;flex-direction:row !important;align-items:center !important;gap:14px !important}.yr>div[style*="flex-direction: column"]{order:1}.yr>div.mphoto{order:2;grid-template-columns:1fr 1fr !important;gap:8px !important}.yr>div.mphoto>img{grid-column:1 / -1;aspect-ratio:16 / 10 !important;border-radius:16px !important}.yr>div.mphoto>div{grid-column:1 / -1;display:grid;grid-template-columns:1fr 1fr;gap:8px}.yr>div.mphoto>div>img{aspect-ratio:4 / 3 !important;height:auto !important;border-radius:12px !important}.yr .dot span.y{font-size:18px !important;padding:8px 14px !important}.tl-line{display:none}[style*="grid-auto-rows: 220px"]{grid-auto-rows:150px !important}.filter{flex-wrap:wrap}.filter a{padding:8px 12px;font-size:13px}}
 </style>
 <style>html{scroll-behavior:smooth} *,*:before,*:after{box-sizing:border-box} img{max-width:100%}</style>
-</head>
-<body>
-<div style="font-family: var(--body); color: var(--ink); background: var(--bg); width: 100%; box-sizing: border-box; line-height: 1.55;">
-
-  <!-- Header -->
-  <header style="position: relative; z-index: 2;">
-    <div class="wrap hdr-row" style="display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 112px; flex-wrap: wrap; padding-top: 16px; padding-bottom: 16px;">
-      <a href="index.html" style="display: inline-flex; align-items: center; gap: 12px; color: #fff;">
-        <img class="brand-logo" src="assets/uet-logo.png" alt="Umalakshmi Educational Trust logo" style="width: 80px; height: 82px; object-fit: contain; background: #fff; border-radius: 18px; padding: 6px; box-sizing: border-box; box-shadow: 0 8px 24px rgba(0,0,0,0.25);">
-        <span style="display: flex; flex-direction: column; line-height: 1.02;">
-          <span class="brand-name" style="font-family: var(--display); font-size: 40px; font-weight: 800; letter-spacing: -0.02em; text-shadow: 0 2px 12px rgba(0,0,0,0.35);">Umalakshmi</span>
-          <span class="brand-sub" style="font-size: 17px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--marigold); text-shadow: 0 2px 10px rgba(0,0,0,0.35);">Educational Trust</span>
-        </span>
-      </a>
-      <nav class="nav" aria-label="Main" style="display: flex; align-items: center; gap: 2px; background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 6px;">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="journey.html" class="active">Our Journey</a>
-        <a href="donors.html">Donors</a>
-        <a href="apply.html">Apply</a>
-        <a href="financials.html">Financials</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-      <div style="display: flex; align-items: center; gap: 10px;"><a href="donate.html" class="btn btn-marigold hdr-donate" style="min-height: 50px; padding: 12px 24px; font-size: 15px;">Donate<span class="lbl-full">&nbsp;Now</span></a><button type="button" class="burger" aria-label="Open menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div>
-    </div>
-  </header>
+<style>/* Gallery: tiles come from assets/gallery/<year>/; the filter below toggles them. */.gal{grid-auto-flow:dense}.gal img{height:100%;border-radius:20px}.gal img.big{grid-column:span 2;grid-row:span 2}.gal img.wide{grid-column:span 2}.gal img[hidden],.gal[hidden]{display:none}.gal-empty{margin:0;text-align:center;color:var(--muted);font-size:15px;padding:40px 24px;border:2px dashed var(--lilac2);border-radius:20px;background:var(--lilac)}</style>
+<?php require __DIR__ . '/inc/header.php'; ?>
 
   <!-- Opening -->
   <section id="top" class="hero-over" style="position: relative; overflow: hidden; min-height: 560px; display: flex; align-items: center; margin-top: -112px; padding-top: 112px;">
@@ -118,7 +94,7 @@ a,span,strong,p{overflow-wrap:anywhere}
       <span style="font-family: var(--display); font-size: 18px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: var(--marigold);">Our Journey</span>
       <h1 style="font-size: 64px; color: #fff;">Five years of lighting young minds.</h1>
       <p style="margin: 0; font-size: 19px; line-height: 1.65; color: #fff; max-width: 860px;">What began on 11 June 2022 as a tribute to Uma Lakshmi has become an annual promise kept to a growing family of students. From thirty children in one Chennai school to seventy-five across ten districts, every year has brought more students, more schools, and more families who no longer have to choose between fees and food.</p>
-      <p style="margin: 0; font-size: 16px; line-height: 1.7; color: var(--on-dark-muted); max-width: 860px;">265 students sponsored · 21 schools and 9 colleges · 10 districts of Tamil Nadu · five annual sponsorship functions.</p>
+      <p style="margin: 0; font-size: 16px; line-height: 1.7; color: var(--on-dark-muted); max-width: 860px;">265+ students sponsored · 21 schools and 9 colleges · 10 districts of Tamil Nadu · five annual sponsorship functions.</p>
     </div>
   </section>
 
@@ -176,7 +152,6 @@ a,span,strong,p{overflow-wrap:anywhere}
             <p style="margin: 0; font-size: 15px; line-height: 1.65; color: var(--muted);">The fifth annual sponsorship programme marks five years of the trust and its largest cohort yet — 75 students — bringing the total to 265 students supported since 2022. [Date, venue and highlights to be added after the function.]</p>
           </div>
           <div class="dot"><span class="y" style="background: var(--marigold); color: var(--marigold-ink);">2026</span><span class="num" style="font-size: 40px; color: var(--indigo);">75</span><span style="font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em;">students</span></div>
-          <div style="aspect-ratio: 3 / 2; border-radius: 20px; border: 2px dashed var(--lilac2); background: var(--lilac); display: flex; align-items: center; justify-content: center; text-align: center; color: var(--muted); font-size: 14px; padding: 24px; box-sizing: border-box;">Photographs from the fifth anniversary function</div>
         </div>
       </div>
     </div>
@@ -212,78 +187,35 @@ a,span,strong,p{overflow-wrap:anywhere}
     </div>
   </section>
 
-  <!-- Gallery -->
+  <!-- Gallery (photos read from assets/gallery/<year>/) -->
   <section id="gallery" style="padding: 104px 0;">
     <div class="wrap" style="display: flex; flex-direction: column; gap: 36px;">
       <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap;">
         <div style="display: flex; flex-direction: column; gap: 12px;"><span class="eyebrow">Gallery</span><h2 style="font-size: 52px;">Moments from our functions.</h2></div>
-        <nav class="filter" aria-label="Filter photos by year"><a href="#gallery" class="on">All</a><a href="#gallery">2022</a><a href="#gallery">2023</a><a href="#gallery">2024</a><a href="#gallery">2025</a><a href="#gallery">2026</a></nav>
+        <nav class="filter" aria-label="Filter photos by year"><a href="#gallery" class="on" data-year="">All</a><?php foreach ($gallery['years'] as $y): ?><a href="#gallery" data-year="<?= h($y) ?>"><?= h($y) ?></a><?php endforeach; ?></nav>
       </div>
-      <div class="mc2" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 220px; gap: 14px;">
-        <img src="assets/hero.jpg" alt="Students seated at the function" class="img" style="grid-column: span 2; grid-row: span 2; height: 100%; border-radius: 20px;">
-        <img src="assets/g2.jpg" alt="Trustees and guests on stage" class="img" style="height: 100%; border-radius: 20px;">
-        <img src="assets/g3.jpg" alt="Guests being welcomed" class="img" style="height: 100%; border-radius: 20px;">
-        <img src="assets/t_cheque1.jpg" alt="Cheque presentation" class="img" style="height: 100%; border-radius: 20px;">
-        <img src="assets/t_students.jpg" alt="Students standing together" class="img" style="height: 100%; border-radius: 20px;">
-        <img src="assets/g5.jpg" alt="Chief guest honoured" class="img" style="height: 100%; border-radius: 20px;">
-        <img src="assets/t_cheque2.jpg" alt="Cheque presentation" class="img" style="height: 100%; border-radius: 20px;">
-        <img src="assets/g1.jpg" alt="Students singing" class="img" style="grid-column: span 2; height: 100%; border-radius: 20px;">
-        <img src="assets/t_audience.jpg" alt="Audience" class="img" style="height: 100%; border-radius: 20px;">
-        <img src="assets/t_stage.jpg" alt="The stage" class="img" style="height: 100%; border-radius: 20px;">
-        <img src="assets/t_speech.jpg" alt="Founder's address" class="img" style="height: 100%; border-radius: 20px;">
-        <img src="assets/t_cheque3.jpg" alt="A guest is honoured" class="img" style="height: 100%; border-radius: 20px;">
+      <div id="gal" class="mc2 gal" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 220px; gap: 14px;">
+<?php foreach ($gallery['tiles'] as $t): ?>
+        <img src="<?= h($t['src']) ?>" alt="<?= h($t['alt']) ?>" class="img" data-year="<?= h($t['year']) ?>" loading="lazy">
+<?php endforeach; ?>
       </div>
-      <a href="#gallery" class="btn" style="align-self: center; background: #fff; color: var(--ink); border-color: var(--ink);">Load more photos</a>
+      <p id="gal-empty" class="gal-empty" hidden>Photographs from the <span></span> function will be added soon.</p>
     </div>
   </section>
-
-  <!-- Footer (preserved) -->
-  <footer id="contact" class="ftr" style="background: var(--indigo-deep); color: var(--on-dark-muted); padding: 72px 0 28px;">
-    <div class="wrap" style="display: flex; flex-direction: column; gap: 44px;">
-      <div class="g3" style="gap: 40px;">
-        <div style="display: flex; flex-direction: column; gap: 16px;">
-          <span style="display: inline-flex; align-items: center; gap: 12px;"><img src="assets/uet-logo.png" alt="" style="width: 40px; height: 42px; object-fit: contain; background: #fff; border-radius: 10px; padding: 3px; box-sizing: border-box;"><span style="display: flex; flex-direction: column; line-height: 1.05;"><span style="font-family: var(--display); font-size: 20px; font-weight: 800; color: #fff;">Umalakshmi</span><span style="font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--marigold);">Educational Trust</span></span></span>
-          <p style="margin: 0; font-size: 15px; line-height: 1.65;">Uma Lakshmi Educational Trust, founded on 11 June 2022. In the memory of my beloved wife Uma Lakshmi, to spread her compassion towards educating poor children and share her love with future generations.</p>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px;">
-          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #fff;">Contact</span>
-          <span style="line-height: 1.65;">3A, Palazzo Apartment, Ram Kamal Building, Shasthiri Nagar First Street, Adyar, Chennai 600020</span>
-          <a href="tel:+919176189469">+91 9176189469</a>
-          <a href="mailto:umalakshmieducationaltrust@gmail.com">umalakshmieducationaltrust@gmail.com</a>
-          <a href="https://www.umalakshmitrust.com">www.umalakshmitrust.com</a>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px;">
-          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #fff;">Bank account details</span>
-          <span>Name : Umalakshmi Educational Trust</span>
-          <span>AC : 50200070075707</span>
-          <span>IFSC Code : HDFC0001866</span>
-          <span>HDFC Bank, Kasturibhai Nagar branch, Adayar, Chennai</span>
-          <span style="margin-top: 6px; font-size: 13px;">UPI ID : umalakshmitrust@hdfcbank</span>
-        </div>
-      </div>
-      <div style="border-top: 1px solid rgba(255,255,255,0.14); padding-top: 22px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px;">
-        <span style="display: inline-flex; gap: 20px;"><a href="privacy.html">Privacy Policy</a><a href="contact.html">Contact Us</a><a href="terms.html">Terms of Use</a></span>
-        <span>Copyright © Umalakshmi Trust. All Rights Reserved. · Developed by Subramanian</span>
-      </div>
-    </div>
-  </footer>
-
-</div>
-
-<div id="mmenu" class="mmenu" aria-hidden="true">
-  <div class="mm-top"><a href="index.html" class="mm-brand"><img src="assets/uet-logo.png" alt=""><span><b>Umalakshmi</b><small>Educational Trust</small></span></a><button type="button" class="burger mm-close" aria-label="Close menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-  <nav class="mm-nav" aria-label="Main">
-    <a href="index.html" data-page="index">Home<i></i></a><a href="about.html" data-page="about">About<i></i></a><a href="journey.html" data-page="journey">Our Journey<i></i></a><a href="donors.html" data-page="donors">Donors<i></i></a><a href="apply.html" data-page="apply">Apply<i></i></a><a href="financials.html" data-page="financials">Financials<i></i></a><a href="contact.html" data-page="contact">Contact<i></i></a>
-  </nav>
-  <div class="mm-bottom"><a href="donate.html" class="mm-donate">Donate Now</a><div class="mm-ci"><a href="tel:+919176189469">+91 9176189469</a><a href="mailto:umalakshmieducationaltrust@gmail.com">umalakshmieducationaltrust@gmail.com</a></div></div>
-</div>
 <script>
-(function(){var m=document.getElementById('mmenu');var here=location.pathname.split('/').pop().replace('.html','')||'index';var cur=m.querySelector('[data-page="'+here+'"]');if(cur)cur.classList.add('on');
-function open(){m.classList.add('open');m.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
-function close(){m.classList.remove('open');m.setAttribute('aria-hidden','true');document.body.style.overflow='';}
-document.querySelectorAll('.burger:not(.mm-close)').forEach(function(b){b.addEventListener('click',open);});
-m.querySelector('.mm-close').addEventListener('click',close);document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});})();
+(function(){
+  var gal=document.getElementById('gal'), empty=document.getElementById('gal-empty'); if(!gal) return;
+  var tiles=[].slice.call(gal.querySelectorAll('img')), links=[].slice.call(document.querySelectorAll('.filter a')), ALL_MAX=12;
+  function apply(year){
+    var shown=0;
+    tiles.forEach(function(t){ var ok = year ? t.getAttribute('data-year')===year : shown<ALL_MAX; if(ok) shown++; t.hidden=!ok; t.classList.remove('big','wide'); });
+    var vis=tiles.filter(function(t){ return !t.hidden; });
+    if(vis.length>=8){ vis[0].classList.add('big'); vis[7].classList.add('wide'); }
+    gal.hidden=!vis.length; empty.hidden=!!vis.length; if(!vis.length) empty.querySelector('span').textContent=year||'next';
+  }
+  links.forEach(function(a){ a.addEventListener('click',function(e){ e.preventDefault(); links.forEach(function(b){ b.classList.remove('on'); }); a.classList.add('on'); apply(a.getAttribute('data-year')||''); }); });
+  apply('');
+})();
 </script>
 
-</body>
-</html>
+<?php require __DIR__ . '/inc/footer.php'; ?>

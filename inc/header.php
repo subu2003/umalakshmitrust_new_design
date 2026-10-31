@@ -19,7 +19,8 @@ $header_band = !empty($header_band);
 $brand_shadow = $header_band ? '' : ' text-shadow: 0 2px 12px rgba(0,0,0,0.35);';
 $sub_shadow   = $header_band ? '' : ' text-shadow: 0 2px 10px rgba(0,0,0,0.35);';
 ?>
-<style>/* Header Donate button: heart icon + "Donate Now" on desktop (no flex gap between the words). Below 860px the row (logo, brand, Donate, burger) has no spare width, so the pill becomes a heart-only circle the same height as the burger; the aria-label keeps it readable. */.hdr-donate{gap:0}.hdr-ico{width:18px;height:18px;flex:0 0 18px;margin-right:9px}@media (max-width:860px){.hdr-donate{width:48px;height:48px;min-height:48px !important;padding:0 !important;justify-content:center;flex:0 0 48px}.hdr-donate .lbl-donate{display:none}.hdr-ico{width:22px;height:22px;flex-basis:22px;margin-right:0}}</style>
+<style>/* Header row: with the "About us" label and the heart the row needs ~1185px at the 1240px container, so the gap is 16px (was 24) and nav pills use 12px side padding (was 14) to keep everything on one line with ~35px to spare. */.nav a{padding:10px 12px}
+/* Header Donate button: heart icon + "Donate Now" on desktop (no flex gap between the words). Below 860px the row (logo, brand, Donate, burger) has no spare width, so the pill becomes a heart-only circle the same height as the burger; the aria-label keeps it readable. */.hdr-donate{gap:0}.hdr-ico{width:18px;height:18px;flex:0 0 18px;margin-right:9px}@media (max-width:860px){.hdr-donate{width:48px;height:48px;min-height:48px !important;padding:0 !important;justify-content:center;flex:0 0 48px}.hdr-donate .lbl-donate{display:none}.hdr-ico{width:22px;height:22px;flex-basis:22px;margin-right:0}}</style>
 </head>
 <body>
 <div style="font-family: var(--body); color: var(--ink); background: var(--bg); width: 100%; box-sizing: border-box; line-height: 1.55;">
@@ -32,7 +33,7 @@ $sub_shadow   = $header_band ? '' : ' text-shadow: 0 2px 10px rgba(0,0,0,0.35);'
   <!-- Header -->
 <?php endif; ?>
   <header style="position: relative; z-index: 2;">
-    <div class="wrap hdr-row" style="display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 112px; flex-wrap: wrap; padding-top: 16px; padding-bottom: 16px;">
+    <div class="wrap hdr-row" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 112px; flex-wrap: wrap; padding-top: 16px; padding-bottom: 16px;">
       <a href="index.php" style="display: inline-flex; align-items: center; gap: 12px; color: #fff;">
         <img class="brand-logo" src="assets/uet-logo.png" alt="Umalakshmi Educational Trust logo" style="width: 80px; height: 82px; object-fit: contain; background: #fff; border-radius: 18px; padding: 6px; box-sizing: border-box; box-shadow: 0 8px 24px rgba(0,0,0,0.25);">
         <span style="display: flex; flex-direction: column; line-height: 1.02;">
@@ -42,9 +43,9 @@ $sub_shadow   = $header_band ? '' : ' text-shadow: 0 2px 10px rgba(0,0,0,0.35);'
       </a>
       <nav class="nav" aria-label="Main" style="display: flex; align-items: center; gap: 2px; background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 6px;">
 <?php foreach (nav_items() as $key => [$href, $label]): ?>
-        <a href="<?= h($href) ?>"<?= $key === $page ? ' class="active"' : '' ?>><?= h($label) ?></a>
+        <a href="<?= h(page_href($href)) ?>"<?= $key === $page ? ' class="active"' : '' ?>><?= h($label) ?></a>
 <?php endforeach; ?>
       </nav>
-      <div style="display: flex; align-items: center; gap: 10px;"><a href="donate.php" class="btn btn-marigold hdr-donate" aria-label="Donate Now" style="min-height: 50px; padding: 12px 24px; font-size: 15px;"><svg class="hdr-ico" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.6-9.3-9.1C1 8.3 3.2 4.5 7 4.5c2 0 3.4 1.1 4.2 2.3l.8 1.2.8-1.2C13.6 5.6 15 4.5 17 4.5c3.8 0 6 3.8 4.3 7.4C19 16.4 12 21 12 21z"/></svg><span class="lbl-donate">Donate</span><span class="lbl-full">&nbsp;Now</span></a><button type="button" class="burger" aria-label="Open menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div>
+      <div style="display: flex; align-items: center; gap: 10px;"><a href="<?= h(page_href('donate.php')) ?>" class="btn btn-marigold hdr-donate" aria-label="Donate Now" style="min-height: 50px; padding: 12px 24px; font-size: 15px;"><svg class="hdr-ico" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.6-9.3-9.1C1 8.3 3.2 4.5 7 4.5c2 0 3.4 1.1 4.2 2.3l.8 1.2.8-1.2C13.6 5.6 15 4.5 17 4.5c3.8 0 6 3.8 4.3 7.4C19 16.4 12 21 12 21z"/></svg><span class="lbl-donate">Donate</span><span class="lbl-full">&nbsp;Now</span></a><button type="button" class="burger" aria-label="Open menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div>
     </div>
   </header>

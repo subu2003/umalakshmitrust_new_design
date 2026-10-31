@@ -13,7 +13,7 @@ $page         = isset($page) ? (string) $page : '';
 $page_scripts = isset($page_scripts) ? (string) $page_scripts : '';
 $mm_links = '';
 foreach (nav_items() as $key => [$href, $label]) {
-    $mm_links .= '<a href="' . h($href) . '" data-page="' . h($key) . '"' . ($key === $page ? ' class="on"' : '') . '>' . h($label) . '<i></i></a>';
+    $mm_links .= '<a href="' . h(page_href($href)) . '" data-page="' . h($key) . '"' . ($key === $page ? ' class="on"' : '') . '>' . h($label) . '<i></i></a>';
 }
 ?>
 
@@ -42,7 +42,7 @@ foreach (nav_items() as $key => [$href, $label]) {
         </div>
       </div>
       <div style="border-top: 1px solid rgba(255,255,255,0.14); padding-top: 22px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px;">
-        <span style="display: inline-flex; gap: 20px;"><a href="privacy.php">Privacy Policy</a><a href="contact.php">Contact Us</a><a href="terms.php">Terms of Use</a></span>
+        <span style="display: inline-flex; gap: 20px;"><a href="<?= h(page_href('privacy.php')) ?>">Privacy Policy</a><a href="<?= h(page_href('contact.php')) ?>">Contact Us</a><a href="<?= h(page_href('terms.php')) ?>">Terms of Use</a></span>
         <span>Copyright © Umalakshmi Trust. All Rights Reserved. · Developed by Subramanian</span>
       </div>
     </div>
@@ -56,7 +56,7 @@ foreach (nav_items() as $key => [$href, $label]) {
     <?= $mm_links ?>
 
   </nav>
-  <div class="mm-bottom"><a href="donate.php" class="mm-donate">Donate Now</a><div class="mm-ci"><a href="tel:+919176189469">+91 9176189469</a><a href="mailto:umalakshmieducationaltrust@gmail.com">umalakshmieducationaltrust@gmail.com</a></div></div>
+  <div class="mm-bottom"><a href="<?= h(page_href('donate.php')) ?>" class="mm-donate">Donate Now</a><div class="mm-ci"><a href="tel:+919176189469">+91 9176189469</a><a href="mailto:umalakshmieducationaltrust@gmail.com">umalakshmieducationaltrust@gmail.com</a></div></div>
 </div>
 <script>
 (function(){var m=document.getElementById('mmenu');var here=location.pathname.split('/').pop().replace(/\.(html|php)$/,'')||'index';var cur=m.querySelector('[data-page="'+here+'"]');if(cur)cur.classList.add('on');
