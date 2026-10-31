@@ -1,12 +1,9 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Umalakshmi Educational Trust — Home</title>
-<link rel="icon" href="assets/uet-logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&amp;display=swap" rel="stylesheet">
+<?php
+// Home page. Shared layout lives in inc/ (head → page CSS → header → content → footer).
+$page       = 'index';
+$page_title = 'Home';
+require __DIR__ . '/inc/head.php';
+?>
 <style>
 :root{
   --bg:#FFFFFF; --ink:#141633; --muted:#5B5E7A; --line:#E6E7F2;
@@ -87,32 +84,7 @@ a,span,strong,p{overflow-wrap:anywhere}
 .stats{grid-template-columns:repeat(2,minmax(0,1fr)) !important;padding:20px 8px !important;gap:8px 0 !important}.stats>div{padding:12px 16px !important;border-right:0 !important}.stats>div:nth-child(odd){border-right:1px solid var(--line) !important}.stats>div:nth-child(-n+2){border-bottom:1px solid var(--line)}.stats .num{font-size:40px !important}.hero-btns{flex-direction:row;gap:10px !important}.hero-btns .btn{flex:1 1 0;min-height:48px;padding:10px 12px;font-size:14px;white-space:nowrap;justify-content:center}.hero-eyebrow{font-size:16px !important;letter-spacing:.18em !important}}
 </style>
 <style>html{scroll-behavior:smooth} *,*:before,*:after{box-sizing:border-box} img{max-width:100%}</style>
-</head>
-<body>
-<div style="font-family: var(--body); color: var(--ink); background: var(--bg); width: 100%; box-sizing: border-box; line-height: 1.55;">
-
-  <!-- Header -->
-  <header style="position: relative; z-index: 2;">
-    <div class="wrap hdr-row" style="display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 112px; flex-wrap: wrap; padding-top: 16px; padding-bottom: 16px;">
-      <a href="index.html" style="display: inline-flex; align-items: center; gap: 12px; color: #fff;">
-        <img class="brand-logo" src="assets/uet-logo.png" alt="Umalakshmi Educational Trust logo" style="width: 80px; height: 82px; object-fit: contain; background: #fff; border-radius: 18px; padding: 6px; box-sizing: border-box; box-shadow: 0 8px 24px rgba(0,0,0,0.25);">
-        <span style="display: flex; flex-direction: column; line-height: 1.02;">
-          <span class="brand-name" style="font-family: var(--display); font-size: 40px; font-weight: 800; letter-spacing: -0.02em; text-shadow: 0 2px 12px rgba(0,0,0,0.35);">Umalakshmi</span>
-          <span class="brand-sub" style="font-size: 17px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--marigold); text-shadow: 0 2px 10px rgba(0,0,0,0.35);">Educational Trust</span>
-        </span>
-      </a>
-      <nav class="nav" aria-label="Main" style="display: flex; align-items: center; gap: 2px; background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 6px;">
-        <a href="index.html" class="active">Home</a>
-        <a href="about.html">About</a>
-        <a href="journey.html">Our Journey</a>
-        <a href="donors.html">Donors</a>
-        <a href="apply.html">Apply</a>
-        <a href="financials.html">Financials</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-      <div style="display: flex; align-items: center; gap: 10px;"><a href="donate.html" class="btn btn-marigold hdr-donate" style="min-height: 50px; padding: 12px 24px; font-size: 15px;">Donate<span class="lbl-full">&nbsp;Now</span></a><button type="button" class="burger" aria-label="Open menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div>
-    </div>
-  </header>
+<?php require __DIR__ . '/inc/header.php'; ?>
 
   <!-- Hero: seated students photo -->
   <section id="top" class="hero-over" style="position: relative; overflow: hidden; min-height: 720px; display: flex; align-items: center; margin-top: -112px; padding-top: 112px;">
@@ -123,8 +95,8 @@ a,span,strong,p{overflow-wrap:anywhere}
       <h1 style="font-size: 80px; color: #fff; max-width: 900px;">Lighting Young Minds, Transforming Generations.</h1>
       <p style="margin: 0; font-size: 20px; line-height: 1.55; color: var(--on-dark-muted); max-width: 600px;">Uma Lakshmi Educational Trust sponsors the education of deserving students from low-income families across Tamil Nadu — so that no child's future is decided by poverty.</p>
       <div class="hero-btns" style="display: flex; gap: 14px; flex-wrap: wrap;">
-        <a href="donate.html" class="btn btn-marigold">Donate Now</a>
-        <a href="apply.html" class="btn btn-ghost-light">Apply for Support</a>
+        <a href="donate.php" class="btn btn-marigold">Donate Now</a>
+        <a href="apply.php" class="btn btn-ghost-light">Apply for Support</a>
       </div>
     </div>
   </section>
@@ -153,7 +125,7 @@ a,span,strong,p{overflow-wrap:anywhere}
         <h2 style="font-size: 52px;">Uma Lakshmi</h2>
         <p style="margin: 0; font-family: var(--display); font-weight: 600; font-size: 24px; line-height: 1.35; color: var(--indigo); letter-spacing: -0.01em;">“To spread her compassion towards educating poor children, and share her love with future generations.”</p>
         <p style="margin: 0; font-size: 17px; line-height: 1.7; color: var(--muted);">Uma Lakshmi Educational Trust was founded in Chennai on 11 June 2022 by SP. Nachiappan in memory of his beloved wife. What began as a tribute has grown into a five-year commitment: every year the trust selects deserving students from government and government-aided schools and colleges, and pays their fees directly to the institution.</p>
-        <p style="margin: 0; font-size: 17px; line-height: 1.7; color: var(--muted);">A kindness done in one name now lives on in the lives of 265 students.</p>
+        <p style="margin: 0; font-size: 17px; line-height: 1.7; color: var(--muted);">A kindness done in one name now lives on in the lives of 265+ students.</p>
       </div>
     </div>
   </section>
@@ -274,53 +246,4 @@ a,span,strong,p{overflow-wrap:anywhere}
     </div>
   </section>
 
-  <!-- Footer (preserved from the current site) -->
-  <footer id="contact" class="ftr" style="background: var(--indigo-deep); color: var(--on-dark-muted); padding: 72px 0 28px;">
-    <div class="wrap" style="display: flex; flex-direction: column; gap: 44px;">
-      <div class="g3" style="gap: 40px;">
-        <div style="display: flex; flex-direction: column; gap: 16px;">
-          <span style="display: inline-flex; align-items: center; gap: 12px;"><img src="assets/uet-logo.png" alt="" style="width: 40px; height: 42px; object-fit: contain; background: #fff; border-radius: 10px; padding: 3px; box-sizing: border-box;"><span style="display: flex; flex-direction: column; line-height: 1.05;"><span style="font-family: var(--display); font-size: 20px; font-weight: 800; color: #fff;">Umalakshmi</span><span style="font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--marigold);">Educational Trust</span></span></span>
-          <p style="margin: 0; font-size: 15px; line-height: 1.65;">Uma Lakshmi Educational Trust, founded on 11 June 2022. In the memory of my beloved wife Uma Lakshmi, to spread her compassion towards educating poor children and share her love with future generations.</p>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px;">
-          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #fff;">Contact</span>
-          <span style="line-height: 1.65;">3A, Palazzo Apartment, Ram Kamal Building, Shasthiri Nagar First Street, Adyar, Chennai 600020</span>
-          <a href="tel:+919176189469">+91 9176189469</a>
-          <a href="mailto:umalakshmieducationaltrust@gmail.com">umalakshmieducationaltrust@gmail.com</a>
-          <a href="https://www.umalakshmitrust.com">www.umalakshmitrust.com</a>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px;">
-          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #fff;">Bank account details</span>
-          <span>Name : Umalakshmi Educational Trust</span>
-          <span>AC : 50200070075707</span>
-          <span>IFSC Code : HDFC0001866</span>
-          <span>HDFC Bank, Kasturibhai Nagar branch, Adayar, Chennai</span>
-          <span style="margin-top: 6px; font-size: 13px;">UPI ID : umalakshmitrust@hdfcbank</span>
-        </div>
-      </div>
-      <div style="border-top: 1px solid rgba(255,255,255,0.14); padding-top: 22px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px;">
-        <span style="display: inline-flex; gap: 20px;"><a href="privacy.html">Privacy Policy</a><a href="contact.html">Contact Us</a><a href="terms.html">Terms of Use</a></span>
-        <span>Copyright © Umalakshmi Trust. All Rights Reserved. · Developed by Subramanian</span>
-      </div>
-    </div>
-  </footer>
-
-</div>
-
-<div id="mmenu" class="mmenu" aria-hidden="true">
-  <div class="mm-top"><a href="index.html" class="mm-brand"><img src="assets/uet-logo.png" alt=""><span><b>Umalakshmi</b><small>Educational Trust</small></span></a><button type="button" class="burger mm-close" aria-label="Close menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-  <nav class="mm-nav" aria-label="Main">
-    <a href="index.html" data-page="index">Home<i></i></a><a href="about.html" data-page="about">About<i></i></a><a href="journey.html" data-page="journey">Our Journey<i></i></a><a href="donors.html" data-page="donors">Donors<i></i></a><a href="apply.html" data-page="apply">Apply<i></i></a><a href="financials.html" data-page="financials">Financials<i></i></a><a href="contact.html" data-page="contact">Contact<i></i></a>
-  </nav>
-  <div class="mm-bottom"><a href="donate.html" class="mm-donate">Donate Now</a><div class="mm-ci"><a href="tel:+919176189469">+91 9176189469</a><a href="mailto:umalakshmieducationaltrust@gmail.com">umalakshmieducationaltrust@gmail.com</a></div></div>
-</div>
-<script>
-(function(){var m=document.getElementById('mmenu');var here=location.pathname.split('/').pop().replace('.html','')||'index';var cur=m.querySelector('[data-page="'+here+'"]');if(cur)cur.classList.add('on');
-function open(){m.classList.add('open');m.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
-function close(){m.classList.remove('open');m.setAttribute('aria-hidden','true');document.body.style.overflow='';}
-document.querySelectorAll('.burger:not(.mm-close)').forEach(function(b){b.addEventListener('click',open);});
-m.querySelector('.mm-close').addEventListener('click',close);document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});})();
-</script>
-
-</body>
-</html>
+<?php require __DIR__ . '/inc/footer.php'; ?>
