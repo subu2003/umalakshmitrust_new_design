@@ -44,8 +44,9 @@ function send_mail(array $m): array
         $mail->CharSet  = PHPMailer::CHARSET_UTF8;
         $mail->Encoding = PHPMailer::ENCODING_BASE64;
         $mail->setFrom((string) env('MAIL_FROM', 'noreply@umalakshmitrust.com'), (string) env('MAIL_FROM_NAME', 'Umalakshmi Educational Trust'));
-        $reply = env('MAIL_REPLY_TO');
-        if ($reply) {
+        if (!empty($m['reply_to']['email'])) {
+            $mail->addReplyTo($m['reply_to']['email'], $m['reply_to']['name'] ?? '');
+        } elseif ($reply = env('MAIL_REPLY_TO')) {
             $mail->addReplyTo($reply, 'Umalakshmi Educational Trust');
         }
         foreach ($m['to'] as $t) {

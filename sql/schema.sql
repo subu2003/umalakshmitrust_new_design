@@ -128,6 +128,21 @@ CREATE TABLE IF NOT EXISTS files (
   KEY idx_owner (owner_type, owner_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Messages from the contact form (contact.php → form_process.php). Mailed to TRUST_INBOX as well.
+CREATE TABLE IF NOT EXISTS contact_messages (
+  id              INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  name            VARCHAR(120) NOT NULL,
+  email           VARCHAR(190) NOT NULL,
+  phone           VARCHAR(20)  NOT NULL DEFAULT '',
+  subject         VARCHAR(60)  NOT NULL DEFAULT '',
+  message         TEXT         NOT NULL,
+  ip              VARCHAR(45)  NOT NULL DEFAULT '',
+  created_at      DATETIME     NOT NULL,
+  replied_at      DATETIME     NULL,
+  PRIMARY KEY (id),
+  KEY idx_created (created_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- Outgoing mail record, so the trustees can see whether the applicant copy went out.
 CREATE TABLE IF NOT EXISTS mail_log (
   id              INT UNSIGNED NOT NULL AUTO_INCREMENT,

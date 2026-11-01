@@ -29,6 +29,7 @@ RedirectMatch 403 ^/(inc|sql|storage|lib|mail)(/|$)
   RewriteRule ^donors\.html$       /donors.php  [R=301,L]
   RewriteRule ^apply\.html$        /apply.php   [R=301,L]
   RewriteRule ^financials\.html$   /financials.php [R=301,L]
+  RewriteRule ^contact\.html$      /contact.php [R=301,L]
 </IfModule>
 
 # Sensible defaults

@@ -1,12 +1,16 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Umalakshmi Educational Trust — Contact</title>
-<link rel="icon" href="assets/uet-logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&amp;display=swap" rel="stylesheet">
+<?php
+// Contact page. Shared layout lives in inc/ (head → page CSS → header → content → footer). Header sits in the indigo band;
+// inc/header.php opens the band and this page closes it with </div> after the intro section.
+// The form posts to form_process.php, which stores the message and mails the trust inbox.
+$page        = 'contact';
+$page_title  = 'Contact';
+$header_band = true;
+require_once __DIR__ . '/inc/csrf.php';
+uet_session_start();
+$flash = $_SESSION['contact_flash'] ?? null;
+unset($_SESSION['contact_flash']);
+require __DIR__ . '/inc/head.php';
+?>
 <style>
 :root{
   --bg:#FFFFFF; --ink:#141633; --muted:#5B5E7A; --line:#E6E7F2;
@@ -84,34 +88,7 @@ a,span,strong,p{overflow-wrap:anywhere}
 .card.pad36{padding:24px 20px !important}.ci{gap:14px}.ci .ic{width:44px;height:44px;flex-basis:44px}}
 </style>
 <style>html{scroll-behavior:smooth} *,*:before,*:after{box-sizing:border-box} img{max-width:100%}</style>
-</head>
-<body>
-<div style="font-family: var(--body); color: var(--ink); background: var(--bg); width: 100%; box-sizing: border-box; line-height: 1.55;">
-
-  <!-- Header on indigo -->
-  <div style="background: var(--indigo); position: relative; overflow: hidden;">
-    <div style="position: absolute; right: -160px; top: -200px; width: 560px; height: 560px; border-radius: 999px; border: 56px solid rgba(255,255,255,0.05);"></div>
-    <header style="position: relative; z-index: 2;">
-      <div class="wrap hdr-row" style="display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 112px; flex-wrap: wrap; padding-top: 16px; padding-bottom: 16px;">
-        <a href="index.html" style="display: inline-flex; align-items: center; gap: 12px; color: #fff;">
-          <img class="brand-logo" src="assets/uet-logo.png" alt="Umalakshmi Educational Trust logo" style="width: 80px; height: 82px; object-fit: contain; background: #fff; border-radius: 18px; padding: 6px; box-sizing: border-box; box-shadow: 0 8px 24px rgba(0,0,0,0.25);">
-          <span style="display: flex; flex-direction: column; line-height: 1.02;">
-            <span class="brand-name" style="font-family: var(--display); font-size: 40px; font-weight: 800; letter-spacing: -0.02em;">Umalakshmi</span>
-            <span class="brand-sub" style="font-size: 17px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--marigold);">Educational Trust</span>
-          </span>
-        </a>
-        <nav class="nav" aria-label="Main" style="display: flex; align-items: center; gap: 2px; background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 6px;">
-          <a href="index.html">Home</a>
-          <a href="about.html">About</a>
-          <a href="journey.html">Our Journey</a>
-          <a href="donors.html">Donors</a>
-          <a href="apply.html">Apply</a>
-          <a href="financials.html">Financials</a>
-          <a href="contact.html" class="active">Contact</a>
-        </nav>
-        <div style="display: flex; align-items: center; gap: 10px;"><a href="donate.html" class="btn btn-marigold hdr-donate" style="min-height: 50px; padding: 12px 24px; font-size: 15px;">Donate<span class="lbl-full">&nbsp;Now</span></a><button type="button" class="burger" aria-label="Open menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div>
-      </div>
-    </header>
+<?php require __DIR__ . '/inc/header.php'; ?>
     <section id="top" style="position: relative; color: #fff; padding: 56px 0 160px;">
       <div class="wrap" style="display: flex; flex-direction: column; gap: 18px; max-width: 980px;">
         <span style="font-family: var(--display); font-size: 18px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: var(--marigold);">Contact</span>
@@ -133,16 +110,24 @@ a,span,strong,p{overflow-wrap:anywhere}
         <div class="ci" style="border-bottom: 0;"><span class="ic"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--indigo)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg></span><div><strong>Email</strong><a href="mailto:umalakshmieducationaltrust@gmail.com">umalakshmieducationaltrust@gmail.com</a></div></div>
       </div>
 
-      <form class="card mc1" style="padding: 36px; box-shadow: 0 24px 60px rgba(20,22,51,0.10); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; align-content: start;" action="form_process.php" method="post" onsubmit="alert('This is a static preview — form submission will be wired up on the live site.'); return false;">
+      <form id="msgform" class="card mc1" style="padding: 36px; box-shadow: 0 24px 60px rgba(20,22,51,0.10); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; align-content: start;" action="form_process.php" method="post">
         <div class="mspan mspan" style="grid-column: span 2; display: flex; flex-direction: column; gap: 6px;"><span class="eyebrow">Get in touch</span><h2 style="font-size: 28px;">Send us a message</h2></div>
+        <?= csrf_field() ?>
+        <div style="position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden;" aria-hidden="true"><label>Leave this field empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+<?php if ($flash && ($flash['type'] ?? '') === 'error'): ?>
+        <div id="form-errors" role="alert" class="mspan" style="grid-column: span 2; background: var(--coral-tint); border: 1.5px solid var(--coral); border-radius: 16px; padding: 14px 18px; font-size: 14px; line-height: 1.6; color: var(--ink);">
+          <strong>Please correct the following:</strong>
+          <ul style="margin: 4px 0 0; padding-left: 20px;"><?php foreach ((array) ($flash['errors'] ?? []) as $msg): ?><li><?= h($msg) ?></li><?php endforeach; ?></ul>
+        </div>
+<?php endif; ?>
         <label class="f">Name <span style="color: var(--coral);">*</span><input class="in" type="text" name="firstname" required=""></label>
         <label class="f">Email <span style="color: var(--coral);">*</span><input class="in" type="email" name="email" required=""></label>
         <label class="f">Phone / WhatsApp<input class="in" type="tel" name="phone" placeholder="+91"></label>
-        <label class="f">I'm writing about<select class="in" name="subject"><option>Select…</option><option>Making a donation</option><option>Applying for support</option><option>Referring a student</option><option>Volunteering</option><option>Donation receipt / 80G</option><option>Something else</option></select></label>
+        <label class="f">I'm writing about<select class="in" name="subject"><option value="">Select…</option><option>Making a donation</option><option>Applying for support</option><option>Referring a student</option><option>Volunteering</option><option>Donation receipt / 80G</option><option>Something else</option></select></label>
         <label class="f mspan" style="grid-column: span 2;">Message <span style="color: var(--coral);">*</span><textarea class="in" name="comment" required="" placeholder="How can we help?"></textarea></label>
         <div class="mspan mspan" style="grid-column: span 2; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;">
           <span style="font-size: 13px; color: var(--muted);">We use your details only to reply to you.</span>
-          <button type="submit" class="btn btn-indigo">Send message<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+          <button type="submit" class="btn btn-indigo" id="sendbtn">Send message<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
         </div>
       </form>
     </div>
@@ -152,59 +137,28 @@ a,span,strong,p{overflow-wrap:anywhere}
   <section style="background: var(--lilac); padding: 72px 0;">
     <div class="wrap">
       <div class="mc1" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px;">
-        <a href="donate.html" class="card" style="padding: 28px; display: flex; flex-direction: column; gap: 8px; color: var(--ink); border: 0;"><span class="tag" style="background: var(--marigold); color: var(--marigold-ink); align-self: flex-start;">Donate</span><strong style="font-family: var(--display); font-size: 22px;">Sponsor a student</strong><span style="font-size: 14px; color: var(--muted);">Bank transfer or UPI, with an 80G receipt.</span></a>
-        <a href="apply.html" class="card" style="padding: 28px; display: flex; flex-direction: column; gap: 8px; color: var(--ink); border: 0;"><span class="tag" style="background: var(--lilac); color: var(--indigo); align-self: flex-start;">Apply</span><strong style="font-family: var(--display); font-size: 22px;">Apply for support</strong><span style="font-size: 14px; color: var(--muted);">The online educational financial-aid form.</span></a>
+        <a href="<?= h(page_href('donate.php')) ?>" class="card" style="padding: 28px; display: flex; flex-direction: column; gap: 8px; color: var(--ink); border: 0;"><span class="tag" style="background: var(--marigold); color: var(--marigold-ink); align-self: flex-start;">Donate</span><strong style="font-family: var(--display); font-size: 22px;">Sponsor a student</strong><span style="font-size: 14px; color: var(--muted);">Bank transfer or UPI, with an 80G receipt.</span></a>
+        <a href="<?= h(page_href('apply.php')) ?>" class="card" style="padding: 28px; display: flex; flex-direction: column; gap: 8px; color: var(--ink); border: 0;"><span class="tag" style="background: var(--lilac); color: var(--indigo); align-self: flex-start;">Apply</span><strong style="font-family: var(--display); font-size: 22px;">Apply for support</strong><span style="font-size: 14px; color: var(--muted);">The online educational financial-aid form.</span></a>
       </div>
     </div>
   </section>
 
-  <!-- Footer (preserved) -->
-  <footer id="contact" class="ftr" style="background: var(--indigo-deep); color: var(--on-dark-muted); padding: 72px 0 28px;">
-    <div class="wrap" style="display: flex; flex-direction: column; gap: 44px;">
-      <div class="g3" style="gap: 40px;">
-        <div style="display: flex; flex-direction: column; gap: 16px;">
-          <span style="display: inline-flex; align-items: center; gap: 12px;"><img src="assets/uet-logo.png" alt="" style="width: 40px; height: 42px; object-fit: contain; background: #fff; border-radius: 10px; padding: 3px; box-sizing: border-box;"><span style="display: flex; flex-direction: column; line-height: 1.05;"><span style="font-family: var(--display); font-size: 20px; font-weight: 800; color: #fff;">Umalakshmi</span><span style="font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--marigold);">Educational Trust</span></span></span>
-          <p style="margin: 0; font-size: 15px; line-height: 1.65;">Uma Lakshmi Educational Trust, founded on 11 June 2022. In the memory of my beloved wife Uma Lakshmi, to spread her compassion towards educating poor children and share her love with future generations.</p>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px;">
-          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #fff;">Contact</span>
-          <span style="line-height: 1.65;">3A, Palazzo Apartment, Ram Kamal Building, Shasthiri Nagar First Street, Adyar, Chennai 600020</span>
-          <a href="tel:+919176189469">+91 9176189469</a>
-          <a href="mailto:umalakshmieducationaltrust@gmail.com">umalakshmieducationaltrust@gmail.com</a>
-          <a href="https://www.umalakshmitrust.com">www.umalakshmitrust.com</a>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px;">
-          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #fff;">Bank account details</span>
-          <span>Name : Umalakshmi Educational Trust</span>
-          <span>AC : 50200070075707</span>
-          <span>IFSC Code : HDFC0001866</span>
-          <span>HDFC Bank, Kasturibhai Nagar branch, Adayar, Chennai</span>
-          <span style="margin-top: 6px; font-size: 13px;">UPI ID : umalakshmitrust@hdfcbank</span>
-        </div>
-      </div>
-      <div style="border-top: 1px solid rgba(255,255,255,0.14); padding-top: 22px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px;">
-        <span style="display: inline-flex; gap: 20px;"><a href="privacy.html">Privacy Policy</a><a href="contact.html">Contact Us</a><a href="terms.html">Terms of Use</a></span>
-        <span>Copyright © Umalakshmi Trust. All Rights Reserved. · Developed by Subramanian</span>
-      </div>
-    </div>
-  </footer>
-
+<?php if ($flash && ($flash['type'] ?? '') === 'success'): ?>
+<div id="okmodal" role="dialog" aria-modal="true" aria-labelledby="okttl" style="position: fixed; inset: 0; z-index: 200; background: rgba(18,26,82,0.72); display: flex; align-items: center; justify-content: center; padding: 20px;">
+  <div style="background: #fff; border-radius: 28px; padding: 40px 36px; max-width: 480px; width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; box-shadow: 0 30px 80px rgba(20,22,51,0.35);">
+    <span style="width: 72px; height: 72px; border-radius: 999px; background: var(--marigold); display: inline-flex; align-items: center; justify-content: center;"><svg aria-hidden="true" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--marigold-ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+    <h2 id="okttl" style="font-size: 28px;">Message sent</h2>
+    <p style="margin: 0; font-size: 16px; line-height: 1.65; color: var(--ink);">Thank you, <strong><?= h($flash['name'] ?? '') ?></strong>. Your message has reached the trust and we will reply to <strong><?= h($flash['email'] ?? '') ?></strong> as soon as we can.</p>
+    <button type="button" class="btn btn-indigo" style="margin-top: 8px;" onclick="document.getElementById('okmodal').remove()">Close</button>
+  </div>
 </div>
-
-<div id="mmenu" class="mmenu" aria-hidden="true">
-  <div class="mm-top"><a href="index.html" class="mm-brand"><img src="assets/uet-logo.png" alt=""><span><b>Umalakshmi</b><small>Educational Trust</small></span></a><button type="button" class="burger mm-close" aria-label="Close menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-  <nav class="mm-nav" aria-label="Main">
-    <a href="index.html" data-page="index">Home<i></i></a><a href="about.html" data-page="about">About<i></i></a><a href="journey.html" data-page="journey">Our Journey<i></i></a><a href="donors.html" data-page="donors">Donors<i></i></a><a href="apply.html" data-page="apply">Apply<i></i></a><a href="financials.html" data-page="financials">Financials<i></i></a><a href="contact.html" data-page="contact">Contact<i></i></a>
-  </nav>
-  <div class="mm-bottom"><a href="donate.html" class="mm-donate">Donate Now</a><div class="mm-ci"><a href="tel:+919176189469">+91 9176189469</a><a href="mailto:umalakshmieducationaltrust@gmail.com">umalakshmieducationaltrust@gmail.com</a></div></div>
-</div>
+<?php endif; ?>
 <script>
-(function(){var m=document.getElementById('mmenu');var here=location.pathname.split('/').pop().replace('.html','')||'index';var cur=m.querySelector('[data-page="'+here+'"]');if(cur)cur.classList.add('on');
-function open(){m.classList.add('open');m.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
-function close(){m.classList.remove('open');m.setAttribute('aria-hidden','true');document.body.style.overflow='';}
-document.querySelectorAll('.burger:not(.mm-close)').forEach(function(b){b.addEventListener('click',open);});
-m.querySelector('.mm-close').addEventListener('click',close);document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});})();
+(function(){
+  var f=document.getElementById('msgform'), b=document.getElementById('sendbtn');
+  if(f&&b){ f.addEventListener('submit',function(){ if(!f.checkValidity||f.checkValidity()){ b.disabled=true; b.firstChild.textContent='Sending… '; } }); }
+  var e=document.getElementById('form-errors'); if(e){ e.scrollIntoView({block:'center'}); }
+  var m=document.getElementById('okmodal'); if(m){ document.addEventListener('keydown',function(ev){ if(ev.key==='Escape') m.remove(); }); }
+})();
 </script>
-
-</body>
-</html>
+<?php require __DIR__ . '/inc/footer.php'; ?>
