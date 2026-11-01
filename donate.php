@@ -9,6 +9,8 @@ require_once __DIR__ . '/inc/csrf.php';
 uet_session_start();
 $flash = $_SESSION['donate_flash'] ?? null;
 unset($_SESSION['donate_flash']);
+$old = $_SESSION['donate_old'] ?? null;
+unset($_SESSION['donate_old']);
 $upi_vpa   = (string) env('UPI_VPA', '');
 $upi_payee = (string) env('UPI_PAYEE', 'Umalakshmi Educational Trust');
 $don_min   = (int) env('DONATION_MIN', '10');
@@ -101,6 +103,7 @@ form.mc1{padding:24px !important}.card.pad32{padding:24px !important}.in{font-si
 </style>
 <style>html{scroll-behavior:smooth} *,*:before,*:after{box-sizing:border-box} img{max-width:100%}</style>
 <style>/* Donate: QR / app-button behaviour */#apps-note-desktop{display:block}#apps-note-mobile{display:none}@media (max-width:860px){#apps{order:-1}#apps-note-desktop{display:none}#apps-note-mobile{display:block}}@media (min-width:861px){#apps{display:none !important}}.upi-check{font-size:12px;line-height:1.6;color:var(--muted);text-align:center;background:var(--lilac);border-radius:12px;padding:8px 12px}.upi-check strong{color:var(--ink)}.ref-line{font-size:12px;color:var(--muted);letter-spacing:.04em}.qr-err{font-size:13px;color:var(--coral);font-weight:600;text-align:center}.app .dot{position:relative;overflow:hidden;width:64px;height:38px;border-radius:12px}.app .dot img{width:56px;height:28px;object-fit:contain;display:block}.app .dot img:not([hidden])+i{display:none}.app .dot i{font-style:normal}.payform .uplist{list-style:none;margin:6px 0 0;padding:0;font-size:13px}.payform .uplist li{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:6px 10px}.payform .uplist li span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.payform .uplist button{border:0;background:var(--coral-tint);color:var(--coral);border-radius:999px;width:22px;height:22px;cursor:pointer;font-weight:700;line-height:1}.payform .uperr{font-size:13px;color:var(--coral);font-weight:600}</style>
+<script src="assets/forms.js"></script>
 <?php require __DIR__ . '/inc/header.php'; ?>
     <section id="top" style="position: relative; color: #fff; padding: 56px 0 160px;">
       <div class="wrap" style="display: flex; flex-direction: column; gap: 18px; max-width: 980px;">
@@ -390,9 +393,16 @@ function makeQR(text) {
   if(shot){ var tile=document.querySelector('label[for="shot"]'); var wrap=document.createElement('div'); wrap.className='upwrap'; wrap.style.gridColumn='span 2'; tile.parentNode.insertBefore(wrap,tile); wrap.appendChild(tile); var list=document.createElement('ul'); list.className='uplist'; wrap.appendChild(list); var ue=document.createElement('div'); ue.className='uperr'; wrap.appendChild(ue);
     var maxMb=parseFloat(shot.getAttribute('data-max-mb'))||5;
     function renderShot(){ list.innerHTML=''; var fl=shot.files&&shot.files[0]; if(fl){ var li=document.createElement('li'); var sp=document.createElement('span'); sp.textContent=fl.name; var sm=document.createElement('small'); sm.textContent=(fl.size>=1048576?(fl.size/1048576).toFixed(1)+' MB':Math.max(1,Math.round(fl.size/1024))+' KB'); var b=document.createElement('button'); b.type='button'; b.textContent='×'; b.setAttribute('aria-label','Remove'); b.addEventListener('click',function(){ shot.value=''; renderShot(); }); li.appendChild(sp); li.appendChild(sm); li.appendChild(b); list.appendChild(li); } }
-    shot.addEventListener('change',function(){ ue.textContent=''; var fl=shot.files&&shot.files[0]; if(fl&&fl.size>maxMb*1048576){ ue.textContent='"'+fl.name+'" is too large. The screenshot must be under '+maxMb+' MB.'; shot.value=''; } renderShot(); }); }
+    shot.addEventListener('change',function(){ ue.textContent=''; var fl=shot.files&&shot.files[0]; if(!fl){ renderShot(); return; }
+      ue.textContent='Preparing file\u2026';
+      UET.compressImage(fl, 1600, 0.8).then(function(out){ ue.textContent='';
+        if(out.size>maxMb*1048576){ ue.textContent='"'+out.name+'" is too large. The screenshot must be under '+maxMb+' MB.'; shot.value=''; }
+        else if(out!==fl){ try{ var dt=new DataTransfer(); dt.items.add(out); shot.files=dt.files; }catch(e){} }
+        renderShot(); }); }); }
   if(f){ f.addEventListener('submit',function(ev){ var hasRef=document.getElementById('payref').value.trim()!==''; var hasShot=shot&&shot.files&&shot.files.length>0; if(!hasRef&&!hasShot){ ev.preventDefault(); alert('Please give the UPI / UTR reference or attach the payment screenshot.'); document.getElementById('payref').focus(); return; } if(pb){ pb.disabled=true; pb.textContent='Sending…'; } }); }
   var fe=document.getElementById('form-errors'); if(fe){ fe.scrollIntoView({block:'center'}); }
+<?php if ($old): ?>  UET.refill(document.getElementById('payform'), <?= json_encode($old, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE) ?>);
+<?php endif; ?>
   var mo=document.getElementById('okmodal'); if(mo){ document.addEventListener('keydown',function(ev){ if(ev.key==='Escape') mo.remove(); }); }
 })();
 </script>

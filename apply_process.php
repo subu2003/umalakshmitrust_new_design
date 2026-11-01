@@ -8,7 +8,7 @@
  *  4. Uploads moved to UPLOAD_DIR/applications/<ref_no>/ and recorded in `files`
  *  5. PDF copy of the form + documents (inc/pdf_application.php)
  *  6. Mail to the applicant and to the trust inbox, logged in `mail_log`
- *  7. Redirect back to apply.php with a one-shot flash (success popup / errors)
+ *  7. The redirect is sent BEFORE steps 5-6 (inc/respond.php) so the applicant is not kept waiting
  *
  * Never echoes applicant data. Mail or PDF problems are logged but do not lose
  * an application that is already stored.
@@ -22,6 +22,7 @@ require_once __DIR__ . '/inc/csrf.php';
 require_once __DIR__ . '/inc/upload.php';
 require_once __DIR__ . '/inc/mail.php';
 require_once __DIR__ . '/inc/pdf_application.php';
+require_once __DIR__ . '/inc/respond.php';
 
 uet_session_start();
 
@@ -34,6 +35,14 @@ function apply_redirect(array $flash, string $anchor = ''): never
 
 function apply_fail(array $errors): never
 {
+    // keep what was typed (not files, not the token) so the form can be refilled
+    $old = [];
+    foreach ($_POST as $k => $v) {
+        if (is_string($v) && !in_array($k, ['csrf_token', 'website'], true)) {
+            $old[$k] = mb_substr($v, 0, 2000);
+        }
+    }
+    $_SESSION['apply_old'] = $old;
     apply_redirect(['type' => 'error', 'errors' => $errors], '#applyform');
 }
 
@@ -163,7 +172,7 @@ if ($dobTs === false) {
 } else {
     $age = (int) date('Y') - (int) date('Y', $dobTs);
     if ($age < 3 || $age > 45) {
-        $errors[] = 'Date of birth does not look right (age ' . $age . ').';
+        $errors[] = 'Date of birth ' . date('d-m-Y', $dobTs) . ' does not look right (age ' . $age . '). Please check the year.';
     }
 }
 $standard = mb_substr($sel('standard'), 0, 40);
@@ -428,7 +437,15 @@ try {
 }
 
 // ---------------------------------------------------------------------------
-// 5. PDF copy
+// 5. Tell the applicant it is done, then build the PDF and send the mails in the background
+// ---------------------------------------------------------------------------
+
+$_SESSION['apply_flash'] = ['type' => 'success', 'ref' => $ref, 'email' => $email];
+unset($_SESSION['csrf_token']); // one token per submission
+respond_redirect_then_continue('apply.php');
+
+// ---------------------------------------------------------------------------
+// 6. PDF copy
 // ---------------------------------------------------------------------------
 
 $app = [
@@ -461,7 +478,7 @@ try {
 }
 
 // ---------------------------------------------------------------------------
-// 6. Mail
+// 7. Mail
 // ---------------------------------------------------------------------------
 
 $attachments = [];
@@ -500,9 +517,4 @@ if ($inboxes) {
     }
 }
 
-// ---------------------------------------------------------------------------
-// 7. Done
-// ---------------------------------------------------------------------------
-
-unset($_SESSION['csrf_token']); // one token per submission
-apply_redirect(['type' => 'success', 'ref' => $ref, 'email' => $email]);
+exit;

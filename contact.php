@@ -9,6 +9,8 @@ require_once __DIR__ . '/inc/csrf.php';
 uet_session_start();
 $flash = $_SESSION['contact_flash'] ?? null;
 unset($_SESSION['contact_flash']);
+$old = $_SESSION['contact_old'] ?? null;
+unset($_SESSION['contact_old']);
 require __DIR__ . '/inc/head.php';
 ?>
 <style>
@@ -88,6 +90,7 @@ a,span,strong,p{overflow-wrap:anywhere}
 .card.pad36{padding:24px 20px !important}.ci{gap:14px}.ci .ic{width:44px;height:44px;flex-basis:44px}}
 </style>
 <style>html{scroll-behavior:smooth} *,*:before,*:after{box-sizing:border-box} img{max-width:100%}</style>
+<script src="assets/forms.js"></script>
 <?php require __DIR__ . '/inc/header.php'; ?>
     <section id="top" style="position: relative; color: #fff; padding: 56px 0 160px;">
       <div class="wrap" style="display: flex; flex-direction: column; gap: 18px; max-width: 980px;">
@@ -158,6 +161,8 @@ a,span,strong,p{overflow-wrap:anywhere}
   var f=document.getElementById('msgform'), b=document.getElementById('sendbtn');
   if(f&&b){ f.addEventListener('submit',function(){ if(!f.checkValidity||f.checkValidity()){ b.disabled=true; b.firstChild.textContent='Sending… '; } }); }
   var e=document.getElementById('form-errors'); if(e){ e.scrollIntoView({block:'center'}); }
+<?php if ($old): ?>  UET.refill(f, <?= json_encode($old, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE) ?>);
+<?php endif; ?>
   var m=document.getElementById('okmodal'); if(m){ document.addEventListener('keydown',function(ev){ if(ev.key==='Escape') m.remove(); }); }
 })();
 </script>

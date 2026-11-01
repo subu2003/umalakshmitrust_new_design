@@ -62,4 +62,9 @@ Pages: `index` (home), `about`, `journey`, `donors`, `apply` (4-step aid applica
 - Done: `privacy.php`, `terms.php` (trust's own wording, shared layout). Every page is now PHP; `page_href()` simply
   returns the .php name and can be dropped in a later clean-up.
 - Not done: 80G receipt issuing, comments, admin area (steps 4 receipts, 6, 7); application status lookup.
+- Form plumbing shared by apply/contact/donate: `assets/forms.js` (browser-side image compression before upload,
+  refill of typed values after a server-side error), `inc/respond.php` (send the redirect first, then build the PDF
+  and send mail in the background). Old values travel via `$_SESSION['<form>_old']`.
 - Libraries are vendored under `lib/` (no Composer on the host). Deployment steps are in `README.md`.
+- Live: cPanel Git Version Control clones `main` into public_html; work happens on a version branch and `main` is
+  fast-forwarded to it. Host blocks outside SMTP: mail goes through the server's own mailbox (noreply@).

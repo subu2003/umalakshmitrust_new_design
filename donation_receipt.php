@@ -13,6 +13,7 @@ require_once __DIR__ . '/inc/db.php';
 require_once __DIR__ . '/inc/csrf.php';
 require_once __DIR__ . '/inc/upload.php';
 require_once __DIR__ . '/inc/mail.php';
+require_once __DIR__ . '/inc/respond.php';
 
 uet_session_start();
 
@@ -24,6 +25,13 @@ function don_redirect(array $flash): never
 }
 function don_fail(array $errors): never
 {
+    $old = [];
+    foreach ($_POST as $k => $v) {
+        if (is_string($v) && !in_array($k, ['csrf_token', 'website'], true)) {
+            $old[$k] = mb_substr($v, 0, 2000);
+        }
+    }
+    $_SESSION['donate_old'] = $old;
     don_redirect(['type' => 'error', 'errors' => $errors]);
 }
 
@@ -139,7 +147,11 @@ try {
     don_fail(['Your details could not be saved because of a server problem. Please WhatsApp them to +91 9176189469.']);
 }
 
-// ---- mail the trust
+// ---- thank the donor first, then mail the trust
+$_SESSION['donate_flash'] = ['type' => 'success', 'name' => $name, 'email' => $email, 'amount' => number_format($amount)];
+unset($_SESSION['csrf_token']);
+respond_redirect_then_continue('donate.php#thanks');
+
 $inboxes = trust_inboxes();
 if ($inboxes) {
     $subj = 'Donation reported: ' . "\u{20B9}" . number_format($amount) . ' by ' . $name . ($intentRef !== '' ? ' (' . $intentRef . ')' : '');
@@ -161,5 +173,4 @@ if ($inboxes) {
     }
 }
 
-unset($_SESSION['csrf_token']);
-don_redirect(['type' => 'success', 'name' => $name, 'email' => $email, 'amount' => number_format($amount)]);
+exit;

@@ -12,6 +12,8 @@ uet_session_start();
 // One-shot message from apply_process.php (success popup or validation errors)
 $flash = $_SESSION['apply_flash'] ?? null;
 unset($_SESSION['apply_flash']);
+$old = $_SESSION['apply_old'] ?? null;   // field values from a submission that failed validation
+unset($_SESSION['apply_old']);
 $maxPhotoMb = (float) env('MAX_PHOTO_MB', '2');
 $maxDocMb   = (float) env('MAX_DOC_MB', '5');
 require __DIR__ . '/inc/head.php';
@@ -111,6 +113,7 @@ a,span,strong,p{overflow-wrap:anywhere}
 .up.up-photo.has-file{position:relative;padding:0 !important;overflow:hidden}.up.up-photo.has-file img.up-prev{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.up.up-photo.has-file svg,.up.up-photo.has-file strong,.up.up-photo.has-file .up-sub{display:none}.up.up-photo .up-ok{display:none}.up.up-photo.has-file .up-ok{display:block;position:absolute;left:0;right:0;bottom:0;background:rgba(30,42,120,.86);color:#fff;font-size:12px;font-weight:700;padding:7px 10px;text-align:center}
 .upwrap{display:flex;flex-direction:column;gap:6px;min-width:0}.uplist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--ink)}.uplist li{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:6px 10px}.uplist li span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.uplist li small{color:var(--muted);white-space:nowrap}.uplist button{border:0;background:var(--coral-tint);color:var(--coral);border-radius:999px;width:22px;height:22px;cursor:pointer;font-weight:700;line-height:1;flex:0 0 22px}.uperr{font-size:13px;color:var(--coral);font-weight:600}
 @media (max-width:860px){.up.up-photo{width:100%;max-width:220px;min-height:0}}</style>
+<script src="assets/forms.js"></script>
 <?php require __DIR__ . '/inc/header.php'; ?>
     <section id="top" style="position: relative; color: #fff; padding: 56px 0 160px;">
       <div class="wrap" style="display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-end; justify-content: space-between;">
@@ -167,7 +170,7 @@ a,span,strong,p{overflow-wrap:anywhere}
             <div class="f"><label for="name">Full name (in capitals) <span class="ta">பெயர்</span> <span class="req">*</span></label><input class="in" id="name" name="name" type="text" placeholder="AS IN SCHOOL RECORDS" required></div>
             <div class="row">
               <div class="f"><label>Gender <span class="ta">பாலினம்</span> <span class="req">*</span></label><div style="display: flex; gap: 10px; flex-wrap: wrap;"><label class="chk"><input type="radio" name="gender" value="male" required>Male <span class="ta">ஆண்</span></label><label class="chk"><input type="radio" name="gender" value="female">Female <span class="ta">பெண்</span></label></div></div>
-              <div class="f"><label for="dob">Date of birth <span class="ta">பிறந்த தேதி</span> <span class="req">*</span></label><input class="in" id="dob" name="dob" type="date" required></div>
+              <div class="f"><label for="dob">Date of birth <span class="ta">பிறந்த தேதி</span> <span class="req">*</span></label><input class="in" id="dob" name="dob" type="date" min="<?= date('Y-m-d', strtotime('-45 years')) ?>" max="<?= date('Y-m-d', strtotime('-3 years')) ?>" required></div>
             </div>
             <div class="row">
               <div class="f"><label for="std">Standard / Year of study <span class="ta">வகுப்பு</span> <span class="req">*</span></label><select class="in" id="std" name="standard" required><option value="">Select…</option><option>Std 6</option><option>Std 7</option><option>Std 8</option><option>Std 9</option><option>Std 10</option><option>Std 11</option><option>Std 12</option><option>College — Year 1</option><option>College — Year 2</option><option>College — Year 3</option><option>College — Year 4</option></select></div>
@@ -228,8 +231,8 @@ a,span,strong,p{overflow-wrap:anywhere}
               <tr><td><input class="in" type="text" name="sub1" placeholder="Subject 1" aria-label="Subject 1" required></td><td><input class="in" type="number" name="q1" aria-label="Quarterly 1" min="0" max="100" required></td><td><input class="in" type="number" name="h1" aria-label="Half-yearly 1" min="0" max="100" required></td><td><input class="in" type="number" name="a1" aria-label="Annual 1" min="0" max="100" required></td></tr>
               <tr><td><input class="in" type="text" name="sub2" placeholder="Subject 2" aria-label="Subject 2" required></td><td><input class="in" type="number" name="q2" aria-label="Quarterly 2" min="0" max="100" required></td><td><input class="in" type="number" name="h2" aria-label="Half-yearly 2" min="0" max="100" required></td><td><input class="in" type="number" name="a2" aria-label="Annual 2" min="0" max="100" required></td></tr>
               <tr><td><input class="in" type="text" name="sub3" placeholder="Subject 3" aria-label="Subject 3" required></td><td><input class="in" type="number" name="q3" aria-label="Quarterly 3" min="0" max="100" required></td><td><input class="in" type="number" name="h3" aria-label="Half-yearly 3" min="0" max="100" required></td><td><input class="in" type="number" name="a3" aria-label="Annual 3" min="0" max="100" required></td></tr>
-              <tr><td><input class="in" type="text" name="sub4" placeholder="Subject 4" aria-label="Subject 4"></td><td><input class="in" type="number" name="q4" aria-label="Quarterly 4"></td><td><input class="in" type="number" name="h4" aria-label="Half-yearly 4"></td><td><input class="in" type="number" name="a4" aria-label="Annual 4"></td></tr>
-              <tr><td><input class="in" type="text" name="sub5" placeholder="Subject 5" aria-label="Subject 5"></td><td><input class="in" type="number" name="q5" aria-label="Quarterly 5"></td><td><input class="in" type="number" name="h5" aria-label="Half-yearly 5"></td><td><input class="in" type="number" name="a5" aria-label="Annual 5"></td></tr>
+              <tr><td><input class="in" type="text" name="sub4" placeholder="Subject 4" aria-label="Subject 4"></td><td><input class="in" type="number" name="q4" min="0" max="100" aria-label="Quarterly 4"></td><td><input class="in" type="number" name="h4" min="0" max="100" aria-label="Half-yearly 4"></td><td><input class="in" type="number" name="a4" min="0" max="100" aria-label="Annual 4"></td></tr>
+              <tr><td><input class="in" type="text" name="sub5" placeholder="Subject 5" aria-label="Subject 5"></td><td><input class="in" type="number" name="q5" min="0" max="100" aria-label="Quarterly 5"></td><td><input class="in" type="number" name="h5" min="0" max="100" aria-label="Half-yearly 5"></td><td><input class="in" type="number" name="a5" min="0" max="100" aria-label="Annual 5"></td></tr>
               <tr><td><strong style="padding: 0 12px;">Total % <span class="ta">மொத்தம்</span> <span class="req">*</span></strong></td><td><input class="in" type="number" name="qt" aria-label="Quarterly total" min="0" max="100" required style="background: var(--cream);"></td><td><input class="in" type="number" name="ht" aria-label="Half-yearly total" min="0" max="100" required style="background: var(--cream);"></td><td><input class="in" type="number" name="at" aria-label="Annual total" min="0" max="100" required style="background: var(--cream);"></td></tr>
             </tbody>
           </table>
@@ -326,6 +329,8 @@ a,span,strong,p{overflow-wrap:anywhere}
   var f=document.getElementById('applyform'), b=document.getElementById('submitbtn');
   if(f&&b){ f.addEventListener('submit',function(){ if(!f.checkValidity||f.checkValidity()){ b.disabled=true; b.firstChild.textContent='Submitting… '; } }); }
   var e=document.getElementById('form-errors'); if(e){ e.scrollIntoView({block:'center'}); }
+<?php if ($old): ?>  UET.refill(f, <?= json_encode($old, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE) ?>);
+<?php endif; ?>
   var m=document.getElementById('okmodal'); if(m){ document.addEventListener('keydown',function(ev){ if(ev.key==='Escape') m.remove(); }); }
   // Upload tiles: validate size/count, show previews and file lists, allow removing a file
   var MB=1048576, TOTAL_MAX_MB=40;
@@ -352,16 +357,24 @@ a,span,strong,p{overflow-wrap:anywhere}
     function setFiles(files){ try{ var dt=new DataTransfer(); files.forEach(function(f){ dt.items.add(f); }); inp.files=dt.files; }catch(e){ if(!files.length) inp.value=''; } }
     inp.addEventListener('change',function(){
       err.textContent='';
-      var picked=[].slice.call(inp.files||[]), files=picked, bad='';
-      if(maxFiles>1){
-        files=kept.slice();
-        picked.forEach(function(f){ var dup=files.some(function(k){ return k.name===f.name&&k.size===f.size; }); if(!dup) files.push(f); });
-      }
-      if(files.length>maxFiles) bad='You can attach at most '+maxFiles+' files. Remove one before adding another.';
-      files.forEach(function(f){ if(!bad && f.size>maxMb*MB) bad='"'+f.name+'" is '+fmt(f.size)+'. Each file must be under '+maxMb+' MB.'; });
-      if(bad){ err.textContent=bad; files=(maxFiles>1)?kept.slice():[]; }
-      if(maxFiles>1){ kept=files; setFiles(files); } else if(bad){ inp.value=''; }
-      render();
+      var raw=[].slice.call(inp.files||[]);
+      if(!raw.length){ if(maxFiles>1){ setFiles(kept); } render(); return; }
+      err.textContent=raw.length>1?'Preparing files\u2026':'Preparing file\u2026';
+      // shrink photos/scans in the browser: faster upload, smaller PDF, less storage
+      Promise.all(raw.map(function(f){ return UET.compressImage(f, isPhoto?1200:1600, isPhoto?0.85:0.8); })).then(function(picked){
+        err.textContent='';
+        var files=picked, bad='';
+        if(maxFiles>1){
+          files=kept.slice();
+          picked.forEach(function(f){ var dup=files.some(function(k){ return k.name===f.name&&k.size===f.size; }); if(!dup) files.push(f); });
+        }
+        if(files.length>maxFiles) bad='You can attach at most '+maxFiles+' files. Remove one before adding another.';
+        files.forEach(function(f){ if(!bad && f.size>maxMb*MB) bad='"'+f.name+'" is '+fmt(f.size)+'. Each file must be under '+maxMb+' MB.'; });
+        if(bad){ err.textContent=bad; files=(maxFiles>1)?kept.slice():[]; }
+        if(maxFiles>1){ kept=files; }
+        setFiles(files);
+        render();
+      });
     });
     if(list){ list.addEventListener('click',function(ev){ var b=ev.target.closest('button[data-i]'); if(!b) return; var i=parseInt(b.getAttribute('data-i'),10);
       var rest=[].filter.call(inp.files,function(f,j){ return j!==i; }); if(maxFiles>1) kept=rest; setFiles(rest); err.textContent=''; render(); }); }

@@ -11,6 +11,7 @@ require_once __DIR__ . '/inc/config.php';
 require_once __DIR__ . '/inc/db.php';
 require_once __DIR__ . '/inc/csrf.php';
 require_once __DIR__ . '/inc/mail.php';
+require_once __DIR__ . '/inc/respond.php';
 
 uet_session_start();
 
@@ -23,6 +24,13 @@ function contact_redirect(array $flash): never
 
 function contact_fail(array $errors): never
 {
+    $old = [];
+    foreach ($_POST as $k => $v) {
+        if (is_string($v) && !in_array($k, ['csrf_token', 'website'], true)) {
+            $old[$k] = mb_substr($v, 0, 5000);
+        }
+    }
+    $_SESSION['contact_old'] = $old;
     contact_redirect(['type' => 'error', 'errors' => $errors]);
 }
 
@@ -92,7 +100,11 @@ try {
     contact_fail(['The message could not be saved because of a server problem. Please WhatsApp +91 9176189469 instead.']);
 }
 
-// ---- mail the trust
+// ---- confirm to the visitor first, then mail the trust
+$_SESSION['contact_flash'] = ['type' => 'success', 'name' => $name, 'email' => $email];
+unset($_SESSION['csrf_token']);
+respond_redirect_then_continue('contact.php#msgform');
+
 $inboxes = trust_inboxes();
 if ($inboxes) {
     $subj = 'Website message: ' . ($subject !== '' ? $subject : 'General enquiry') . ' - ' . $name;
@@ -109,5 +121,4 @@ if ($inboxes) {
     }
 }
 
-unset($_SESSION['csrf_token']);
-contact_redirect(['type' => 'success', 'name' => $name, 'email' => $email]);
+exit;
