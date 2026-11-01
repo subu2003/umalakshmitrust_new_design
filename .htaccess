@@ -30,6 +30,10 @@ RedirectMatch 403 ^/(inc|sql|storage|lib|mail)(/|$)
   RewriteRule ^apply\.html$        /apply.php   [R=301,L]
   RewriteRule ^financials\.html$   /financials.php [R=301,L]
   RewriteRule ^contact\.html$      /contact.php [R=301,L]
+  RewriteRule ^donate\.html$       /donate.php  [R=301,L]
+  RewriteRule ^privacy\.html$      /privacy.php [R=301,L]
+  RewriteRule ^terms\.html$        /terms.php   [R=301,L]
+  RewriteRule ^term\.php$          /terms.php   [R=301,L]
 </IfModule>
 
 # Sensible defaults
@@ -38,4 +42,7 @@ AddDefaultCharset UTF-8
   Header always set X-Content-Type-Options "nosniff"
   Header always set X-Frame-Options "SAMEORIGIN"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+  # Only our own scripts/styles plus Google Fonts may load; no third-party scripts can alter the UPI QR code.
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'self'; form-action 'self'; base-uri 'self'; object-src 'none'"
 </IfModule>

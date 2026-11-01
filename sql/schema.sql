@@ -128,6 +128,34 @@ CREATE TABLE IF NOT EXISTS files (
   KEY idx_owner (owner_type, owner_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Donations (donate.php). Each QR code carries a signed reference (UET-D-<date>-<random>, shown in the UPI note);
+-- nothing is stored until the donor fills "After you pay", which creates a row here.
+CREATE TABLE IF NOT EXISTS donations (
+  id              INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  intent_ref      VARCHAR(30)  NULL,                    -- QR reference (signed, from the page), when the donor paid via the QR
+  name            VARCHAR(120) NOT NULL,
+  phone           VARCHAR(20)  NOT NULL DEFAULT '',
+  email           VARCHAR(190) NOT NULL DEFAULT '',
+  pan             VARCHAR(10)  NOT NULL DEFAULT '',
+  address         TEXT         NULL,
+  amount          DECIMAL(10,2) NOT NULL,               -- amount the donor reports
+  txn_ref         VARCHAR(60)  NOT NULL DEFAULT '',     -- UPI / UTR reference typed by the donor
+  paid_on         DATE         NULL,
+  mode            ENUM('upi','bank','cheque') NOT NULL DEFAULT 'upi',
+  list_on_site    TINYINT(1)   NOT NULL DEFAULT 0,
+  screenshot_file_id INT UNSIGNED NULL,
+  status          ENUM('pending','verified','receipted','rejected') NOT NULL DEFAULT 'pending',
+  receipt_no      VARCHAR(30)  NULL,                    -- 80G/2026-27/0001
+  receipt_sent_at DATETIME     NULL,
+  notes           TEXT         NULL,
+  ip              VARCHAR(45)  NOT NULL DEFAULT '',
+  created_at      DATETIME     NOT NULL,
+  PRIMARY KEY (id),
+  KEY idx_status (status),
+  KEY idx_intent (intent_ref),
+  KEY idx_created (created_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- Messages from the contact form (contact.php → form_process.php). Mailed to TRUST_INBOX as well.
 CREATE TABLE IF NOT EXISTS contact_messages (
   id              INT UNSIGNED NOT NULL AUTO_INCREMENT,

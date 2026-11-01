@@ -1,12 +1,22 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Umalakshmi Educational Trust — Donate</title>
-<link rel="icon" href="assets/uet-logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&amp;display=swap" rel="stylesheet">
+<?php
+// Donate page. Shared layout lives in inc/ (head → page CSS → header → content → footer). Header sits in the indigo band;
+// inc/header.php opens the band and this page closes it with </div> after the intro section.
+// The UPI QR code is generated in the browser (script at the bottom, passed to the footer as $page_scripts).
+$page        = 'donate';
+$page_title  = 'Donate';
+$header_band = true;
+require_once __DIR__ . '/inc/csrf.php';
+uet_session_start();
+$flash = $_SESSION['donate_flash'] ?? null;
+unset($_SESSION['donate_flash']);
+$upi_vpa   = (string) env('UPI_VPA', '');
+$upi_payee = (string) env('UPI_PAYEE', 'Umalakshmi Educational Trust');
+$don_min   = (int) env('DONATION_MIN', '10');
+$don_max   = (int) env('DONATION_MAX', '100000');
+$qr_valid  = (int) env('QR_VALID_SECONDS', '180');
+$maxDocMb  = (float) env('MAX_DOC_MB', '5');
+require __DIR__ . '/inc/head.php';
+?>
 <style>
 :root{
   --bg:#FFFFFF; --ink:#141633; --muted:#5B5E7A; --line:#E6E7F2;
@@ -90,34 +100,8 @@ a,span,strong,p{overflow-wrap:anywhere}
 form.mc1{padding:24px !important}.card.pad32{padding:24px !important}.in{font-size:26px}.row .v{font-size:15px}.copy{padding:6px 10px}}
 </style>
 <style>html{scroll-behavior:smooth} *,*:before,*:after{box-sizing:border-box} img{max-width:100%}</style>
-</head>
-<body>
-<div style="font-family: var(--body); color: var(--ink); background: var(--bg); width: 100%; box-sizing: border-box; line-height: 1.55;">
-
-  <!-- Header on indigo -->
-  <div style="background: var(--indigo); position: relative; overflow: hidden;">
-    <div style="position: absolute; right: -160px; top: -200px; width: 560px; height: 560px; border-radius: 999px; border: 56px solid rgba(255,255,255,0.05);"></div>
-    <header style="position: relative; z-index: 2;">
-      <div class="wrap hdr-row" style="display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 112px; flex-wrap: wrap; padding-top: 16px; padding-bottom: 16px;">
-        <a href="index.html" style="display: inline-flex; align-items: center; gap: 12px; color: #fff;">
-          <img class="brand-logo" src="assets/uet-logo.png" alt="Umalakshmi Educational Trust logo" style="width: 80px; height: 82px; object-fit: contain; background: #fff; border-radius: 18px; padding: 6px; box-sizing: border-box; box-shadow: 0 8px 24px rgba(0,0,0,0.25);">
-          <span style="display: flex; flex-direction: column; line-height: 1.02;">
-            <span class="brand-name" style="font-family: var(--display); font-size: 40px; font-weight: 800; letter-spacing: -0.02em;">Umalakshmi</span>
-            <span class="brand-sub" style="font-size: 17px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--marigold);">Educational Trust</span>
-          </span>
-        </a>
-        <nav class="nav" aria-label="Main" style="display: flex; align-items: center; gap: 2px; background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 6px;">
-          <a href="index.html">Home</a>
-          <a href="about.html">About</a>
-          <a href="journey.html">Our Journey</a>
-          <a href="donors.html">Donors</a>
-          <a href="apply.html">Apply</a>
-          <a href="financials.html">Financials</a>
-          <a href="contact.html">Contact</a>
-        </nav>
-        <div style="display: flex; align-items: center; gap: 10px;"><a href="donate.html" class="btn btn-marigold hdr-donate" style="min-height: 50px; padding: 12px 24px; font-size: 15px;">Donate<span class="lbl-full">&nbsp;Now</span></a><button type="button" class="burger" aria-label="Open menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div>
-      </div>
-    </header>
+<style>/* Donate: QR / app-button behaviour */#apps-note-desktop{display:block}#apps-note-mobile{display:none}@media (max-width:860px){#apps{order:-1}#apps-note-desktop{display:none}#apps-note-mobile{display:block}}@media (min-width:861px){#apps{display:none !important}}.upi-check{font-size:12px;line-height:1.6;color:var(--muted);text-align:center;background:var(--lilac);border-radius:12px;padding:8px 12px}.upi-check strong{color:var(--ink)}.ref-line{font-size:12px;color:var(--muted);letter-spacing:.04em}.qr-err{font-size:13px;color:var(--coral);font-weight:600;text-align:center}.app .dot{position:relative;overflow:hidden;width:64px;height:38px;border-radius:12px}.app .dot img{width:56px;height:28px;object-fit:contain;display:block}.app .dot img:not([hidden])+i{display:none}.app .dot i{font-style:normal}.payform .uplist{list-style:none;margin:6px 0 0;padding:0;font-size:13px}.payform .uplist li{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:6px 10px}.payform .uplist li span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.payform .uplist button{border:0;background:var(--coral-tint);color:var(--coral);border-radius:999px;width:22px;height:22px;cursor:pointer;font-weight:700;line-height:1}.payform .uperr{font-size:13px;color:var(--coral);font-weight:600}</style>
+<?php require __DIR__ . '/inc/header.php'; ?>
     <section id="top" style="position: relative; color: #fff; padding: 56px 0 160px;">
       <div class="wrap" style="display: flex; flex-direction: column; gap: 18px; max-width: 980px;">
         <span style="font-family: var(--display); font-size: 18px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: var(--marigold);">Donate Now</span>
@@ -130,7 +114,7 @@ form.mc1{padding:24px !important}.card.pad32{padding:24px !important}.in{font-si
   <!-- Three ways to give -->
   <section style="position: relative; margin-top: -96px; padding-bottom: 96px;">
     <div class="wrap">
-      <div class="mc1" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 1fr); gap: 24px; align-items: start;">
+      <div class="mc1" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 24px; align-items: start;">
 
         <!-- Bank details -->
         <div class="card pad32" style="padding: 32px; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 24px 60px rgba(20,22,51,0.10);">
@@ -140,16 +124,16 @@ form.mc1{padding:24px !important}.card.pad32{padding:24px !important}.in{font-si
           <div class="row"><span><span class="k">Account number</span><br><span class="v">50200070075707</span></span><button type="button" class="copy" data-copy="50200070075707">Copy</button></div>
           <div class="row"><span><span class="k">IFSC code</span><br><span class="v">HDFC0001866</span></span><button type="button" class="copy" data-copy="HDFC0001866">Copy</button></div>
           <div class="row" style="border-bottom: 0;"><span><span class="k">Bank &amp; branch</span><br><span class="v" style="font-size: 15px;">HDFC Bank, Kasturibai Nagar, Adyar, Chennai</span></span></div>
-          <p style="margin: 10px 0 0; font-size: 13px; line-height: 1.6; color: var(--muted);">Cheques may be drawn in favour of <strong>Umalakshmi Educational Trust</strong> and posted to the address in the footer.</p>
         </div>
 
         <!-- UPI with dynamic QR -->
         <div class="card pad32" style="padding: 32px; display: flex; flex-direction: column; gap: 18px; border: 2px solid var(--marigold); box-shadow: 0 24px 60px rgba(61,43,0,0.12);">
-          <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;"><span class="tag" style="background: var(--marigold); color: var(--marigold-ink);">UPI · Instant</span><span style="font-size: 13px; color: var(--muted);">UPI ID: <strong style="color: var(--ink);">umalakshmitrust@hdfcbank</strong></span></div>
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;"><span class="tag" style="background: var(--marigold); color: var(--marigold-ink);">UPI · Instant</span><span style="font-size: 13px; color: var(--muted);">UPI ID: <strong style="color: var(--ink);"><?= h($upi_vpa) ?></strong></span></div>
           <h2 style="font-size: 26px;">Enter an amount to generate your QR</h2>
           <div style="position: relative;">
             <span style="position: absolute; left: 18px; top: 50%; transform: translateY(-50%); font-family: var(--display); font-weight: 800; font-size: 28px; color: var(--muted);">₹</span>
-            <input class="in" type="number" min="1" step="1" inputmode="numeric" aria-label="Donation amount in rupees" placeholder="0" id="amt">
+            <input class="in" type="number" min="<?= $don_min ?>" max="<?= $don_max ?>" step="1" inputmode="numeric" aria-label="Donation amount in rupees" placeholder="0" id="amt">
+          <div id="qrerr" class="qr-err" hidden></div>
           </div>
           <div style="display: flex; gap: 8px; flex-wrap: wrap;">
             <button type="button" class="preset" data-amt="500">₹ 500</button><button type="button" class="preset" data-amt="1000">₹ 1,000</button><button type="button" class="preset" data-amt="5000">₹ 5,000</button><button type="button" class="preset" data-amt="10000">₹ 10,000</button>
@@ -168,13 +152,16 @@ form.mc1{padding:24px !important}.card.pad32{padding:24px !important}.in{font-si
                 <svg role="img" id="qrsvg" aria-label="UPI QR code" width="208" height="208" viewBox="0 0 21 21" shape-rendering="crispEdges"><rect x="0" y="0" id="qrbg" width="21" height="21" fill="#ffffff"></rect><path id="qrpath" d="" fill="#141633"></path></svg>
               </div>
               <span style="font-family: var(--display); font-weight: 800; font-size: 24px; color: var(--ink);">Pay ₹<span id="amtPretty"></span></span>
-              <span style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--marigold-ink); background: var(--cream); padding: 6px 14px; border-radius: 999px;"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>QR valid for <span id="remain">10:00</span></span>
-              <span style="font-size: 13px; color: var(--muted); text-align: center;">Scan with any UPI app, or tap an app below on your phone</span>
-              <div class="mc2" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; width: 100%;">
-                <a href="#" id="lnk-gpay" class="app"><span class="dot" style="background: var(--lilac); color: var(--indigo);">G</span>Google Pay</a>
-                <a href="#" id="lnk-phonepe" class="app"><span class="dot" style="background: var(--lilac); color: var(--indigo);">Pe</span>PhonePe</a>
-                <a href="#" id="lnk-paytm" class="app"><span class="dot" style="background: var(--lilac); color: var(--indigo);">Pt</span>Paytm</a>
-                <a href="#" id="lnk-upi" class="app"><span class="dot" style="background: var(--lilac); color: var(--indigo);">B</span>BHIM / other</a>
+              <span style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--marigold-ink); background: var(--cream); padding: 6px 14px; border-radius: 999px;"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>QR valid for <span id="remain">03:00</span></span>
+              <span class="ref-line">Reference <strong id="refShow"></strong></span>
+              <span id="apps-note-desktop" style="font-size: 13px; color: var(--muted); text-align: center;">Scan with any UPI app on your phone</span>
+              <span id="apps-note-mobile" style="font-size: 13px; color: var(--muted); text-align: center;">Tap your app to pay, or scan the QR from another phone</span>
+              <span class="upi-check">Before you confirm the payment, check that your app shows the UPI ID <strong><?= h($upi_vpa) ?></strong> and the name registered to it.</span>
+              <div id="apps" class="mc2" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; width: 100%;">
+                <a href="#" id="lnk-gpay" class="app"><span class="dot" style="background: #fff; color: var(--indigo); border: 1px solid var(--line);"><img src="assets/upi/gpay.png" alt="" width="56" height="28" loading="lazy" onerror="this.hidden=true"><i>G</i></span>Google Pay</a>
+                <a href="#" id="lnk-phonepe" class="app"><span class="dot" style="background: #fff; color: var(--indigo); border: 1px solid var(--line);"><img src="assets/upi/phonepe.png" alt="" width="56" height="28" loading="lazy" onerror="this.hidden=true"><i>Pe</i></span>PhonePe</a>
+                <a href="#" id="lnk-paytm" class="app"><span class="dot" style="background: #fff; color: var(--indigo); border: 1px solid var(--line);"><img src="assets/upi/paytm.svg" alt="" width="56" height="28" loading="lazy" onerror="this.hidden=true"><i>Pt</i></span>Paytm</a>
+                <a href="#" id="lnk-upi" class="app"><span class="dot" style="background: #fff; color: var(--indigo); border: 1px solid var(--line);"><img src="assets/upi/upi.svg" alt="" width="56" height="28" loading="lazy" onerror="this.hidden=true"><i>B</i></span>BHIM / other</a>
               </div>
               <button type="button" class="copy" data-act="reset" style="margin-top: 4px;">Change amount</button>
             </div>
@@ -186,21 +173,10 @@ form.mc1{padding:24px !important}.card.pad32{padding:24px !important}.in{font-si
               <button type="button" class="btn btn-indigo" style="width: 100%;" data-act="generate">Generate a new QR code</button>
             </div>
           </div>
-          <p style="margin: 0; font-size: 12px; line-height: 1.6; color: var(--muted); text-align: center;">Each QR code is valid for 10 minutes. Payments go straight to the trust's HDFC account.</p>
+          <p style="margin: 0; font-size: 12px; line-height: 1.6; color: var(--muted); text-align: center;">Each QR code is valid for <?= (int) round($qr_valid / 60) ?> minutes. Payments go straight to the trust's account.</p>
+          <div style="border-top: 1px solid var(--line); padding-top: 14px; display: flex; gap: 12px; align-items: flex-start;"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--indigo)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 24px;"><path d="M9 12l2 2 4-4"></path><path d="M12 2l7 4v6c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6z"></path></svg><span style="font-size: 13px; line-height: 1.6; color: var(--muted);"><strong style="color: var(--ink);">80G tax benefit.</strong> Permanently approved under Section 80G (AAATU1234KF20251).</span></div>
         </div>
 
-        <!-- What your gift does -->
-        <div class="card pad32" style="padding: 32px; display: flex; flex-direction: column; gap: 14px; background: var(--cream); border: 0; box-shadow: 0 24px 60px rgba(61,43,0,0.08);">
-          <span class="tag" style="background: #fff; color: var(--marigold-ink); align-self: flex-start;">What your gift does</span>
-          <h2 style="font-size: 26px; margin-top: 6px;">Suggested sponsorships</h2>
-          <div style="display: flex; flex-direction: column; gap: 10px;">
-            <div style="background: #fff; border-radius: 16px; padding: 16px 18px; display: flex; justify-content: space-between; align-items: center; gap: 12px;"><span><strong style="display: block; font-size: 15px;">Study materials for one child</strong><span style="font-size: 13px; color: var(--muted);">Notebooks and stationery for a year</span></span><span style="font-family: var(--display); font-weight: 800; font-size: 20px; color: var(--indigo); white-space: nowrap;">₹ 1,000</span></div>
-            <div style="background: #fff; border-radius: 16px; padding: 16px 18px; display: flex; justify-content: space-between; align-items: center; gap: 12px;"><span><strong style="display: block; font-size: 15px;">One year of school fees</strong><span style="font-size: 13px; color: var(--muted);">For a student in a government-aided school</span></span><span style="font-family: var(--display); font-weight: 800; font-size: 20px; color: var(--indigo); white-space: nowrap;">₹ 5,000</span></div>
-            <div style="background: #fff; border-radius: 16px; padding: 16px 18px; display: flex; justify-content: space-between; align-items: center; gap: 12px;"><span><strong style="display: block; font-size: 15px;">One year of college fees</strong><span style="font-size: 13px; color: var(--muted);">For a first-generation college student</span></span><span style="font-family: var(--display); font-weight: 800; font-size: 20px; color: var(--indigo); white-space: nowrap;">₹ 10,000</span></div>
-          </div>
-          <p style="margin: 6px 0 0; font-size: 13px; line-height: 1.6; color: var(--muted);">Amounts are indicative — any contribution helps. [Trustees to confirm figures.]</p>
-          <div style="border-top: 1px solid rgba(61,43,0,0.12); padding-top: 14px; display: flex; gap: 12px; align-items: flex-start;"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--marigold-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 24px;"><path d="M9 12l2 2 4-4"></path><path d="M12 2l7 4v6c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6z"></path></svg><span style="font-size: 13px; line-height: 1.6; color: var(--marigold-ink);"><strong>80G tax benefit.</strong> Permanently approved under Section 80G (AAATU1234KF20251). Cash donations above ₹2,000 are not eligible — please give by UPI, bank transfer or cheque.</span></div>
-        </div>
       </div>
     </div>
   </section>
@@ -214,68 +190,43 @@ form.mc1{padding:24px !important}.card.pad32{padding:24px !important}.in{font-si
         <p style="margin: 0; font-size: 16px; line-height: 1.7; color: var(--muted);">Share your details so we can send your 80G receipt and, if you wish, list you among our donors. We never publish amounts.</p>
         <div style="display: flex; gap: 12px; align-items: center; margin-top: 8px; font-size: 14px; color: var(--muted);"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>Receipts are issued within 7 working days.</div>
       </div>
-      <form class="mc1" style="flex: 1 1 560px; min-width: 0; background: #fff; border-radius: 28px; padding: 36px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px;" onsubmit="alert('This is a static preview — form submission will be wired up on the live site.'); return false;">
-        <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700;">Full name<input type="text" name="name" style="min-height: 50px; padding: 12px 16px; border: 1.5px solid var(--line); border-radius: 14px; font-family: var(--body); font-size: 15px;"></label>
-        <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700;">Mobile / WhatsApp<input type="tel" name="phone" style="min-height: 50px; padding: 12px 16px; border: 1.5px solid var(--line); border-radius: 14px; font-family: var(--body); font-size: 15px;"></label>
-        <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700;">Email<input type="email" name="email" style="min-height: 50px; padding: 12px 16px; border: 1.5px solid var(--line); border-radius: 14px; font-family: var(--body); font-size: 15px;"></label>
-        <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700;">PAN (for 80G receipt)<input type="text" name="pan" placeholder="ABCDE1234F" style="min-height: 50px; padding: 12px 16px; border: 1.5px solid var(--line); border-radius: 14px; font-family: var(--body); font-size: 15px; text-transform: uppercase;"></label>
+      <form id="payform" class="mc1 payform" style="flex: 1 1 560px; min-width: 0; background: #fff; border-radius: 28px; padding: 36px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px;" action="donation_receipt.php" method="post" enctype="multipart/form-data">
+        <?= csrf_field() ?>
+        <input type="hidden" name="intent_ref" id="intent_ref" value=""><input type="hidden" name="intent_amount" id="intent_amount" value=""><input type="hidden" name="intent_sig" id="intent_sig" value="">
+        <div style="position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden;" aria-hidden="true"><label>Leave this field empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+<?php if ($flash && ($flash['type'] ?? '') === 'error'): ?>
+        <div id="form-errors" role="alert" style="grid-column: span 2; background: var(--coral-tint); border: 1.5px solid var(--coral); border-radius: 16px; padding: 14px 18px; font-size: 14px; line-height: 1.6; color: var(--ink);">
+          <strong>Please correct the following:</strong>
+          <ul style="margin: 4px 0 0; padding-left: 20px;"><?php foreach ((array) ($flash['errors'] ?? []) as $msg): ?><li><?= h($msg) ?></li><?php endforeach; ?></ul>
+        </div>
+<?php endif; ?>
+        <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700;">Full name <span style="color: var(--coral);">*</span><input type="text" name="name" required style="min-height: 50px; padding: 12px 16px; border: 1.5px solid var(--line); border-radius: 14px; font-family: var(--body); font-size: 15px;"></label>
+        <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700;">Mobile / WhatsApp <span style="color: var(--coral);">*</span><input type="tel" name="phone" required style="min-height: 50px; padding: 12px 16px; border: 1.5px solid var(--line); border-radius: 14px; font-family: var(--body); font-size: 15px;"></label>
+        <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700;">Email <span style="color: var(--coral);">*</span><input type="email" name="email" required style="min-height: 50px; padding: 12px 16px; border: 1.5px solid var(--line); border-radius: 14px; font-family: var(--body); font-size: 15px;"></label>
+        <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700;">PAN (for 80G receipt)<input type="text" name="pan" placeholder="ABCDE1234F" pattern="[A-Za-z]{5}[0-9]{4}[A-Za-z]" title="PAN looks like ABCDE1234F" style="min-height: 50px; padding: 12px 16px; border: 1.5px solid var(--line); border-radius: 14px; font-family: var(--body); font-size: 15px; text-transform: uppercase;"></label>
         <label class="mspan mspan" style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700; grid-column: span 2;">Address<input type="text" name="address" style="min-height: 50px; padding: 12px 16px; border: 1.5px solid var(--line); border-radius: 14px; font-family: var(--body); font-size: 15px;"></label>
-        <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700;">Amount donated (₹)<input type="number" name="amount" style="min-height: 50px; padding: 12px 16px; border: 1.5px solid var(--line); border-radius: 14px; font-family: var(--body); font-size: 15px;"></label>
-        <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700;">UPI / transaction reference<input type="text" name="ref" style="min-height: 50px; padding: 12px 16px; border: 1.5px solid var(--line); border-radius: 14px; font-family: var(--body); font-size: 15px;"></label>
-        <label for="shot" style="grid-column: span 2; display: flex; align-items: center; gap: 14px; padding: 16px; border: 2px dashed var(--lilac2); border-radius: 16px; background: var(--lilac); font-size: 14px; color: var(--muted); cursor: pointer;"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--indigo)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"></rect><path d="M8 13l3 3 5-6"></path></svg><span><strong style="color: var(--ink); display: block;">Upload payment screenshot (optional)</strong>Helps us match your payment faster</span><input id="shot" name="screenshot" type="file" style="position: absolute; width: 1px; height: 1px; opacity: 0;"></label>
+        <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700;">Amount donated (₹) <span style="color: var(--coral);">*</span><input type="number" name="amount" id="payamount" min="1" step="1" required style="min-height: 50px; padding: 12px 16px; border: 1.5px solid var(--line); border-radius: 14px; font-family: var(--body); font-size: 15px;"></label>
+        <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700;">UPI / transaction reference (UTR)<input type="text" name="ref" id="payref" style="min-height: 50px; padding: 12px 16px; border: 1.5px solid var(--line); border-radius: 14px; font-family: var(--body); font-size: 15px;"></label>
+        <label for="shot" style="grid-column: span 2; display: flex; align-items: center; gap: 14px; padding: 16px; border: 2px dashed var(--lilac2); border-radius: 16px; background: var(--lilac); font-size: 14px; color: var(--muted); cursor: pointer;"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--indigo)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"></rect><path d="M8 13l3 3 5-6"></path></svg><span><strong style="color: var(--ink); display: block;">Upload payment screenshot (optional)</strong>Helps us match your payment faster</span><input id="shot" accept=".pdf,.jpg,.jpeg,.png" data-max-mb="<?= h((string) $maxDocMb) ?>" name="screenshot" type="file" style="position: absolute; width: 1px; height: 1px; opacity: 0;"></label>
         <label class="mspan mspan" style="grid-column: span 2; display: flex; align-items: center; gap: 10px; font-size: 14px; cursor: pointer;"><input type="checkbox" name="list" style="width: 18px; height: 18px; accent-color: var(--indigo);">List my name and city on the Donors page</label>
-        <button type="submit" class="btn btn-indigo" style="grid-column: span 2; justify-self: start;">Send details</button>
+        <p style="grid-column: span 2; margin: 0; font-size: 13px; color: var(--muted);">Please give the UPI / UTR reference or attach the payment screenshot, so that we can match your payment with our bank statement.</p>
+        <button type="submit" class="btn btn-indigo" id="paybtn" style="grid-column: span 2; justify-self: start;">Send details</button>
       </form>
     </div>
   </section>
 
-  <!-- Footer (preserved) -->
-  <footer id="contact" class="ftr" style="background: var(--indigo-deep); color: var(--on-dark-muted); padding: 72px 0 28px;">
-    <div class="wrap" style="display: flex; flex-direction: column; gap: 44px;">
-      <div class="g3" style="gap: 40px;">
-        <div style="display: flex; flex-direction: column; gap: 16px;">
-          <span style="display: inline-flex; align-items: center; gap: 12px;"><img src="assets/uet-logo.png" alt="" style="width: 40px; height: 42px; object-fit: contain; background: #fff; border-radius: 10px; padding: 3px; box-sizing: border-box;"><span style="display: flex; flex-direction: column; line-height: 1.05;"><span style="font-family: var(--display); font-size: 20px; font-weight: 800; color: #fff;">Umalakshmi</span><span style="font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--marigold);">Educational Trust</span></span></span>
-          <p style="margin: 0; font-size: 15px; line-height: 1.65;">Uma Lakshmi Educational Trust, founded on 11 June 2022. In the memory of my beloved wife Uma Lakshmi, to spread her compassion towards educating poor children and share her love with future generations.</p>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px;">
-          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #fff;">Contact</span>
-          <span style="line-height: 1.65;">3A, Palazzo Apartment, Ram Kamal Building, Shasthiri Nagar First Street, Adyar, Chennai 600020</span>
-          <a href="tel:+919176189469">+91 9176189469</a>
-          <a href="mailto:umalakshmieducationaltrust@gmail.com">umalakshmieducationaltrust@gmail.com</a>
-          <a href="https://www.umalakshmitrust.com">www.umalakshmitrust.com</a>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px;">
-          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #fff;">Bank account details</span>
-          <span>Name : Umalakshmi Educational Trust</span>
-          <span>AC : 50200070075707</span>
-          <span>IFSC Code : HDFC0001866</span>
-          <span>HDFC Bank, Kasturibhai Nagar branch, Adayar, Chennai</span>
-          <span style="margin-top: 6px; font-size: 13px;">UPI ID : umalakshmitrust@hdfcbank</span>
-        </div>
-      </div>
-      <div style="border-top: 1px solid rgba(255,255,255,0.14); padding-top: 22px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px;">
-        <span style="display: inline-flex; gap: 20px;"><a href="privacy.html">Privacy Policy</a><a href="contact.html">Contact Us</a><a href="terms.html">Terms of Use</a></span>
-        <span>Copyright © Umalakshmi Trust. All Rights Reserved. · Developed by Subramanian</span>
-      </div>
-    </div>
-  </footer>
-
+<?php if ($flash && ($flash['type'] ?? '') === 'success'): ?>
+<div id="okmodal" role="dialog" aria-modal="true" aria-labelledby="okttl" style="position: fixed; inset: 0; z-index: 200; background: rgba(18,26,82,0.72); display: flex; align-items: center; justify-content: center; padding: 20px;">
+  <div style="background: #fff; border-radius: 28px; padding: 40px 36px; max-width: 500px; width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; box-shadow: 0 30px 80px rgba(20,22,51,0.35);">
+    <span style="width: 72px; height: 72px; border-radius: 999px; background: var(--marigold); display: inline-flex; align-items: center; justify-content: center;"><svg aria-hidden="true" width="36" height="36" viewBox="0 0 24 24" fill="currentColor" style="color: var(--marigold-ink);"><path d="M12 21s-7-4.6-9.3-9.1C1 8.3 3.2 4.5 7 4.5c2 0 3.4 1.1 4.2 2.3l.8 1.2.8-1.2C13.6 5.6 15 4.5 17 4.5c3.8 0 6 3.8 4.3 7.4C19 16.4 12 21 12 21z"/></svg></span>
+    <h2 id="okttl" style="font-size: 28px;">Thank you for your donation</h2>
+    <p style="margin: 0; font-size: 16px; line-height: 1.65; color: var(--ink);">Thank you, <strong><?= h($flash['name'] ?? '') ?></strong>, for your donation of <strong>&#8377;<?= h($flash['amount'] ?? '') ?></strong>. We have received your details.</p>
+    <p style="margin: 0; font-size: 15px; line-height: 1.65; color: var(--muted);">We will verify the payment with the trust's bank statement and send your payment receipt shortly.</p>
+    <button type="button" class="btn btn-indigo" style="margin-top: 8px;" onclick="document.getElementById('okmodal').remove()">Close</button>
+  </div>
 </div>
-
-<div id="mmenu" class="mmenu" aria-hidden="true">
-  <div class="mm-top"><a href="index.html" class="mm-brand"><img src="assets/uet-logo.png" alt=""><span><b>Umalakshmi</b><small>Educational Trust</small></span></a><button type="button" class="burger mm-close" aria-label="Close menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-  <nav class="mm-nav" aria-label="Main">
-    <a href="index.html" data-page="index">Home<i></i></a><a href="about.html" data-page="about">About<i></i></a><a href="journey.html" data-page="journey">Our Journey<i></i></a><a href="donors.html" data-page="donors">Donors<i></i></a><a href="apply.html" data-page="apply">Apply<i></i></a><a href="financials.html" data-page="financials">Financials<i></i></a><a href="contact.html" data-page="contact">Contact<i></i></a>
-  </nav>
-  <div class="mm-bottom"><a href="donate.html" class="mm-donate">Donate Now</a><div class="mm-ci"><a href="tel:+919176189469">+91 9176189469</a><a href="mailto:umalakshmieducationaltrust@gmail.com">umalakshmieducationaltrust@gmail.com</a></div></div>
-</div>
-<script>
-(function(){var m=document.getElementById('mmenu');var here=location.pathname.split('/').pop().replace('.html','')||'index';var cur=m.querySelector('[data-page="'+here+'"]');if(cur)cur.classList.add('on');
-function open(){m.classList.add('open');m.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
-function close(){m.classList.remove('open');m.setAttribute('aria-hidden','true');document.body.style.overflow='';}
-document.querySelectorAll('.burger:not(.mm-close)').forEach(function(b){b.addEventListener('click',open);});
-m.querySelector('.mm-close').addEventListener('click',close);document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});})();
-</script>
+<?php endif; ?>
+<?php ob_start(); ?>
 <script>
 // ---- Minimal QR encoder (byte mode, error-correction level L, versions 1-9, mask 0) ----
 var GF_EXP = [], GF_LOG = [];
@@ -396,27 +347,53 @@ function makeQR(text) {
 
 
 (function(){
-  var VPA='umalakshmitrust@hdfcbank', PAYEE='Umalakshmi Educational Trust', VALID=10*60;
-  var amt=document.getElementById('amt'), idle=document.getElementById('idle'), box=document.getElementById('qrbox'), exp=document.getElementById('expired');
-  var startedAt=0, timer=null;
+  var amt=document.getElementById('amt'), idle=document.getElementById('idle'), box=document.getElementById('qrbox'), exp=document.getElementById('expired'), err=document.getElementById('qrerr');
+  var VALID=180, startedAt=0, timer=null, cur=null;
+  var MIN=parseFloat(amt.min)||10, MAX=parseFloat(amt.max)||100000;
   function amount(){ return parseFloat(String(amt.value).replace(/[^0-9.]/g,''))||0; }
-  function link(scheme){ var path = scheme==='tez' ? 'upi/pay' : 'pay'; return scheme+'://'+path+'?pa='+VPA+'&pn='+encodeURIComponent(PAYEE)+'&am='+amount()+'&cu=INR&tn=Donation'; }
+  function csrf(){ var i=document.querySelector('input[name=csrf_token]'); return i?i.value:''; }
+  function fmt(n){ return Number(n).toLocaleString('en-IN'); }
+  function params(d){ return 'pa='+encodeURIComponent(d.pa)+'&pn='+encodeURIComponent(d.pn)+'&am='+encodeURIComponent(d.amount)+'&cu=INR&tn='+encodeURIComponent(d.tn); }
+  function link(scheme,d){ var path = scheme==='tez' ? 'upi/pay' : 'pay'; return scheme+'://'+path+'?'+params(d); }
   function show(which){ idle.hidden = which!=='idle'; box.hidden = which!=='qr'; exp.hidden = which!=='expired'; }
+  function fail(msg){ err.textContent=msg; err.hidden=false; }
   function tick(){ var left=Math.max(0, VALID-Math.floor((Date.now()-startedAt)/1000)); var m=Math.floor(left/60), s=left%60; document.getElementById('remain').textContent=(m<10?'0'+m:m)+':'+(s<10?'0'+s:s); if(left<=0){ clearInterval(timer); show('expired'); } }
-  function generate(){ var a=amount(); if(a<=0){ amt.focus(); return; } var q=makeQR(link('upi')); if(!q){ alert('Amount too large for a QR code.'); return; }
+  function setIntent(d){ document.getElementById('intent_ref').value=d?d.ref:''; document.getElementById('intent_amount').value=d?d.amount:''; document.getElementById('intent_sig').value=d?d.sig:''; var pa=document.getElementById('payamount'); if(d&&pa&&!pa.value){ pa.value=Math.round(parseFloat(d.amount)); } }
+  function render(d){
+    var q=makeQR(link('upi',d)); if(!q){ fail('Amount too large for a QR code.'); return; }
     document.getElementById('qrpath').setAttribute('d',q.path); document.getElementById('qrsvg').setAttribute('viewBox','0 0 '+q.size+' '+q.size); var bg=document.getElementById('qrbg'); bg.setAttribute('width',q.size); bg.setAttribute('height',q.size);
-    document.getElementById('qrsvg').setAttribute('aria-label','UPI QR code to pay '+a.toLocaleString('en-IN')+' rupees to '+PAYEE);
-    document.getElementById('amtPretty').textContent=a.toLocaleString('en-IN');
-    document.getElementById('lnk-gpay').href=link('tez'); document.getElementById('lnk-phonepe').href=link('phonepe'); document.getElementById('lnk-paytm').href=link('paytmmp'); document.getElementById('lnk-upi').href=link('upi');
-    startedAt=Date.now(); clearInterval(timer); timer=setInterval(tick,1000); tick(); show('qr'); }
+    document.getElementById('qrsvg').setAttribute('aria-label','UPI QR code to pay '+fmt(d.amount)+' rupees to '+d.pn);
+    document.getElementById('amtPretty').textContent=fmt(parseFloat(d.amount));
+    document.getElementById('refShow').textContent=d.ref;
+    document.getElementById('lnk-gpay').href=link('tez',d); document.getElementById('lnk-phonepe').href=link('phonepe',d); document.getElementById('lnk-paytm').href=link('paytmmp',d); document.getElementById('lnk-upi').href=link('upi',d);
+    VALID=parseInt(d.valid,10)||180; startedAt=Date.now(); clearInterval(timer); timer=setInterval(tick,1000); tick(); show('qr'); cur=d; setIntent(d);
+  }
+  function generate(){
+    err.hidden=true; var a=amount();
+    if(a<MIN||a>MAX){ fail('Please enter an amount between ₹'+fmt(MIN)+' and ₹'+fmt(MAX)+'.'); amt.focus(); return; }
+    var btns=document.querySelectorAll('[data-act="generate"]'); btns.forEach(function(b){ b.disabled=true; });
+    var fd=new FormData(); fd.append('amount', String(a)); fd.append('csrf_token', csrf());
+    fetch('donation_qr.php',{method:'POST',body:fd,credentials:'same-origin'}).then(function(r){ return r.json().catch(function(){ return {ok:false,error:'Unexpected reply from the server.'}; }); })
+      .then(function(d){ if(!d.ok){ fail(d.error||'The QR code could not be prepared. Please try again.'); return; } render(d); })
+      .catch(function(){ fail('Could not reach the server. Please check your connection and try again.'); })
+      .then(function(){ btns.forEach(function(b){ b.disabled=false; }); });
+  }
   function presets(){ var a=amount(); document.querySelectorAll('.preset').forEach(function(b){ b.classList.toggle('on', parseFloat(b.dataset.amt)===a); }); }
-  document.querySelectorAll('.preset').forEach(function(b){ b.addEventListener('click',function(){ amt.value=b.dataset.amt; presets(); show('idle'); clearInterval(timer); }); });
-  amt.addEventListener('input',function(){ presets(); show('idle'); clearInterval(timer); });
+  function reset(){ clearInterval(timer); show('idle'); cur=null; setIntent(null); }
+  document.querySelectorAll('.preset').forEach(function(b){ b.addEventListener('click',function(){ amt.value=b.dataset.amt; presets(); err.hidden=true; reset(); }); });
+  amt.addEventListener('input',function(){ presets(); err.hidden=true; reset(); });
   document.querySelectorAll('[data-act="generate"]').forEach(function(b){ b.addEventListener('click',generate); });
-  document.querySelectorAll('[data-act="reset"]').forEach(function(b){ b.addEventListener('click',function(){ clearInterval(timer); show('idle'); }); });
+  document.querySelectorAll('[data-act="reset"]').forEach(function(b){ b.addEventListener('click',reset); });
   document.querySelectorAll('[data-copy]').forEach(function(b){ b.addEventListener('click',function(){ try{ navigator.clipboard.writeText(b.dataset.copy); }catch(e){} var t=b.textContent; b.textContent='Copied'; setTimeout(function(){ b.textContent=t; },1600); }); });
-  var f=document.querySelector('form'); if(f) f.addEventListener('submit',function(e){ e.preventDefault(); alert('This is a static preview — form submission will be wired up on the live site.'); });
+  // "After you pay" form: file preview + size check, reference-or-screenshot rule, double-submit guard
+  var f=document.getElementById('payform'), pb=document.getElementById('paybtn'), shot=document.getElementById('shot');
+  if(shot){ var tile=document.querySelector('label[for="shot"]'); var wrap=document.createElement('div'); wrap.className='upwrap'; wrap.style.gridColumn='span 2'; tile.parentNode.insertBefore(wrap,tile); wrap.appendChild(tile); var list=document.createElement('ul'); list.className='uplist'; wrap.appendChild(list); var ue=document.createElement('div'); ue.className='uperr'; wrap.appendChild(ue);
+    var maxMb=parseFloat(shot.getAttribute('data-max-mb'))||5;
+    function renderShot(){ list.innerHTML=''; var fl=shot.files&&shot.files[0]; if(fl){ var li=document.createElement('li'); var sp=document.createElement('span'); sp.textContent=fl.name; var sm=document.createElement('small'); sm.textContent=(fl.size>=1048576?(fl.size/1048576).toFixed(1)+' MB':Math.max(1,Math.round(fl.size/1024))+' KB'); var b=document.createElement('button'); b.type='button'; b.textContent='×'; b.setAttribute('aria-label','Remove'); b.addEventListener('click',function(){ shot.value=''; renderShot(); }); li.appendChild(sp); li.appendChild(sm); li.appendChild(b); list.appendChild(li); } }
+    shot.addEventListener('change',function(){ ue.textContent=''; var fl=shot.files&&shot.files[0]; if(fl&&fl.size>maxMb*1048576){ ue.textContent='"'+fl.name+'" is too large. The screenshot must be under '+maxMb+' MB.'; shot.value=''; } renderShot(); }); }
+  if(f){ f.addEventListener('submit',function(ev){ var hasRef=document.getElementById('payref').value.trim()!==''; var hasShot=shot&&shot.files&&shot.files.length>0; if(!hasRef&&!hasShot){ ev.preventDefault(); alert('Please give the UPI / UTR reference or attach the payment screenshot.'); document.getElementById('payref').focus(); return; } if(pb){ pb.disabled=true; pb.textContent='Sending…'; } }); }
+  var fe=document.getElementById('form-errors'); if(fe){ fe.scrollIntoView({block:'center'}); }
+  var mo=document.getElementById('okmodal'); if(mo){ document.addEventListener('keydown',function(ev){ if(ev.key==='Escape') mo.remove(); }); }
 })();
 </script>
-</body>
-</html>
+<?php $page_scripts = ob_get_clean(); require __DIR__ . '/inc/footer.php'; ?>

@@ -55,6 +55,11 @@ Pages: `index` (home), `about`, `journey`, `donors`, `apply` (4-step aid applica
   `inc/upload.php`, `inc/mail.php` (PHPMailer, `MAIL_DRIVER=log` for local), `inc/pdf_application.php`
   (FPDF + FPDI, English-only text), templates in `mail/`, schema in `sql/schema.sql`. Attestation replaced by a
   mandatory bonafide-certificate upload (`files.kind = bonafide`); email is mandatory.
-- Not done: `financials`, `donate`, `contact`, `privacy`, `terms` conversion; `.htaccess` legacy redirects for
-  those; donations, contact form, comments, admin area (steps 4–7); application status lookup.
+- Done: `financials` (audited statement only, one placeholder PDF), `contact` → `form_process.php` (stores in
+  `contact_messages`, mails TRUST_INBOX), `donate` → `donation_qr.php` (server-issued, HMAC-signed QR reference per
+  amount, UPI_VPA/UPI_PAYEE from .env, 180 s validity, nothing stored until the donor reports) + `donation_receipt.php` ("After you pay":
+  `donations` + screenshot, mails TRUST_INBOX; status pending until trustees verify). CSP header in `.htaccess`.
+- Done: `privacy.php`, `terms.php` (trust's own wording, shared layout). Every page is now PHP; `page_href()` simply
+  returns the .php name and can be dropped in a later clean-up.
+- Not done: 80G receipt issuing, comments, admin area (steps 4 receipts, 6, 7); application status lookup.
 - Libraries are vendored under `lib/` (no Composer on the host). Deployment steps are in `README.md`.

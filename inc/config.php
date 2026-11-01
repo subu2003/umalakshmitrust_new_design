@@ -113,3 +113,15 @@ if (!function_exists('uet_session_start')) {
         session_start();
     }
 }
+
+/** Secret for HMAC signatures (QR references). APP_KEY in .env; falls back to a key derived from other secrets. */
+if (!function_exists('app_key')) {
+    function app_key(): string
+    {
+        $k = env('APP_KEY');
+        if ($k !== null && strlen($k) >= 16) {
+            return $k;
+        }
+        return hash('sha256', 'uet|' . env('DB_NAME', '') . '|' . env('DB_PASS', '') . '|' . env('MAIL_PASS', '') . '|' . UET_ROOT);
+    }
+}
