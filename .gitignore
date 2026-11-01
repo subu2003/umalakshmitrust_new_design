@@ -5,9 +5,10 @@
 database.inc.php
 inc/config.local.php
 
-# Uploaded applicant documents (live outside web root anyway)
+# Uploaded applicant documents and mail logs (live outside web root on cPanel)
 uploads/
-storage/
+storage/*
+!storage/.htaccess
 
 # PHP dependencies
 vendor/

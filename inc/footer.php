@@ -12,7 +12,9 @@ require_once __DIR__ . '/functions.php';
 $page         = isset($page) ? (string) $page : '';
 $page_scripts = isset($page_scripts) ? (string) $page_scripts : '';
 $mm_links = '';
-foreach (nav_items() as $key => [$href, $label]) {
+foreach (nav_items() as $key => $item) {
+    [$href, $label] = $item;
+    $label = $item[2] ?? $label; // long label where available
     $mm_links .= '<a href="' . h(page_href($href)) . '" data-page="' . h($key) . '"' . ($key === $page ? ' class="on"' : '') . '>' . h($label) . '<i></i></a>';
 }
 ?>

@@ -1,0 +1,39 @@
+# Umalakshmi Educational Trust — Apache settings for cPanel
+
+Options -Indexes
+DirectoryIndex index.php
+
+# Never serve settings, VCS or private folders
+<FilesMatch "^\.(env|env\..*|git.*|user\.ini|htaccess)$">
+  Require all denied
+</FilesMatch>
+RedirectMatch 403 ^/(inc|sql|storage|lib|mail)(/|$)
+<FilesMatch "\.(sql|md|lock|log)$">
+  Require all denied
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Force HTTPS on the live domain (not on localhost)
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP_HOST} !^(localhost|127\.0\.0\.1)(:|$) [NC]
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Old-site and static-preview URLs → new pages (added as each page is converted)
+  RewriteRule ^index\.html$        /            [R=301,L]
+  RewriteRule ^about-us\.php$      /about.php   [R=301,L]
+  RewriteRule ^about\.html$        /about.php   [R=301,L]
+  RewriteRule ^gallery\.php$       /journey.php#gallery [R=301,L,NE]
+  RewriteRule ^journey\.html$      /journey.php [R=301,L]
+  RewriteRule ^donors\.html$       /donors.php  [R=301,L]
+  RewriteRule ^apply\.html$        /apply.php   [R=301,L]
+</IfModule>
+
+# Sensible defaults
+AddDefaultCharset UTF-8
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

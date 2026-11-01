@@ -46,4 +46,15 @@ Pages: `index` (home), `about`, `journey`, `donors`, `apply` (4-step aid applica
 ## Done / not done
 
 - Done: full responsive front-end, hamburger menu, client-side UPI QR generator (pure JS, no library).
-- Not done: everything in `BACKEND-SPEC.md`.
+- Done (step 1, partly): `index`, `about`, `journey`, `donors`, `apply` converted to PHP with `inc/head.php`,
+  `inc/header.php` (`$header_band` for the indigo-band pages), `inc/footer.php`, `inc/functions.php`
+  (`nav_items()`, `page_href()` fallback to `.html` while pages are still being converted — remove when all
+  pages are `.php`). Journey gallery reads `assets/gallery/<year>/`. Nav label for apply is "Scholarship"
+  (long label "Apply for Scholarship" in the mobile menu).
+- Done (step 3): `apply.php` → `apply_process.php` with `inc/config.php` (.env), `inc/db.php`, `inc/csrf.php`,
+  `inc/upload.php`, `inc/mail.php` (PHPMailer, `MAIL_DRIVER=log` for local), `inc/pdf_application.php`
+  (FPDF + FPDI, English-only text), templates in `mail/`, schema in `sql/schema.sql`. Attestation replaced by a
+  mandatory bonafide-certificate upload (`files.kind = bonafide`); email is mandatory.
+- Not done: `financials`, `donate`, `contact`, `privacy`, `terms` conversion; `.htaccess` legacy redirects for
+  those; donations, contact form, comments, admin area (steps 4–7); application status lookup.
+- Libraries are vendored under `lib/` (no Composer on the host). Deployment steps are in `README.md`.

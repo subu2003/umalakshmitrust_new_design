@@ -15,7 +15,9 @@ if (!function_exists('h')) {
 if (!function_exists('nav_items')) {
     /**
      * Main navigation, in display order.
-     * Key = page id used in $page, value = [href, label].
+     * Key = page id used in $page, value = [href, label, optional long label].
+     * The long label is used where there is room (the full-screen mobile menu);
+     * the desktop pill row is width-limited and uses the short label.
      */
     function nav_items(): array
     {
@@ -24,7 +26,7 @@ if (!function_exists('nav_items')) {
             'about'      => ['about.php',      'About us'],
             'journey'    => ['journey.php',    'Our Journey'],
             'donors'     => ['donors.php',     'Donors'],
-            'apply'      => ['apply.php',      'Apply'],
+            'apply'      => ['apply.php',      'Scholarship', 'Apply for Scholarship'],
             'financials' => ['financials.php', 'Financials'],
             'contact'    => ['contact.php',    'Contact'],
         ];
