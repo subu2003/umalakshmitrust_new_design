@@ -1,12 +1,14 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Umalakshmi Educational Trust — Financials</title>
-<link rel="icon" href="assets/uet-logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&amp;display=swap" rel="stylesheet">
+<?php
+// Financials page. Shared layout lives in inc/ (head → page CSS → header → content → footer). Header sits in the indigo band;
+// inc/header.php opens the band and this page closes it with </div> after the intro section.
+// Year-wise documents: only the audited financial statement is listed. All years point at one placeholder PDF
+// (pdf/financials/audited-financial-statements.pdf) until the per-year statements arrive from the auditor.
+$page        = 'financials';
+$page_title  = 'Financials';
+$header_band = true;
+$audited_pdf = 'pdf/financials/audited-financial-statements.pdf';
+require __DIR__ . '/inc/head.php';
+?>
 <style>
 :root{
   --bg:#FFFFFF; --ink:#141633; --muted:#5B5E7A; --line:#E6E7F2;
@@ -89,34 +91,7 @@ a,span,strong,p{overflow-wrap:anywhere}
 .fy{padding:24px 20px !important}.fy .hd strong{font-size:20px !important}.doc{gap:12px !important}.doc a.pill{padding:8px 14px !important;font-size:13px !important}table.fin td,table.fin th{padding:10px 8px !important;font-size:14px}.mc1.summary{padding:24px !important;gap:28px !important}}
 </style>
 <style>html{scroll-behavior:smooth} *,*:before,*:after{box-sizing:border-box} img{max-width:100%}</style>
-</head>
-<body>
-<div style="font-family: var(--body); color: var(--ink); background: var(--bg); width: 100%; box-sizing: border-box; line-height: 1.55;">
-
-  <!-- Header on indigo -->
-  <div style="background: var(--indigo); position: relative; overflow: hidden;">
-    <div style="position: absolute; right: -160px; top: -200px; width: 560px; height: 560px; border-radius: 999px; border: 56px solid rgba(255,255,255,0.05);"></div>
-    <header style="position: relative; z-index: 2;">
-      <div class="wrap hdr-row" style="display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 112px; flex-wrap: wrap; padding-top: 16px; padding-bottom: 16px;">
-        <a href="index.html" style="display: inline-flex; align-items: center; gap: 12px; color: #fff;">
-          <img class="brand-logo" src="assets/uet-logo.png" alt="Umalakshmi Educational Trust logo" style="width: 80px; height: 82px; object-fit: contain; background: #fff; border-radius: 18px; padding: 6px; box-sizing: border-box; box-shadow: 0 8px 24px rgba(0,0,0,0.25);">
-          <span style="display: flex; flex-direction: column; line-height: 1.02;">
-            <span class="brand-name" style="font-family: var(--display); font-size: 40px; font-weight: 800; letter-spacing: -0.02em;">Umalakshmi</span>
-            <span class="brand-sub" style="font-size: 17px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--marigold);">Educational Trust</span>
-          </span>
-        </a>
-        <nav class="nav" aria-label="Main" style="display: flex; align-items: center; gap: 2px; background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 6px;">
-          <a href="index.html">Home</a>
-          <a href="about.html">About</a>
-          <a href="journey.html">Our Journey</a>
-          <a href="donors.html">Donors</a>
-          <a href="apply.html">Apply</a>
-          <a href="financials.html" class="active">Financials</a>
-          <a href="contact.html">Contact</a>
-        </nav>
-        <div style="display: flex; align-items: center; gap: 10px;"><a href="donate.html" class="btn btn-marigold hdr-donate" style="min-height: 50px; padding: 12px 24px; font-size: 15px;">Donate<span class="lbl-full">&nbsp;Now</span></a><button type="button" class="burger" aria-label="Open menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div>
-      </div>
-    </header>
+<?php require __DIR__ . '/inc/header.php'; ?>
     <section id="top" style="position: relative; color: #fff; padding: 56px 0 160px;">
       <div class="wrap" style="display: flex; flex-direction: column; gap: 18px; max-width: 980px;">
         <span style="font-family: var(--display); font-size: 18px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: var(--marigold);">Financials</span>
@@ -166,86 +141,33 @@ a,span,strong,p{overflow-wrap:anywhere}
         <div style="display: flex; flex-direction: column; gap: 12px; max-width: 680px;"><span class="eyebrow">Audited accounts</span><h2 style="font-size: 44px;">Financial statements by year</h2></div>
         <span style="font-size: 14px; color: var(--muted);">Financial year April to March · PDF</span>
       </div>
+      <div style="display: flex; gap: 18px; align-items: flex-start; background: var(--cream); border: 2px solid var(--marigold); border-radius: 20px; padding: 22px 26px;">
+        <span style="flex: 0 0 44px; width: 44px; height: 44px; border-radius: 12px; background: var(--marigold); display: inline-flex; align-items: center; justify-content: center;"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--marigold-ink)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"></path><path d="M12 2l7 4v6c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6z"></path></svg></span>
+        <p style="margin: 0; font-size: 16px; line-height: 1.65; color: var(--ink);"><strong style="font-family: var(--display); font-size: 18px; display: block; margin-bottom: 4px;">Audited every year</strong>The accounts of Uma Lakshmi Educational Trust are verified and certified every year by an independent certified auditor, and the trust's income-tax returns are filed for every financial year.</p>
+      </div>
       <div class="g2" style="gap: 32px;">
         <div class="fy">
           <div class="hd"><span style="display: flex; align-items: center; gap: 14px;"><span class="ic"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--indigo)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></span><strong style="font-family: var(--display); font-size: 22px;">2025 – 2026</strong></span><span class="tag" style="background: var(--cream); color: var(--marigold-ink);">Latest</span></div>
           <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);">Trust accounts</span>
-          <div class="doc"><span style="font-size: 15px;">Audited financial statement</span><a href="pdf/financials/2025-26-audited-statement.pdf" class="pill">Open PDF</a></div>
-          <div class="doc"><span style="font-size: 15px;">Annual report</span><a href="pdf/financials/2025-26-annual-report.pdf" class="pill">Open PDF</a></div>
-          <div class="doc"><span style="font-size: 15px;">Income-tax return (ITR-7)</span><a href="pdf/financials/2025-26-itr.pdf" class="pill">Open PDF</a></div>
+          <div class="doc"><span style="font-size: 15px;">Audited financial statement</span><a href="<?= h($audited_pdf) ?>" class="pill" target="_blank" rel="noopener">Open PDF</a></div>
         </div>
         <div class="fy">
           <div class="hd"><span style="display: flex; align-items: center; gap: 14px;"><span class="ic"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--indigo)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></span><strong style="font-family: var(--display); font-size: 22px;">2024 – 2025</strong></span></div>
           <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);">Trust accounts</span>
-          <div class="doc"><span style="font-size: 15px;">Audited financial statement</span><a href="pdf/financials/2024-25-audited-statement.pdf" class="pill">Open PDF</a></div>
-          <div class="doc"><span style="font-size: 15px;">Annual report</span><a href="pdf/financials/2024-25-annual-report.pdf" class="pill">Open PDF</a></div>
-          <div class="doc"><span style="font-size: 15px;">Income-tax return (ITR-7)</span><a href="pdf/financials/2024-25-itr.pdf" class="pill">Open PDF</a></div>
+          <div class="doc"><span style="font-size: 15px;">Audited financial statement</span><a href="<?= h($audited_pdf) ?>" class="pill" target="_blank" rel="noopener">Open PDF</a></div>
         </div>
         <div class="fy">
           <div class="hd"><span style="display: flex; align-items: center; gap: 14px;"><span class="ic"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--indigo)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></span><strong style="font-family: var(--display); font-size: 22px;">2023 – 2024</strong></span></div>
           <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);">Trust accounts</span>
-          <div class="doc"><span style="font-size: 15px;">Audited financial statement</span><a href="pdf/financials/2023-24-audited-statement.pdf" class="pill">Open PDF</a></div>
-          <div class="doc"><span style="font-size: 15px;">Annual report</span><a href="pdf/financials/2023-24-annual-report.pdf" class="pill">Open PDF</a></div>
-          <div class="doc"><span style="font-size: 15px;">Income-tax return (ITR-7)</span><a href="pdf/financials/2023-24-itr.pdf" class="pill">Open PDF</a></div>
+          <div class="doc"><span style="font-size: 15px;">Audited financial statement</span><a href="<?= h($audited_pdf) ?>" class="pill" target="_blank" rel="noopener">Open PDF</a></div>
         </div>
         <div class="fy">
           <div class="hd"><span style="display: flex; align-items: center; gap: 14px;"><span class="ic"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--indigo)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></span><strong style="font-family: var(--display); font-size: 22px;">2022 – 2023</strong></span><span class="tag" style="background: var(--lilac); color: var(--indigo);">First year</span></div>
           <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);">Trust accounts</span>
-          <div class="doc"><span style="font-size: 15px;">Audited financial statement</span><a href="pdf/financials/2022-23-audited-statement.pdf" class="pill">Open PDF</a></div>
-          <div class="doc"><span style="font-size: 15px;">Annual report</span><a href="pdf/financials/2022-23-annual-report.pdf" class="pill">Open PDF</a></div>
-          <div class="doc"><span style="font-size: 15px;">Income-tax return (ITR-7)</span><a href="pdf/financials/2022-23-itr.pdf" class="pill">Open PDF</a></div>
+          <div class="doc"><span style="font-size: 15px;">Audited financial statement</span><a href="<?= h($audited_pdf) ?>" class="pill" target="_blank" rel="noopener">Open PDF</a></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Footer (preserved) -->
-  <footer id="contact" class="ftr" style="background: var(--indigo-deep); color: var(--on-dark-muted); padding: 72px 0 28px;">
-    <div class="wrap" style="display: flex; flex-direction: column; gap: 44px;">
-      <div class="g3" style="gap: 40px;">
-        <div style="display: flex; flex-direction: column; gap: 16px;">
-          <span style="display: inline-flex; align-items: center; gap: 12px;"><img src="assets/uet-logo.png" alt="" style="width: 40px; height: 42px; object-fit: contain; background: #fff; border-radius: 10px; padding: 3px; box-sizing: border-box;"><span style="display: flex; flex-direction: column; line-height: 1.05;"><span style="font-family: var(--display); font-size: 20px; font-weight: 800; color: #fff;">Umalakshmi</span><span style="font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--marigold);">Educational Trust</span></span></span>
-          <p style="margin: 0; font-size: 15px; line-height: 1.65;">Uma Lakshmi Educational Trust, founded on 11 June 2022. In the memory of my beloved wife Uma Lakshmi, to spread her compassion towards educating poor children and share her love with future generations.</p>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px;">
-          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #fff;">Contact</span>
-          <span style="line-height: 1.65;">3A, Palazzo Apartment, Ram Kamal Building, Shasthiri Nagar First Street, Adyar, Chennai 600020</span>
-          <a href="tel:+919176189469">+91 9176189469</a>
-          <a href="mailto:umalakshmieducationaltrust@gmail.com">umalakshmieducationaltrust@gmail.com</a>
-          <a href="https://www.umalakshmitrust.com">www.umalakshmitrust.com</a>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px;">
-          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #fff;">Bank account details</span>
-          <span>Name : Umalakshmi Educational Trust</span>
-          <span>AC : 50200070075707</span>
-          <span>IFSC Code : HDFC0001866</span>
-          <span>HDFC Bank, Kasturibhai Nagar branch, Adayar, Chennai</span>
-          <span style="margin-top: 6px; font-size: 13px;">UPI ID : umalakshmitrust@hdfcbank</span>
-        </div>
-      </div>
-      <div style="border-top: 1px solid rgba(255,255,255,0.14); padding-top: 22px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px;">
-        <span style="display: inline-flex; gap: 20px;"><a href="privacy.html">Privacy Policy</a><a href="contact.html">Contact Us</a><a href="terms.html">Terms of Use</a></span>
-        <span>Copyright © Umalakshmi Trust. All Rights Reserved. · Developed by Subramanian</span>
-      </div>
-    </div>
-  </footer>
-
-</div>
-
-<div id="mmenu" class="mmenu" aria-hidden="true">
-  <div class="mm-top"><a href="index.html" class="mm-brand"><img src="assets/uet-logo.png" alt=""><span><b>Umalakshmi</b><small>Educational Trust</small></span></a><button type="button" class="burger mm-close" aria-label="Close menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-  <nav class="mm-nav" aria-label="Main">
-    <a href="index.html" data-page="index">Home<i></i></a><a href="about.html" data-page="about">About<i></i></a><a href="journey.html" data-page="journey">Our Journey<i></i></a><a href="donors.html" data-page="donors">Donors<i></i></a><a href="apply.html" data-page="apply">Apply<i></i></a><a href="financials.html" data-page="financials">Financials<i></i></a><a href="contact.html" data-page="contact">Contact<i></i></a>
-  </nav>
-  <div class="mm-bottom"><a href="donate.html" class="mm-donate">Donate Now</a><div class="mm-ci"><a href="tel:+919176189469">+91 9176189469</a><a href="mailto:umalakshmieducationaltrust@gmail.com">umalakshmieducationaltrust@gmail.com</a></div></div>
-</div>
-<script>
-(function(){var m=document.getElementById('mmenu');var here=location.pathname.split('/').pop().replace('.html','')||'index';var cur=m.querySelector('[data-page="'+here+'"]');if(cur)cur.classList.add('on');
-function open(){m.classList.add('open');m.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
-function close(){m.classList.remove('open');m.setAttribute('aria-hidden','true');document.body.style.overflow='';}
-document.querySelectorAll('.burger:not(.mm-close)').forEach(function(b){b.addEventListener('click',open);});
-m.querySelector('.mm-close').addEventListener('click',close);document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});})();
-</script>
-
-</body>
-</html>
+<?php require __DIR__ . '/inc/footer.php'; ?>
