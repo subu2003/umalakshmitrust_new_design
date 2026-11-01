@@ -128,7 +128,7 @@ a,span,strong,p{overflow-wrap:anywhere}
             <div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 8px; height: 100%;"><span class="num" style="font-size: 16px; color: var(--indigo);">4.17</span><div style="width: 100%; height: 55%; background: var(--indigo); border-radius: 10px 10px 0 0;"></div></div>
             <div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 8px; height: 100%;"><span class="num" style="font-size: 16px; color: var(--marigold-ink);">7.52</span><div style="width: 100%; height: 100%; max-height: 84%; background: var(--marigold); border-radius: 10px 10px 0 0;"></div></div>
           </div>
-          <div class="mc1" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; padding: 0 8px; text-align: center; font-size: 13px; font-weight: 700; color: var(--muted);"><span>2022</span><span>2023</span><span>2024</span><span>2025</span><span>2026</span></div>
+          <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; padding: 0 8px; text-align: center; font-size: 13px; font-weight: 700; color: var(--muted);"><span>2022</span><span>2023</span><span>2024</span><span>2025</span><span>2026</span></div>
         </figure>
       </div>
     </div>

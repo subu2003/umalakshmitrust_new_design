@@ -98,7 +98,7 @@ a,span,strong,p{overflow-wrap:anywhere}
         <div class="donor"><img src="assets/donors/nachiappan.jpg" alt="SP. Nachiappan"><strong>SP. Nachiappan</strong><span>Chennai</span></div>
         <div class="donor"><img src="assets/donors/subramanian.jpg" alt="N. Subramanian"><strong>N. Subramanian</strong><span>Chennai</span></div>
         <div class="donor"><img src="assets/donors/yuvaraj.jpg" alt="P. Yuvaraj Perisi Ramalingam"><strong>P. Yuvaraj Perisi Ramalingam</strong><span>Jubail, KSA</span></div>
-        <div class="donor"><img src="assets/donors/sumathi.jpg" alt="T. Sumathi"><strong>T. Sumathi</strong><span>Karur</span></div>
+        <div class="donor"><img src="assets/donors/sumathi.jpg" alt="V. Sumathi"><strong>V. Sumathi</strong><span>Karur</span></div>
         <div class="donor"><img src="assets/donors/senthil.jpg" alt="R. Senthil Kumar"><strong>R. Senthil Kumar</strong><span>Jubail, KSA</span></div>
         <div class="donor"><img src="assets/donors/murugappan.jpg" alt="K. Murugappan"><strong>K. Murugappan</strong><span>Chennai</span></div>
         <div class="donor"><img src="assets/donors/alamelu.jpg" alt="Alamelu Murugappan"><strong>Alamelu Murugappan</strong><span>Vancouver, Canada</span></div>

@@ -58,7 +58,7 @@ foreach (nav_items() as $key => $item) {
     <?= $mm_links ?>
 
   </nav>
-  <div class="mm-bottom"><a href="<?= h(page_href('donate.php')) ?>" class="mm-donate">Donate Now</a><div class="mm-ci"><a href="tel:+919176189469">+91 9176189469</a><a href="mailto:umalakshmieducationaltrust@gmail.com">umalakshmieducationaltrust@gmail.com</a></div></div>
+  <div class="mm-bottom"><a href="<?= h(page_href('donate.php')) ?>" class="mm-donate"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" style="width: 20px; height: 20px; margin-right: 10px; flex: 0 0 20px;"><path d="M12 21s-7-4.6-9.3-9.1C1 8.3 3.2 4.5 7 4.5c2 0 3.4 1.1 4.2 2.3l.8 1.2.8-1.2C13.6 5.6 15 4.5 17 4.5c3.8 0 6 3.8 4.3 7.4C19 16.4 12 21 12 21z"/></svg>Donate Now</a><div class="mm-ci"><a href="tel:+919176189469">+91 9176189469</a><a href="mailto:umalakshmieducationaltrust@gmail.com">umalakshmieducationaltrust@gmail.com</a></div></div>
 </div>
 <script>
 (function(){var m=document.getElementById('mmenu');var here=location.pathname.split('/').pop().replace(/\.(html|php)$/,'')||'index';var cur=m.querySelector('[data-page="'+here+'"]');if(cur)cur.classList.add('on');
