@@ -7,7 +7,8 @@ DirectoryIndex index.php
 <FilesMatch "^\.(env|env\..*|git.*|user\.ini|htaccess)$">
   Require all denied
 </FilesMatch>
-RedirectMatch 403 ^/(inc|sql|storage|lib|mail)(/|$)
+RedirectMatch 403 ^/(inc|sql|storage|lib|mail|\.git|\.github)(/|$)
+RedirectMatch 403 ^/\.(cpanel\.yml|gitignore|gitattributes)$
 <FilesMatch "\.(sql|md|lock|log)$">
   Require all denied
 </FilesMatch>
