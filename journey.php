@@ -124,7 +124,6 @@ a,span,strong,p{overflow-wrap:anywhere}
             <p style="margin: 0; font-size: 15px; line-height: 1.65; color: var(--muted);">The second function at Rani Meyyammai Girls Higher Secondary School welcomed Dr. Anantha Valli of CSIR as chief guest. Forty-six students were sponsored, and for the first time cheques were posted to outstation students in other districts.</p>
           </div>
         </div>
-
         <div class="yr" style="position: relative;">
           <div style="display: flex; flex-direction: column; gap: 14px; text-align: right; align-items: flex-end;">
             <span class="tag" style="background: var(--lilac); color: var(--indigo);">22 June 2024 · RA Puram</span>
