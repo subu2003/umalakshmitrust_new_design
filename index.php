@@ -95,7 +95,6 @@ a,span,strong,p{overflow-wrap:anywhere}
       <h1 style="font-size: 80px; color: #fff; max-width: 900px;">Lighting Young Minds, Transforming Generations.</h1>
       <p style="margin: 0; font-size: 20px; line-height: 1.55; color: var(--on-dark-muted); max-width: 600px;">Uma Lakshmi Educational Trust sponsors the education of deserving students from low-income families across Tamil Nadu — so that no child's future is decided by poverty.</p>
       <div class="hero-btns" style="display: flex; gap: 14px; flex-wrap: wrap;">
-        <a href="donate.php" class="btn btn-marigold">Donate Now</a>
         <a href="apply.php" class="btn btn-ghost-light">Apply for Support</a>
       </div>
     </div>
@@ -106,9 +105,9 @@ a,span,strong,p{overflow-wrap:anywhere}
     <div class="wrap">
       <div class="g4 stats" style="background: #fff; border-radius: 28px; padding: 36px 16px; box-shadow: 0 24px 60px rgba(20,22,51,0.12);">
         <div style="display: flex; flex-direction: column; gap: 6px; padding: 8px 28px; border-right: 1px solid var(--line);"><span class="num" style="font-size: 56px; color: var(--indigo);">265<span style="color: var(--marigold);">+</span></span><span style="font-size: 15px; color: var(--muted); font-weight: 500;">Students sponsored</span></div>
-        <div style="display: flex; flex-direction: column; gap: 6px; padding: 8px 28px; border-right: 1px solid var(--line);"><span class="num" style="font-size: 56px; color: var(--indigo);">21</span><span style="font-size: 15px; color: var(--muted); font-weight: 500;">Schools</span></div>
-        <div style="display: flex; flex-direction: column; gap: 6px; padding: 8px 28px; border-right: 1px solid var(--line);"><span class="num" style="font-size: 56px; color: var(--indigo);">9</span><span style="font-size: 15px; color: var(--muted); font-weight: 500;">Colleges</span></div>
-        <div style="display: flex; flex-direction: column; gap: 6px; padding: 8px 28px;"><span class="num" style="font-size: 56px; color: var(--indigo);">5</span><span style="font-size: 15px; color: var(--muted); font-weight: 500;">Years · 2022 to 2026</span></div>
+        <div style="display: flex; flex-direction: column; gap: 6px; padding: 8px 28px; border-right: 1px solid var(--line);"><span class="num" style="font-size: 56px; color: var(--indigo);">21<span style="color: var(--marigold);">+</span></span><span style="font-size: 15px; color: var(--muted); font-weight: 500;">Schools</span></div>
+        <div style="display: flex; flex-direction: column; gap: 6px; padding: 8px 28px; border-right: 1px solid var(--line);"><span class="num" style="font-size: 56px; color: var(--indigo);">9<span style="color: var(--marigold);">+</span></span><span style="font-size: 15px; color: var(--muted); font-weight: 500;">Colleges</span></div>
+        <div style="display: flex; flex-direction: column; gap: 6px; padding: 8px 28px;"><span class="num" style="font-size: 56px; color: var(--indigo);">5<span style="color: var(--marigold);">+</span></span><span style="font-size: 15px; color: var(--muted); font-weight: 500;">Years · 2022 to 2026</span></div>
       </div>
     </div>
   </section>

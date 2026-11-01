@@ -127,7 +127,7 @@ a,span,strong,p{overflow-wrap:anywhere}
         <div class="card" style="padding: 28px; display: flex; flex-direction: column; gap: 12px; background: var(--lilac); border: 0;">
           <svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--indigo)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
           <h3 style="font-size: 22px;">Transparency</h3>
-          <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--muted);">Fees go directly to institutions, accounts are audited every year, and donors can see exactly what their gift achieved.</p>
+          <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--muted);">Fees go directly to institutions, accounts are audited every year, and donors can see exactly what their donation achieved.</p>
         </div>
         <div class="card" style="padding: 28px; display: flex; flex-direction: column; gap: 12px; background: var(--coral-tint); border: 0;">
           <svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--coral)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"></path></svg>

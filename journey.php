@@ -94,7 +94,7 @@ a,span,strong,p{overflow-wrap:anywhere}
       <span style="font-family: var(--display); font-size: 18px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: var(--marigold);">Our Journey</span>
       <h1 style="font-size: 64px; color: #fff;">Five years of lighting young minds.</h1>
       <p style="margin: 0; font-size: 19px; line-height: 1.65; color: #fff; max-width: 860px;">What began on 11 June 2022 as a tribute to Uma Lakshmi has become an annual promise kept to a growing family of students. From thirty children in one Chennai school to seventy-five across ten districts, every year has brought more students, more schools, and more families who no longer have to choose between fees and food.</p>
-      <p style="margin: 0; font-size: 16px; line-height: 1.7; color: var(--on-dark-muted); max-width: 860px;">265+ students sponsored · 21 schools and 9 colleges · 10 districts of Tamil Nadu · five annual sponsorship functions.</p>
+      <p style="margin: 0; font-size: 16px; line-height: 1.7; color: var(--on-dark-muted); max-width: 860px;">265+ students sponsored · 21+ schools and 9+ colleges · 10+ districts of Tamil Nadu.</p>
     </div>
   </section>
 
@@ -129,7 +129,7 @@ a,span,strong,p{overflow-wrap:anywhere}
           <div style="display: flex; flex-direction: column; gap: 14px; text-align: right; align-items: flex-end;">
             <span class="tag" style="background: var(--lilac); color: var(--indigo);">22 June 2024 · RA Puram</span>
             <h3 style="font-size: 30px;">Growing for the third year</h3>
-            <p style="margin: 0; font-size: 15px; line-height: 1.65; color: var(--muted);">Fifty-one students received sponsorship at the third annual function. The founder spoke of continuous growth in student strength and thanked Mrs. Parvathi Murugappan for her dedicated support to the trust's work.</p>
+            <p style="margin: 0; font-size: 15px; line-height: 1.65; color: var(--muted);">Fifty-one students received sponsorship at the third annual function. The founder spoke of the steady growth in student strength, and this was also the year the trust began extending financial support to girl childrens who have lost their parents.</p>
           </div>
           <div class="dot"><span class="y">2024</span><span class="num" style="font-size: 40px; color: var(--indigo);">51</span><span style="font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em;">students</span></div>
           <div class="mc2 mphoto" style="display: grid; grid-template-columns: 2fr 1fr; gap: 10px;"><img src="assets/t_group.jpg" alt="Trustees and guests, 2024" class="img" style="aspect-ratio: 4 / 3; border-radius: 20px;"><div style="display: grid; gap: 10px;"><img src="assets/t_cheque3.jpg" alt="A guest is honoured" class="img" style="height: 100%; border-radius: 16px;"><img src="assets/y2024.jpg" alt="2024 function poster" class="img" style="height: 100%; object-position: 50% 0; border-radius: 16px;"></div></div>
@@ -166,7 +166,7 @@ a,span,strong,p{overflow-wrap:anywhere}
         <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 24px; padding: 28px; display: flex; flex-direction: column; gap: 12px;">
           <span class="tag" style="background: var(--marigold); color: var(--marigold-ink); align-self: flex-start;">01</span>
           <h3 style="font-size: 22px; color: #fff;">Fee sponsorship</h3>
-          <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--on-dark-muted);">Annual school and college fees for 265 students over five years, paid directly to 30 institutions.</p>
+          <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--on-dark-muted);">Annual school and college fees for 265+ students over five years, paid directly to 30+ institutions.</p>
         </div>
         <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 24px; padding: 28px; display: flex; flex-direction: column; gap: 12px;">
           <span class="tag" style="background: var(--coral); color: #fff; align-self: flex-start;">02</span>

@@ -116,7 +116,7 @@ a,span,strong,p{overflow-wrap:anywhere}
         <div class="donor"><img src="assets/donors/thilak.jpg" alt="D. Thilak"><strong>D. Thilak</strong><span>Jubail, KSA</span></div>
         <div class="donor"><img src="assets/donors/palaniappan.jpg" alt="SP. Palaniappan"><strong>SP. Palaniappan</strong><span>Chennai</span></div>
         <div class="donor"><img src="assets/donors/paul.jpg" alt="Paul Palocaren"><strong>Paul Palocaren</strong><span>Chennai</span></div>
-        <div class="donor"><img src="assets/donors/rengarajan.jpg" alt="S. Rengarajan Sampath"><strong>S. Rengarajan Sampath</strong><span>Jubail, KSA</span></div>
+        <div class="donor"><img src="assets/donors/rengarajan.jpg" alt="S. Rangarajan Sampath"><strong>S. Rangarajan Sampath</strong><span>Jubail, KSA</span></div>
         <div class="donor"><img src="assets/donors/chockalingam.jpg" alt="SP. Chockalingam"><strong>SP. Chockalingam</strong><span>Chennai</span></div>
         <div class="donor"><img src="assets/donors/hariprasad.jpg" alt="CV. Hariprasad"><strong>CV. Hariprasad</strong><span>Chennai</span></div>
         <div class="donor"><img src="assets/donors/rekha.jpg" alt="Rekha Rajagopal"><strong>Rekha Rajagopal</strong><span>Chennai</span></div>
