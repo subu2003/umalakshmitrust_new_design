@@ -166,7 +166,7 @@ a,span,strong,p{overflow-wrap:anywhere}
   <section style="background: var(--cream); padding: 104px 0;">
     <div class="wrap" style="display: flex; flex-direction: column; gap: 40px;">
       <div style="display: flex; flex-direction: column; gap: 12px;"><span class="eyebrow">The people behind the trust</span><h2 style="font-size: 48px;">Our trustees.</h2></div>
-      <div class="mc2" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; max-width: 560px;">
+      <div class="mc2" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; max-width: 1152px;">
         <div style="display: flex; flex-direction: column; gap: 16px;"><img src="assets/founder2.jpg" alt="SP. Nachiappan" class="img" style="aspect-ratio: 4 / 5; object-position: 50% 15%; border-radius: 22px; box-shadow: 0 20px 50px rgba(61,43,0,0.12);"><span><strong class="pname" style="display: block; font-family: var(--display); font-size: 20px;">SP. Nachiappan</strong><span style="font-size: 15px; color: var(--muted);">Founder &amp; Managing Trustee</span></span></div>
         <div style="display: flex; flex-direction: column; gap: 16px;"><img src="assets/subramanian2.jpg" alt="N. Subramanian" class="img" style="aspect-ratio: 4 / 5; object-position: 50% 20%; border-radius: 22px; box-shadow: 0 20px 50px rgba(61,43,0,0.12);"><span><strong class="pname" style="display: block; font-family: var(--display); font-size: 20px;">N. Subramanian</strong><span style="font-size: 15px; color: var(--muted);">Financial Trustee</span></span></div>
       </div>
