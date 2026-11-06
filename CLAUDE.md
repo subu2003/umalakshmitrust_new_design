@@ -41,7 +41,7 @@ Pages: `index` (home), `about`, `journey`, `donors`, `apply` (4-step aid applica
 - 12A URN `AAATU1234KE20251`, 80G URN `AAATU1234KF20251` (home, financials, donate).
 - Suggested sponsorship amounts ₹1,000 / ₹5,000 / ₹10,000 — trustees to confirm.
 - Fifth-function (2026) date/venue and photos; founder's message is final.
-- Financial statement PDFs linked under `pdf/financials/…` do not exist yet.
+- Audited statement PDFs are deliberately not published on the financials page (privacy); available to donors on request.
 
 ## Done / not done
 

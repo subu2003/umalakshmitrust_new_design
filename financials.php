@@ -1,12 +1,10 @@
 <?php
 // Financials page. Shared layout lives in inc/ (head → page CSS → header → content → footer). Header sits in the indigo band;
 // inc/header.php opens the band and this page closes it with </div> after the intro section.
-// Year-wise documents: only the audited financial statement is listed. All years point at one placeholder PDF
-// (pdf/financials/audited-financial-statements.pdf) until the per-year statements arrive from the auditor.
+// Audited statements are not published on the site (privacy); the page shows the five-year summary and an audit note.
 $page        = 'financials';
 $page_title  = 'Financials';
 $header_band = true;
-$audited_pdf = 'pdf/financials/audited-financial-statements.pdf';
 require __DIR__ . '/inc/head.php';
 ?>
 <style>
@@ -41,13 +39,6 @@ table.fin{width:100%;border-collapse:collapse;font-size:15px}
 table.fin th{text-align:left;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:12px 16px;border-bottom:2px solid var(--line)}
 table.fin td{padding:16px;border-bottom:1px solid var(--line)}
 table.fin td.r,table.fin th.r{text-align:right}
-.fy{background:#fff;border:1px solid var(--line);border-radius:28px;padding:36px 40px;display:flex;flex-direction:column;gap:18px}
-.fy .hd{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.fy .ic{width:56px;height:56px;border-radius:16px;background:var(--lilac);display:inline-flex;align-items:center;justify-content:center;flex:0 0 56px}
-.doc{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 0;border-top:1px solid var(--line)}
-.doc a.pill{display:inline-flex;align-items:center;min-height:42px;padding:10px 20px;border-radius:999px;background:var(--indigo);color:#fff;font-weight:700;font-size:14px;white-space:nowrap;flex:0 0 auto}
-.doc a.pill:hover{background:var(--indigo-deep);color:#fff}
-.doc a.pill.off{background:var(--lilac);color:var(--muted);pointer-events:none}
 .ftr a{color:#C9CDF0}.ftr a:hover{color:#fff}
 @media (max-width:980px){.g3,.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.nav{display:none}}
 @media (max-width:600px){.g2,.g3,.g4{grid-template-columns:repeat(1,minmax(0,1fr))}.wrap{padding:0 16px}h1{font-size:44px !important}}
@@ -88,7 +79,7 @@ a,span,strong,p{overflow-wrap:anywhere}
 .mc1{grid-template-columns:1fr !important}
 .mc2{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
 .mspan{grid-column:1 / -1 !important}
-.fy{padding:24px 20px !important}.fy .hd strong{font-size:20px !important}.doc{gap:12px !important}.doc a.pill{padding:8px 14px !important;font-size:13px !important}table.fin td,table.fin th{padding:10px 8px !important;font-size:14px}.mc1.summary{padding:24px !important;gap:28px !important}}
+table.fin td,table.fin th{padding:10px 8px !important;font-size:14px}.mc1.summary{padding:24px !important;gap:28px !important}}
 </style>
 <style>html{scroll-behavior:smooth} *,*:before,*:after{box-sizing:border-box} img{max-width:100%}</style>
 <?php require __DIR__ . '/inc/header.php'; ?>
@@ -134,38 +125,15 @@ a,span,strong,p{overflow-wrap:anywhere}
     </div>
   </section>
 
-  <!-- Year-wise statements -->
+  <!-- Audited accounts -->
   <section style="padding: 0 0 104px;">
     <div class="wrap" style="display: flex; flex-direction: column; gap: 36px;">
       <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap;">
-        <div style="display: flex; flex-direction: column; gap: 12px; max-width: 680px;"><span class="eyebrow">Audited accounts</span><h2 style="font-size: 44px;">Financial statements by year</h2></div>
-        <span style="font-size: 14px; color: var(--muted);">Financial year April to March · PDF</span>
+        <div style="display: flex; flex-direction: column; gap: 12px; max-width: 680px;"><span class="eyebrow">Audited accounts</span><h2 style="font-size: 44px;">Verified by an independent auditor.</h2></div>
       </div>
       <div style="display: flex; gap: 18px; align-items: flex-start; background: var(--cream); border: 2px solid var(--marigold); border-radius: 20px; padding: 22px 26px;">
         <span style="flex: 0 0 44px; width: 44px; height: 44px; border-radius: 12px; background: var(--marigold); display: inline-flex; align-items: center; justify-content: center;"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--marigold-ink)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"></path><path d="M12 2l7 4v6c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6z"></path></svg></span>
-        <p style="margin: 0; font-size: 16px; line-height: 1.65; color: var(--ink);"><strong style="font-family: var(--display); font-size: 18px; display: block; margin-bottom: 4px;">Audited every year</strong>The accounts of Uma Lakshmi Educational Trust are verified and certified every year by an independent certified auditor, and the trust's income-tax returns are filed for every financial year.</p>
-      </div>
-      <div class="g2" style="gap: 32px;">
-        <div class="fy">
-          <div class="hd"><span style="display: flex; align-items: center; gap: 14px;"><span class="ic"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--indigo)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></span><strong style="font-family: var(--display); font-size: 22px;">2025 – 2026</strong></span><span class="tag" style="background: var(--cream); color: var(--marigold-ink);">Latest</span></div>
-          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);">Trust accounts</span>
-          <div class="doc"><span style="font-size: 15px;">Audited financial statement</span><a href="<?= h($audited_pdf) ?>" class="pill" target="_blank" rel="noopener">Open PDF</a></div>
-        </div>
-        <div class="fy">
-          <div class="hd"><span style="display: flex; align-items: center; gap: 14px;"><span class="ic"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--indigo)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></span><strong style="font-family: var(--display); font-size: 22px;">2024 – 2025</strong></span></div>
-          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);">Trust accounts</span>
-          <div class="doc"><span style="font-size: 15px;">Audited financial statement</span><a href="<?= h($audited_pdf) ?>" class="pill" target="_blank" rel="noopener">Open PDF</a></div>
-        </div>
-        <div class="fy">
-          <div class="hd"><span style="display: flex; align-items: center; gap: 14px;"><span class="ic"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--indigo)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></span><strong style="font-family: var(--display); font-size: 22px;">2023 – 2024</strong></span></div>
-          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);">Trust accounts</span>
-          <div class="doc"><span style="font-size: 15px;">Audited financial statement</span><a href="<?= h($audited_pdf) ?>" class="pill" target="_blank" rel="noopener">Open PDF</a></div>
-        </div>
-        <div class="fy">
-          <div class="hd"><span style="display: flex; align-items: center; gap: 14px;"><span class="ic"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--indigo)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></span><strong style="font-family: var(--display); font-size: 22px;">2022 – 2023</strong></span><span class="tag" style="background: var(--lilac); color: var(--indigo);">First year</span></div>
-          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);">Trust accounts</span>
-          <div class="doc"><span style="font-size: 15px;">Audited financial statement</span><a href="<?= h($audited_pdf) ?>" class="pill" target="_blank" rel="noopener">Open PDF</a></div>
-        </div>
+        <p style="margin: 0; font-size: 16px; line-height: 1.65; color: var(--ink);"><strong style="font-family: var(--display); font-size: 18px; display: block; margin-bottom: 4px;">Audited every year</strong>The accounts of Uma Lakshmi Educational Trust are verified and certified every year by an independent certified auditor, and the trust's income-tax returns are filed for every financial year. Audited financial statements and the trust's 12A and 80G registration certificates are available to donors on request — please <a href="contact.php" style="font-weight: 700; text-decoration: underline; text-underline-offset: 3px;">write to us</a>.</p>
       </div>
     </div>
   </section>
