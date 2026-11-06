@@ -73,7 +73,7 @@ a,span,strong,p{overflow-wrap:anywhere}
 .f .ta{flex-basis:100%}
 .mc1{grid-template-columns:1fr !important}
 .mc2{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
-.vol-name{font-size:18px !important;line-height:1.2}
+.pname{font-size:17px !important;line-height:1.2}
 .mspan{grid-column:1 / -1 !important}
 .pol{flex-direction:column;gap:8px}.msg p{font-size:16px}}
 </style>
@@ -166,9 +166,9 @@ a,span,strong,p{overflow-wrap:anywhere}
   <section style="background: var(--cream); padding: 104px 0;">
     <div class="wrap" style="display: flex; flex-direction: column; gap: 40px;">
       <div style="display: flex; flex-direction: column; gap: 12px;"><span class="eyebrow">The people behind the trust</span><h2 style="font-size: 48px;">Our trustees.</h2></div>
-      <div class="mc1" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; max-width: 820px;">
-        <div style="display: flex; flex-direction: column; gap: 16px;"><img src="assets/founder2.jpg" alt="SP. Nachiappan" class="img" style="aspect-ratio: 4 / 5; object-position: 50% 15%; border-radius: 28px; box-shadow: 0 20px 50px rgba(61,43,0,0.12);"><span><strong style="display: block; font-family: var(--display); font-size: 24px;">SP. Nachiappan</strong><span style="font-size: 15px; color: var(--muted);">Founder &amp; Managing Trustee</span></span></div>
-        <div style="display: flex; flex-direction: column; gap: 16px;"><img src="assets/subramanian2.jpg" alt="N. Subramanian" class="img" style="aspect-ratio: 4 / 5; object-position: 50% 20%; border-radius: 28px; box-shadow: 0 20px 50px rgba(61,43,0,0.12);"><span><strong style="display: block; font-family: var(--display); font-size: 24px;">N. Subramanian</strong><span style="font-size: 15px; color: var(--muted);">Financial Trustee</span></span></div>
+      <div class="mc2" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; max-width: 560px;">
+        <div style="display: flex; flex-direction: column; gap: 16px;"><img src="assets/founder2.jpg" alt="SP. Nachiappan" class="img" style="aspect-ratio: 4 / 5; object-position: 50% 15%; border-radius: 22px; box-shadow: 0 20px 50px rgba(61,43,0,0.12);"><span><strong class="pname" style="display: block; font-family: var(--display); font-size: 20px;">SP. Nachiappan</strong><span style="font-size: 15px; color: var(--muted);">Founder &amp; Managing Trustee</span></span></div>
+        <div style="display: flex; flex-direction: column; gap: 16px;"><img src="assets/subramanian2.jpg" alt="N. Subramanian" class="img" style="aspect-ratio: 4 / 5; object-position: 50% 20%; border-radius: 22px; box-shadow: 0 20px 50px rgba(61,43,0,0.12);"><span><strong class="pname" style="display: block; font-family: var(--display); font-size: 20px;">N. Subramanian</strong><span style="font-size: 15px; color: var(--muted);">Financial Trustee</span></span></div>
       </div>
     </div>
   </section>
@@ -177,11 +177,11 @@ a,span,strong,p{overflow-wrap:anywhere}
   <section style="background: #fff; padding: 104px 0;">
     <div class="wrap" style="display: flex; flex-direction: column; gap: 40px;">
       <div style="display: flex; flex-direction: column; gap: 12px;"><span class="eyebrow">The hands that help</span><h2 style="font-size: 48px;">Our volunteers.</h2></div>
-      <div class="mc2" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px;">
-        <div style="display: flex; flex-direction: column; gap: 16px;"><img src="assets/vol2.jpg" alt="K. Murugappan" class="img" style="aspect-ratio: 4 / 5; object-position: 50% 20%; border-radius: 28px; box-shadow: 0 20px 50px rgba(61,43,0,0.12);"><strong class="vol-name" style="display: block; font-family: var(--display); font-size: 24px;">K. Murugappan</strong></div>
-        <div style="display: flex; flex-direction: column; gap: 16px;"><img src="assets/vol4.jpg" alt="M. Parvathi" class="img" style="aspect-ratio: 4 / 5; object-position: 50% 20%; border-radius: 28px; box-shadow: 0 20px 50px rgba(61,43,0,0.12);"><strong class="vol-name" style="display: block; font-family: var(--display); font-size: 24px;">M. Parvathi</strong></div>
-        <div style="display: flex; flex-direction: column; gap: 16px;"><img src="assets/vol3.jpg" alt="SP. Palaniappan" class="img" style="aspect-ratio: 4 / 5; object-position: 50% 20%; border-radius: 28px; box-shadow: 0 20px 50px rgba(61,43,0,0.12);"><strong class="vol-name" style="display: block; font-family: var(--display); font-size: 24px;">SP. Palaniappan</strong></div>
-        <div style="display: flex; flex-direction: column; gap: 16px;"><img src="assets/vol1.jpg" alt="P. Vishalakshi" class="img" style="aspect-ratio: 4 / 5; object-position: 50% 15%; border-radius: 28px; box-shadow: 0 20px 50px rgba(61,43,0,0.12);"><strong class="vol-name" style="display: block; font-family: var(--display); font-size: 24px;">P. Vishalakshi</strong></div>
+      <div class="mc2" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; max-width: 1152px;">
+        <div style="display: flex; flex-direction: column; gap: 16px;"><img src="assets/vol2.jpg" alt="K. Murugappan" class="img" style="aspect-ratio: 4 / 5; object-position: 50% 20%; border-radius: 22px; box-shadow: 0 20px 50px rgba(61,43,0,0.12);"><strong class="pname" style="display: block; font-family: var(--display); font-size: 20px;">K. Murugappan</strong></div>
+        <div style="display: flex; flex-direction: column; gap: 16px;"><img src="assets/vol4.jpg" alt="M. Parvathi" class="img" style="aspect-ratio: 4 / 5; object-position: 50% 20%; border-radius: 22px; box-shadow: 0 20px 50px rgba(61,43,0,0.12);"><strong class="pname" style="display: block; font-family: var(--display); font-size: 20px;">M. Parvathi</strong></div>
+        <div style="display: flex; flex-direction: column; gap: 16px;"><img src="assets/vol3.jpg" alt="SP. Palaniappan" class="img" style="aspect-ratio: 4 / 5; object-position: 50% 20%; border-radius: 22px; box-shadow: 0 20px 50px rgba(61,43,0,0.12);"><strong class="pname" style="display: block; font-family: var(--display); font-size: 20px;">SP. Palaniappan</strong></div>
+        <div style="display: flex; flex-direction: column; gap: 16px;"><img src="assets/vol1.jpg" alt="P. Vishalakshi" class="img" style="aspect-ratio: 4 / 5; object-position: 50% 15%; border-radius: 22px; box-shadow: 0 20px 50px rgba(61,43,0,0.12);"><strong class="pname" style="display: block; font-family: var(--display); font-size: 20px;">P. Vishalakshi</strong></div>
       </div>
     </div>
   </section>
