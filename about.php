@@ -101,7 +101,7 @@ a,span,strong,p{overflow-wrap:anywhere}
       <div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 18px;">
         <span class="eyebrow">The verse that inspired the trust</span>
         <h2 style="font-size: 44px;">Mahakavi Bharathiyar</h2>
-        <p style="margin: 0; font-size: 17px; line-height: 1.7; color: var(--muted);">Bharathiyar wrote that one may build a thousand feeding houses and establish ten thousand temples, and that all such acts of charity bring merit — yet greater than all of them put together is the merit of teaching a single poor child to read.</p>
+        <p style="margin: 0; font-size: 17px; line-height: 1.7; color: var(--muted);">In this verse, Bharathiyar names the good deeds the world holds in high regard: building a thousand free food centres to feed the hungry, constructing ten thousand temples, and performing many other charitable and good deeds to earn a good name and fame. <strong style="color: var(--ink);">But more virtuous than all these good deeds is teaching just one poor person to read and write.</strong></p>
         <p style="margin: 0; font-size: 17px; line-height: 1.7; color: var(--muted);">It was this verse that moved our founder to establish an educational trust in his wife's name. It remains the measure of everything we do: not how much we give, but how many children we help to learn.</p>
       </div>
     </div>
