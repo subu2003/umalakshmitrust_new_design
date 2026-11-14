@@ -8,7 +8,7 @@ Responsive: every page adapts to phone width (below 860px) with a hamburger menu
 
 Notes for review
 - Forms (Apply, Contact, Donate receipt) are visual only; they show a notice on submit. Server-side handling is to be wired up on the live PHP site.
-- The Donate page generates a real UPI QR code in the browser from the amount entered. The UPI ID is a SAMPLE (`umalakshmitrust@hdfcbank`) — change `VPA` at the top of the script in `donate.html` before going live.
+- The Donate page generates a real UPI QR code in the browser from the amount entered. The UPI ID comes from `UPI_VPA` in `.env` (the trust's ID is `9176187619.1@hdfc`); the donate page, the server-issued QR and the footer all read it from there.
 - 12A / 80G registration numbers are sample values.
 - Fonts load from Google Fonts; everything else is local.
 

@@ -8,6 +8,8 @@
  *   $page_scripts  string  extra <script> markup printed after the menu script (e.g. the donate QR code).
  */
 require_once __DIR__ . '/functions.php';
+require_once __DIR__ . '/config.php'; // UPI ID shown in the footer comes from .env (UPI_VPA)
+$footer_upi = trim((string) env('UPI_VPA', ''));
 
 $page         = isset($page) ? (string) $page : '';
 $page_scripts = isset($page_scripts) ? (string) $page_scripts : '';
@@ -40,7 +42,9 @@ foreach (nav_items() as $key => $item) {
           <span>AC : 50200070075707</span>
           <span>IFSC Code : HDFC0001866</span>
           <span>HDFC Bank, Kasturibhai Nagar branch, Adayar, Chennai</span>
-          <span style="margin-top: 6px; font-size: 13px;">UPI ID : umalakshmitrust@hdfcbank</span>
+<?php if ($footer_upi !== ''): ?>
+          <span style="margin-top: 6px; font-size: 13px;">UPI ID : <?= h($footer_upi) ?></span>
+<?php endif; ?>
         </div>
       </div>
       <div style="border-top: 1px solid rgba(255,255,255,0.14); padding-top: 22px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px;">
