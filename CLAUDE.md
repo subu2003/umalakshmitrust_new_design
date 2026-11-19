@@ -37,7 +37,7 @@ Pages: `index` (home), `about`, `journey`, `donors`, `apply` (4-step aid applica
 
 ## Values that are SAMPLES and must be replaced before go-live
 
-- UPI ID: set `UPI_VPA` in `.env` (trust's ID is `9176187619.1@hdfc`); donate page, QR and footer all read it from there.
+- UPI ID: set `UPI_VPA` in `.env` (trust's ID is `umalakshmieducationa.82431630@hdfcbank`); donate page, QR and footer all read it from there.
 - 12A URN `AAATU1234KE20251`, 80G URN `AAATU1234KF20251` (home, financials, donate).
 - Suggested sponsorship amounts ₹1,000 / ₹5,000 / ₹10,000 — trustees to confirm.
 - Fifth-function (2026) date/venue and photos; founder's message is final.
